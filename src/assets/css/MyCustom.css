@@ -1,0 +1,16 @@
+.pagelogin {
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("https://vertality.es/wp-content/uploads/2019/11/patentes.jpg");
+    background-size: cover;
+}
+
+.card {
+    background-color: white;
+}
+
+.pageerror {
+    height: 100vh;
+    background-color: "#e4e4e4";
+}
+

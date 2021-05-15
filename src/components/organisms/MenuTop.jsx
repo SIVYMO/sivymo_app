@@ -3,15 +3,15 @@ import logonovopatent from "../../assets/img/logonovopatent.jpg";
 import { Menubar } from "primereact/menubar";
 import { Button } from "primereact/button";
 import { confirmDialog } from "primereact/confirmdialog";
-import { confirm_goout, exit, alterLogoImg, logout } from "../../utils/Strings";
+import { txtConfirmExit, txtExit, txtAltLogoImg, txtLogoutButton } from "../../utils/Strings";
 import {itemsMenuTop} from '../../utils/Strings'
 
 export default function MenuTop() {
    
     const confirmLogout = () => {
         confirmDialog({
-            message: confirm_goout,
-            header: exit,
+            message: txtConfirmExit,
+            header: txtExit,
             icon: "pi pi-exclamation-triangle",
             acceptClassName:"p-button-success",
             rejectClassName: "p-button-plain p-button-text",
@@ -26,7 +26,7 @@ export default function MenuTop() {
 
     const start = (
         <img
-            alt={alterLogoImg}
+            alt={txtAltLogoImg}
             src={logonovopatent}
             height="50"
             className="p-mr-2"
@@ -38,7 +38,7 @@ export default function MenuTop() {
         <Button
             className="p-button-success"
             onClick={confirmLogout}
-            label={logout}
+            label={txtLogoutButton}
             icon="pi pi-sign-out"
         />
     );
