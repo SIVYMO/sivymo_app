@@ -86,10 +86,10 @@ export const txtConfirmExit = "¿Estás seguro de salir del sistema?",
             },
         },
         {
-            label: "Información registrada",
+            label: "Clientes",
             icon: "pi pi-fw pi-id-card",
             command: () => {
-                window.location = "/informacion";
+                window.location = "/clientes";
             },
         },
         {

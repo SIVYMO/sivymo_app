@@ -11,7 +11,7 @@ import HomePage from "./components/pages/HomePage";
 import PatentPage from "./components/pages/PatentPage";
 import BrandPage from "./components/pages/BrandPage";
 import SpecimensPage from "./components/pages/SpecimensPage";
-import InformationPage from "./components/pages/InformationPage";
+import InformationPage from "./components/pages/ClientsPage";
 import ProfilePage from "./components/pages/ProfilePage";
 import ErrorPage from "./components/pages/ErrorPage";
 addLocale("es", localLocation);
@@ -26,7 +26,7 @@ export default function App() {
                 <Route path="/patentes" component={PatentPage} />
                 <Route path="/marcas" component={BrandPage} />
                 <Route path="/ejemplares" component={SpecimensPage} />
-                <Route path="/informacion" component={InformationPage} />
+                <Route path="/clientes" component={InformationPage} />
                 <Route path="/perfil" component={ProfilePage} />
                 <Route component={ErrorPage} />
             </Switch>
