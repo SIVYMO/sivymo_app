@@ -1,15 +1,23 @@
 import React from "react";
 import "../../assets/css/MyCustom.css";
-import { amazon } from "../../utils/Colors";
-
+import { Badge } from "primereact/badge";
+import { Avatar } from "primereact/avatar";
+import {
+    backgroundWallpaper,
+    txtWelcome,
+    txtLastQueryPatent,
+    txtLastQueryBrand,
+    txtLastQueryEjemplares,
+    txtLastUpdateClients,
+} from "../../utils/Strings";
 export default function HomeTemplate() {
     return (
         <div>
             <div className="p-grid">
                 <div className="p-col">
                     <img
-                        src="https://images.unsplash.com/photo-1583700934791-5a98c03a0489"
-                        alt="Fondo de pantalla"
+                        src="https://images.unsplash.com/photo-1525498128493-380d1990a112"
+                        alt={backgroundWallpaper}
                         style={{
                             width: "100%",
                             height: "300px",
@@ -19,33 +27,42 @@ export default function HomeTemplate() {
                 </div>
             </div>
             <div className="p-grid">
-                <div className="p-col">
+                <div className="p-col-12 p-md-6 p-xl-6">
                     <h1>
-                        Hola, bienvenido(a) de nuevo <i>default_name</i>
+                        {txtWelcome} <i>default_name</i>
+                    </h1>
+                </div>
+                <div className="p-col-12 p-md-6 p-xl-6">
+                    <h1>
+                        <Badge
+                            value="Existen 500 clientes guardados en la nube"
+                            size="xlarge"
+                            severity="success"
+                        />
                     </h1>
                 </div>
             </div>
             <div className="p-grid p-mt-2">
                 <LastDateCategory
                     icon="pi pi-file"
-                    last_search_info="Última busqueda de patentes:"
+                    last_search_info={txtLastQueryPatent}
                     last_date="2021-05-15"
                 />
                 <LastDateCategory
                     icon="pi pi-globe"
-                    last_search_info="Última busqueda de marcas:"
+                    last_search_info={txtLastQueryBrand}
                     last_date="2021-05-15"
                 />
             </div>
             <div className="p-grid p-mt-2">
                 <LastDateCategory
                     icon="pi pi-copy"
-                    last_search_info="Última busqueda de ejemplares extraordinarios:"
+                    last_search_info={txtLastQueryEjemplares}
                     last_date="2021-05-15"
                 />
                 <LastDateCategory
                     icon="pi pi-id-card"
-                    last_search_info="Última actualización en la información:"
+                    last_search_info={txtLastUpdateClients}
                     last_date="2021-05-15"
                 />
             </div>
@@ -56,18 +73,8 @@ export default function HomeTemplate() {
         return (
             <div className="p-col-12 p-md-6 p-xl-6">
                 <div className="p-grid">
-                    <div
-                        className="p-col-2 p-text-center"
-                        style={{
-                            backgroundColor: amazon,
-                            borderRadius: "8px",
-                            padding: "15px",
-                        }}
-                    >
-                        <i
-                            className={icon}
-                            style={{ fontSize: "3em", color: "white" }}
-                        ></i>
+                    <div>
+                        <Avatar icon={icon} className="p-mr-2" size="xlarge" />
                     </div>
                     <div className="p-col">
                         <div

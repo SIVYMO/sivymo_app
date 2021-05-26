@@ -26,12 +26,13 @@ export default function ClientsTemplate() {
                 const cols = data[0];
                 data.shift();
                 let _importedCols = cols.map((col) => ({
-                    field: col,
+                    field: toCapitalize(col),
                     header: toCapitalize(col),
                 }));
                 let _importedData = data.map((d) => {
                     return cols.reduce((obj, c, i) => {
-                        obj[c] = d[i];
+                        let key = toCapitalize(c);
+                        obj[key] = d[i];
                         return obj;
                     }, {});
                 });
@@ -43,8 +44,12 @@ export default function ClientsTemplate() {
         clearMessageLoading();
     };
 
+    // ? Para ser visto de manera visual y para ser visto en formato json
     const toCapitalize = (s) => {
-        return s.charAt(0).toUpperCase() + s.slice(1);
+        let r = s.replaceAll(" ", "_");
+        let c = r.charAt(0).toUpperCase() + r.slice(1);
+        console.log(c)
+        return c;
     };
 
     const clear = () => {
@@ -78,7 +83,10 @@ export default function ClientsTemplate() {
     };
 
     const saveAllImportedData = () => {
-        console.log(importedData);
+        importedData.forEach((element) => {
+            console.log(element);
+            
+        });
     };
 
     return (
@@ -105,10 +113,11 @@ export default function ClientsTemplate() {
 
                         <Button
                             type="button"
-                            label="Limpiar registros"
+                            label="Limpiar todo"
                             icon="pi pi-times"
                             onClick={clear}
                             className="p-button-info p-ml-auto"
+                            disabled={importedData.length === 0 ? true : false}
                         />
                         <Button
                             type="button"

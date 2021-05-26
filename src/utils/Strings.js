@@ -53,6 +53,15 @@ export const localLocation = {
     strong: "Fuerte",
 };
 
+// ? Textos para HomeTemplate.jsx
+export const backgroundWallpaper = "Fondo de portada",
+txtWelcome = "Hola, bienvenido(a) de nuevo",
+txtLastQueryPatent = "Última busqueda de patentes:",
+txtLastQueryBrand = "Última busqueda de marcas:",
+txtLastQueryEjemplares = "Última busqueda de ejemplares extraordinarios:",
+txtLastUpdateClients  ="Última actualización en clientes:"
+
+
 // ? Textos para MenuTop.jsx
 export const txtConfirmExit = "¿Estás seguro de salir del sistema?",
     txtExit = "Salir",
@@ -200,3 +209,5 @@ export const txtMessageUserSuccess = {
     txtSuperAdminLabel = "Super administrador:",
     txtDeleteUserTitle = "¿Eliminar usuario?",
     txtDeleteUserContent="El usuario se eliminará permanente de la aplicación"
+
+

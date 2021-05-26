@@ -43,30 +43,30 @@ import {
 export default function CrudUsers() {
     // ? Objeto con estructura de un usuario
     let emptyUser = {
-        name: "",
-        firstSurname: "",
-        secondSurname: "",
-        dateOfBirth: "",
-        email: "",
+        nombre: "",
+        primerApellido: "",
+        segundoApellido: "",
+        fechaDeNacimiento: "",
+        correo: "",
         superAdmin: false,
     };
 
     // ? State de lista de usuarios
     const [users, setUsers] = useState([
         {
-            name: "Hector",
-            firstSurname: "Saldaña",
-            secondSurname: "Espinoza",
-            dateOfBirth: "2020-05-08",
-            email: "2019@gmail.com",
+            nombre: "Hector",
+            primerApellido: "Saldaña",
+            segundoApellido: "Espinoza",
+            fechaDeNacimiento: "2001-02-05",
+            correo: "20193tn070@utez.edu.mx",
             superAdmin: false,
         },
         {
-            name: "Grecia",
-            firstSurname: "Saldaña",
-            secondSurname: "Espinoza",
-            dateOfBirth: "2001-05-08",
-            email: "grey@gmail.com",
+            nombre: "Grecia",
+            primerApellido: "Saldaña",
+            segundoApellido: "Espinoza",
+            fechaDeNacimiento: "2005-05-04",
+            correo: "grecia@gmail.com",
             superAdmin: true,
         },
     ]);
@@ -98,13 +98,19 @@ export default function CrudUsers() {
 
     // ? Se ejecuta cuando se guarda el formulario
     const saveUser = () => {
-        const { name, firstSurname, secondSurname, dateOfBirth, email } = user;
+        const {
+            nombre,
+            primerApellido,
+            segundoApellido,
+            fechaDeNacimiento,
+            correo,
+        } = user;
         if (
-            Validations.validateNames(name) &&
-            Validations.validateNames(firstSurname) &&
-            Validations.validateSecondSurname(secondSurname) &&
-            dateOfBirth !== "" &&
-            Validations.validateEmail(email)
+            Validations.validateNames(nombre) &&
+            Validations.validateNames(primerApellido) &&
+            Validations.validateSecondSurname(segundoApellido) &&
+            fechaDeNacimiento !== "" &&
+            Validations.validateEmail(correo)
         ) {
             showMessage(txtMessageUserSuccess);
         } else {
@@ -297,6 +303,7 @@ export default function CrudUsers() {
                     label={txtExport}
                     icon="pi pi-download"
                     className="p-button"
+                    style={{ backgroundColor: "var(--teal-600)" }}
                     onClick={exportCSV}
                 />
             </React.Fragment>
@@ -328,40 +335,40 @@ export default function CrudUsers() {
                         className="p-mb-4"
                         left={leftToolbarTemplate}
                         right={rightToolbarTemplate}
-                    ></Toolbar>
+                    />
 
                     <DataTable
                         ref={dt}
                         value={users}
                         selection={selectedUsers}
                         onSelectionChange={(e) => setSelectedUsers(e.value)}
-                        dataKey="email"
+                        dataKey="correo"
                         paginator
                         rows={7}
-                        rowsPerPageOptions={[5, 10, 25]}
                         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                         currentPageReportTemplate={txtFooterTableLabel}
                         globalFilter={globalFilter}
                         header={header}
+                        emptyMessage="Sin ningun usuario aún"
                     >
-                        <Column field="name" header="Nombre" sortable />
+                        <Column field="nombre" header="Nombre" sortable />
                         <Column
-                            field="firstSurname"
+                            field="primerApellido"
                             header="Primer apellido"
                             sortable
                         />
                         <Column
-                            field="secondSurname"
+                            field="segundoApellido"
                             header="Segundo apellido"
                             sortable
                         />
                         <Column
-                            field="dateOfBirth"
+                            field="fechaDeNacimiento"
                             header="Fecha de nacimiento"
                             sortable
                         />
                         <Column
-                            field="email"
+                            field="correo"
                             header="Correo electrónico"
                             sortable
                         />
@@ -373,6 +380,7 @@ export default function CrudUsers() {
 
                         <Column header="Acciones" body={actionBodyTemplate} />
                     </DataTable>
+
                     <Dialog
                         visible={userDialog}
                         style={{ width: "450px" }}
@@ -384,18 +392,18 @@ export default function CrudUsers() {
                     >
                         <div className="p-fluid">
                             <div className="p-field">
-                                <label htmlFor="name">{txtNameLabel}</label>
+                                <label htmlFor="nombre">{txtNameLabel}</label>
                                 <InputText
-                                    id="name"
-                                    name="name"
+                                    id="nombre"
+                                    name="nombre"
                                     type="text"
-                                    value={user.name}
+                                    value={user.nombre}
                                     onChange={handleFormInfoUser}
-                                    className={!user.name && "p-invalid"}
+                                    className={!user.nombre && "p-invalid"}
                                 />
-                                {!user.name && (
+                                {!user.nombre && (
                                     <small
-                                        id="name-help"
+                                        id="nombre-help"
                                         className="p-error p-d-block"
                                     >
                                         {txtNameHelp}
@@ -403,22 +411,22 @@ export default function CrudUsers() {
                                 )}
                             </div>
                             <div className="p-field">
-                                <label htmlFor="firstSurname">
+                                <label htmlFor="primerApellido">
                                     {txtFistSurnameLabel}
                                 </label>
                                 <InputText
-                                    id="firstSurname"
-                                    name="firstSurname"
+                                    id="primerApellido"
+                                    name="primerApellido"
                                     type="text"
-                                    value={user.firstSurname}
+                                    value={user.primerApellido}
                                     onChange={handleFormInfoUser}
                                     className={
-                                        !user.firstSurname && "p-invalid"
+                                        !user.primerApellido && "p-invalid"
                                     }
                                 />
-                                {!user.firstSurname && (
+                                {!user.primerApellido && (
                                     <small
-                                        id="firstSurname-help"
+                                        id="primerApellido-help"
                                         className="p-error p-d-block"
                                     >
                                         {txtFistSurnameHelp}
@@ -426,36 +434,38 @@ export default function CrudUsers() {
                                 )}
                             </div>
                             <div className="p-field">
-                                <label htmlFor="secondSurname">
+                                <label htmlFor="segundoApellido">
                                     {txtSecondSurnameLabel}
                                 </label>
                                 <InputText
-                                    id="secondSurname"
-                                    name="secondSurname"
+                                    id="segundoApellido"
+                                    name="segundoApellido"
                                     type="text"
-                                    value={user.secondSurname}
+                                    value={user.segundoApellido}
                                     onChange={handleFormInfoUser}
                                 />
                             </div>
                             <div className="p-field">
-                                <label htmlFor="dateOfBirth">
+                                <label htmlFor="fechaDeNacimiento">
                                     {txtDateOfBirthLabel}
                                 </label>
                                 <Calendar
-                                    id="dateOfBirth"
-                                    name="dateOfBirth"
+                                    id="fechaDeNacimiento"
+                                    name="fechaDeNacimiento"
                                     monthNavigator
                                     yearNavigator
                                     yearRange="1950:2010"
                                     showIcon
                                     dateFormat="yy-mm-d"
-                                    value={user.dateOfBirth}
+                                    value={user.fechaDeNacimiento}
                                     onChange={handleFormInfoUser}
-                                    className={!user.dateOfBirth && "p-invalid"}
+                                    className={
+                                        !user.fechaDeNacimiento && "p-invalid"
+                                    }
                                 />
-                                {!user.dateOfBirth && (
+                                {!user.fechaDeNacimiento && (
                                     <small
-                                        id="dateOfBirth-help"
+                                        id="fechaDeNacimiento-help"
                                         className="p-error p-d-block"
                                     >
                                         {txtDateOfBirthHelp}
@@ -463,18 +473,18 @@ export default function CrudUsers() {
                                 )}
                             </div>
                             <div className="p-field">
-                                <label htmlFor="email">{txtEmailLabel}</label>
+                                <label htmlFor="correo">{txtEmailLabel}</label>
                                 <InputText
-                                    id="email"
-                                    name="email"
+                                    id="correo"
+                                    name="correo"
                                     type="email"
-                                    value={user.email}
+                                    value={user.correo}
                                     onChange={handleFormInfoUser}
-                                    className={!user.email && "p-invalid"}
+                                    className={!user.correo && "p-invalid"}
                                 />
-                                {!user.email && (
+                                {!user.correo && (
                                     <small
-                                        id="email-help"
+                                        id="correo-help"
                                         className="p-error p-d-block"
                                     >
                                         {txtEmailHelp}
