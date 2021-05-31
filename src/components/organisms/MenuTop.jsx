@@ -7,7 +7,6 @@ import { txtConfirmExit, txtExit, txtAltLogoImg, txtLogoutButton } from "../../u
 import {itemsMenuTop} from '../../utils/Strings'
 
 export default function MenuTop() {
-   
     const confirmLogout = () => {
         confirmDialog({
             message: txtConfirmExit,
@@ -16,11 +15,10 @@ export default function MenuTop() {
             acceptClassName:"p-button-success",
             rejectClassName: "p-button-plain p-button-text",
             accept: () => {
-                console.log("acepto");
+                localStorage.clear();
+                window.location= "/"
             },
-            reject: () => {
-                console.error("no acepto");
-            },
+            reject: () => {},
         });
     };
 

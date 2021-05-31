@@ -1,4 +1,4 @@
-// ? Textos para Locale
+// ? Locale
 export const localLocation = {
     firstDayOfWeek: 1,
     dayNames: [
@@ -53,16 +53,15 @@ export const localLocation = {
     strong: "Fuerte",
 };
 
-// ? Textos para HomeTemplate.jsx
+// ? HomeTemplate.jsx
 export const backgroundWallpaper = "Fondo de portada",
-txtWelcome = "Hola, bienvenido(a) de nuevo",
-txtLastQueryPatent = "Última busqueda de patentes:",
-txtLastQueryBrand = "Última busqueda de marcas:",
-txtLastQueryEjemplares = "Última busqueda de ejemplares extraordinarios:",
-txtLastUpdateClients  ="Última actualización en clientes:"
+    txtWelcome = "Hola, bienvenido(a) de nuevo",
+    txtLastQueryPatent = "Última búsqueda de patentes:",
+    txtLastQueryBrand = "Última búsqueda de marcas:",
+    txtLastQueryEjemplares = "Última búsqueda de ejemplares extraordinarios:",
+    txtLastUpdateClients = "Última actualización en clientes:";
 
-
-// ? Textos para MenuTop.jsx
+// ? MenuTop.jsx
 export const txtConfirmExit = "¿Estás seguro de salir del sistema?",
     txtExit = "Salir",
     itemsMenuTop = [
@@ -112,20 +111,20 @@ export const txtConfirmExit = "¿Estás seguro de salir del sistema?",
     txtAltLogoImg = "Logo Novopatent",
     txtLogoutButton = "Salir";
 
-// ? Textos para Login.jsx
+// ? Login.jsx
 export const txtCodeMustBe = "El código es de 5 carácteres",
     txtEmailValid = "El email no debe estar vacío y debe ser valido",
-    txtPasswordValid = "La contraseña no debe estar vacia",
-    txtCodeValid = "El código no debe estár vacio o ser menor a 5 caracteres",
+    txtPasswordValid = "La contraseña no debe estar vacía",
+    txtCodeValid = "El código no debe estár vacío o ser menor a 5 caracteres",
     txtMessageSucces = {
         type: "success",
         title: "El código es correcto",
-        description: "Redireccionando...",
+        description: "Redirigiendo...",
     },
     txtMessageError = {
         type: "error",
         title: "El código es incorrecto",
-        description: "Por favor verifiquelo nuevamente",
+        description: "Por favor verifíquelo nuevamente",
     },
     txtLogin = "Inicio de sesión",
     txtFillFields = "Favor de llenar todos los campos",
@@ -139,13 +138,13 @@ export const txtCodeMustBe = "El código es de 5 carácteres",
     txtCancelButton = "Cancelar",
     txtVerifyButton = "Verificar";
 
-// ? Textos para ErrorPage.jsx
+// ? ErrorPage.jsx
 export const txt404 = "404",
     txtPageNotFound = "Página no encontrada",
     txtPageError =
         "La página que estás buscando no existe o ha ocurrido un error";
 
-// ? Textos para ProfileTemplate.jsx
+// ? ProfileTemplate.jsx
 export const txtMessageUserSuccess = {
         type: "success",
         title: "Usuario guardado correctamente",
@@ -155,11 +154,11 @@ export const txtMessageUserSuccess = {
         type: "error",
         title: "Campos no válidos",
         description:
-            "Algunos campos tienen caracteres especiales o estan vacios",
+            "Algunos campos tienen caracteres especiales o están vacíos",
     },
     txtMessageUserDelete = {
         type: "success",
-        title: "Usuario elimiado correctamente",
+        title: "Usuario eliminado correctamente",
         description: "Los datos del usuario se han actualizado",
     },
     txtMessageUserPasswordSuccess = {
@@ -169,30 +168,40 @@ export const txtMessageUserSuccess = {
     },
     txtMessageUserPasswordError = {
         type: "error",
-        title: "Las contraseña no coinciden o estan vacías",
+        title: "Las contraseña no coinciden o están vacías",
         description: "Verificar los campos de las contraseñas",
+    },
+    txtMessageUserPasswordReset = {
+        type: "success",
+        title: "Contraseña restablecida correctamente",
+        description: "Se ha cambiado la contraseña",
+    },
+    txtMessageErrorGeneral = {
+        type: "error",
+        title: "No se ejecutó la operación",
+        description: "Intentar de nuevo",
     },
     txtTitlePersonalData = "Tú información",
     txtNameLabel = "Nombre:",
-    txtNameHelp = " El nombre no debe estar vacio y debe ser valido",
+    txtNameHelp = " El nombre no debe estar vacío y debe ser valido",
     txtFistSurnameLabel = "Primer apellido:",
     txtFistSurnameHelp =
-        " El primer apellido no debe estar vacio y debe ser valido",
+        " El primer apellido no debe estar vacío y debe ser valido",
     txtSecondSurnameLabel = "Segundo apellido:",
     txtDateOfBirthLabel = "Fecha de nacimiento:",
     txtDateOfBirthHelp =
-        "La fecha de nacimiento no debe estar vacia y debe ser valida",
+        "La fecha de nacimiento no debe estar vacía y debe ser valida",
     txtEmailHelp =
-        "El correo electrónico no debe estar vacio y debe ser valido",
+        "El correo electrónico no debe estar vacío y debe ser valido",
     txtDesactiveActiveFieldsLabel = "Habilitar/Deshabilitar campos",
     txtUpdateInformationLabel = "Actualizar información",
     txtUpdatePassword = "Actualizar contraseña",
     txtPasswordCurrentlyLabel = "Contraseña actual:",
-    txtPasswordCurrentlyHelp = "La contraseña actual no debe estár vacia",
+    txtPasswordCurrentlyHelp = "La contraseña actual no debe estár vacía",
     txtNewPasswordLabel = "Nueva contraseña:",
-    txtNewPasswordHelp = "La contraseña nueva no debe estár vacia",
+    txtNewPasswordHelp = "La contraseña nueva no debe estár vacía",
     txtRepeatNewPasswordLabel = "Repetir nueva contraseña:",
-    txtRepeatNewPasswordHelp = "La contraseña nueva no debe estár vacia",
+    txtRepeatNewPasswordHelp = "La contraseña nueva no debe estár vacía",
     txtRestartPasswordTitle = "¿Restablecer la contraseña de este usuario?",
     txtRestartPasswordContent =
         " Se le enviará un correo electrónico a esa persona con la nueva contraseña",
@@ -208,6 +217,32 @@ export const txtMessageUserSuccess = {
     txtUserDetails = "Detalles de usuario",
     txtSuperAdminLabel = "Super administrador:",
     txtDeleteUserTitle = "¿Eliminar usuario?",
-    txtDeleteUserContent="El usuario se eliminará permanente de la aplicación"
+    txtDeleteUserContent =
+        "El usuario se eliminará permanente de la aplicación",
+    txtTitleProfile = "Perfil",
+    txtTabPersonalData = "Datos personales",
+    txtTabUserTable = "Tabla de usuarios";
 
+//  ? ClientsTemplate.js
+export const txtSmsLoading = [
+        "Cargando",
+        "Espere a que los datos estén listos",
+    ],
+    txtMessageClientsSaved = {
+        type: "success",
+        title: "Clientes guardados",
+        description: "Se han actualizado correctamente",
+    },
+    txtTitleClients = "Clientes",
+    txtClearButton = "Limpiar todo",
+    txtNoDataLabel = "Sin ningún dato subido";
 
+// ? SpecimensTemplate.jsx
+// ? PatentTemplate.jsx
+// ? BrandTemplate.jsx
+export const txtExportButton = "Exportar resultados",
+    txtStartSearchButton = "Iniciar con la búsqueda",
+    txtNoData = "No hay datos",
+    txtTitleExtraordinaryExamples = "Ejemplares extraordinarios",
+    txtTitlePatents = "Patentes",
+    txtTitleBrands = "Marcas";

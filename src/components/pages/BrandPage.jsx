@@ -1,8 +1,13 @@
-import React from "react";
+import React,{useEffect} from "react";
+import useActive from '../CustomHooks/useActive'
 import BrandTemplate from "../templates/BrandTemplate";
 import MenuTop from "../organisms/MenuTop";
 
 export default function BrandPage() {
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        useActive()
+    }, [])
     return (
         <>
             <MenuTop />

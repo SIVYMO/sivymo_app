@@ -1,4 +1,5 @@
-import React, { useState, useRef } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useRef, useEffect } from "react";
 import { InputText } from "primereact/inputtext";
 import { Calendar } from "primereact/calendar";
 import { Button } from "primereact/button";
@@ -38,7 +39,13 @@ import {
     txtSuperAdminLabel,
     txtDeleteUserTitle,
     txtDeleteUserContent,
+    txtMessageUserPasswordReset,
+    txtMessageErrorGeneral,
 } from "../../utils/Strings";
+import UsuarioService from "../../service/UsuarioService";
+import moment from "moment";
+import "moment/locale/es";
+moment.locale("es");
 
 export default function CrudUsers() {
     // ? Objeto con estructura de un usuario
@@ -52,24 +59,7 @@ export default function CrudUsers() {
     };
 
     // ? State de lista de usuarios
-    const [users, setUsers] = useState([
-        {
-            nombre: "Hector",
-            primerApellido: "Saldaña",
-            segundoApellido: "Espinoza",
-            fechaDeNacimiento: "2001-02-05",
-            correo: "20193tn070@utez.edu.mx",
-            superAdmin: false,
-        },
-        {
-            nombre: "Grecia",
-            primerApellido: "Saldaña",
-            segundoApellido: "Espinoza",
-            fechaDeNacimiento: "2005-05-04",
-            correo: "grecia@gmail.com",
-            superAdmin: true,
-        },
-    ]);
+    const [users, setUsers] = useState([]);
 
     //? Demás states
     const [userDialog, setUserDialog] = useState(false);
@@ -77,13 +67,86 @@ export default function CrudUsers() {
     const [selectedUsers, setSelectedUsers] = useState(null);
     const [globalFilter, setGlobalFilter] = useState(null);
     const [user, setUser] = useState(emptyUser);
+    const [saveOrUpdate, setSaveOrUpdate] = useState(false);
     const toast = useRef(null);
     const dt = useRef(null);
+
+    useEffect(() => {
+        getAll();
+    }, []);
+
+    // * Métodos CRUD
+    function getAll() {
+        UsuarioService.getAll()
+            .then((response) => {
+                setUsers(response.data);
+            })
+            .catch((err) => {
+                console.error(err);
+                showMessage(txtMessageErrorGeneral);
+            });
+    }
+
+    function insertOne(user) {
+        UsuarioService.insertOne(user)
+            .then((response) => {
+                getAll();
+                showMessage(txtMessageUserSuccess);
+            })
+            .catch((err) => {
+                console.error(err);
+                showMessage(txtMessageErrorGeneral);
+            });
+    }
+
+    function updateOne(user) {
+        UsuarioService.updateOne(user)
+            .then((response) => {
+                getAll();
+                showMessage(txtMessageUserSuccess);
+            })
+            .catch((err) => {
+                console.error(err);
+                showMessage(txtMessageErrorGeneral);
+            });
+    }
+
+    function removeOne(email) {
+        UsuarioService.removeOne(email)
+            .then((response) => {
+                if (response.data) {
+                    getAll();
+                    showMessage(txtMessageUserDelete);
+                } else {
+                    showMessage(txtMessageErrorGeneral);
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+                showMessage(txtMessageErrorGeneral);
+            });
+    }
+
+    function resetPasswordUser(email) {
+        UsuarioService.resetPassword(email)
+            .then((response) => {
+                if (response.data) {
+                    showMessage(txtMessageUserPasswordReset);
+                } else {
+                    showMessage(txtMessageErrorGeneral);
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+                showMessage(txtMessageErrorGeneral);
+            });
+    }
 
     // ? Al dar click al boton de usuario nuevo mapea un nuevo usuario
     const openNew = () => {
         setUser(emptyUser);
         setUserDialog(true);
+        setSaveOrUpdate(true);
     };
 
     // ? Oculta dialogo del formulario del usuario
@@ -112,11 +175,15 @@ export default function CrudUsers() {
             fechaDeNacimiento !== "" &&
             Validations.validateEmail(correo)
         ) {
-            showMessage(txtMessageUserSuccess);
+            if (saveOrUpdate) {
+                insertOne(user);
+            } else {
+                updateOne(user);
+            }
+            setSaveOrUpdate(false);
         } else {
             showMessage(txtMessageUserError);
         }
-
         setUserDialog(false);
         setUser(emptyUser);
     };
@@ -135,10 +202,9 @@ export default function CrudUsers() {
 
     // ? Aqui procedemos a elimiar el usuario, ya tenemos los datos
     const deleteUser = () => {
-        console.log(user);
+        removeOne(user.correo);
         setDeleteUserDialog(false);
         setUser(emptyUser);
-        showMessage(txtMessageUserDelete);
     };
 
     // ? Aqui se exporta la tabla a CSV
@@ -146,16 +212,13 @@ export default function CrudUsers() {
         dt.current.exportCSV();
     };
 
-    //? Guardar cada input o campo con el state de setUser
-    const handleFormInfoUser = (e) => {
-        setUser({ ...setUser, [e.target.name]: e.target.value });
-    };
-
     // ? Se procede a cambiar la contraseña de ese usuario
     const resetPassword = (user) => {
-        console.log(user);
+        resetPasswordUser(user.correo);
+        toast.current.clear();
     };
 
+    //? Confirmar al restablecer la contraseña
     const showConfirmResetPassword = (rowData) => {
         toast.current.show({
             severity: "warn",
@@ -241,6 +304,15 @@ export default function CrudUsers() {
                 ) : (
                     <Badge value={txtNO} className="p-mr-2" severity="danger" />
                 )}
+            </React.Fragment>
+        );
+    };
+
+    // ? Muestra la columna  de fecha de nacimiento
+    const dateBirthBodyTemplane = (rowData) => {
+        return (
+            <React.Fragment>
+                <div>{moment(rowData.fechaDeNacimiento).format("LL")}</div>
             </React.Fragment>
         );
     };
@@ -336,7 +408,6 @@ export default function CrudUsers() {
                         left={leftToolbarTemplate}
                         right={rightToolbarTemplate}
                     />
-
                     <DataTable
                         ref={dt}
                         value={users}
@@ -365,6 +436,7 @@ export default function CrudUsers() {
                         <Column
                             field="fechaDeNacimiento"
                             header="Fecha de nacimiento"
+                            body={dateBirthBodyTemplane}
                             sortable
                         />
                         <Column
@@ -398,7 +470,12 @@ export default function CrudUsers() {
                                     name="nombre"
                                     type="text"
                                     value={user.nombre}
-                                    onChange={handleFormInfoUser}
+                                    onChange={(e) => {
+                                        setUser({
+                                            ...user,
+                                            nombre: e.target.value,
+                                        });
+                                    }}
                                     className={!user.nombre && "p-invalid"}
                                 />
                                 {!user.nombre && (
@@ -419,7 +496,12 @@ export default function CrudUsers() {
                                     name="primerApellido"
                                     type="text"
                                     value={user.primerApellido}
-                                    onChange={handleFormInfoUser}
+                                    onChange={(e) => {
+                                        setUser({
+                                            ...user,
+                                            primerApellido: e.target.value,
+                                        });
+                                    }}
                                     className={
                                         !user.primerApellido && "p-invalid"
                                     }
@@ -442,7 +524,12 @@ export default function CrudUsers() {
                                     name="segundoApellido"
                                     type="text"
                                     value={user.segundoApellido}
-                                    onChange={handleFormInfoUser}
+                                    onChange={(e) => {
+                                        setUser({
+                                            ...user,
+                                            segundoApellido: e.target.value,
+                                        });
+                                    }}
                                 />
                             </div>
                             <div className="p-field">
@@ -456,12 +543,19 @@ export default function CrudUsers() {
                                     yearNavigator
                                     yearRange="1950:2010"
                                     showIcon
+                                    placeholder={
+                                        user.fechaDeNacimiento.split("T")[0]
+                                    }
                                     dateFormat="yy-mm-d"
                                     value={user.fechaDeNacimiento}
-                                    onChange={handleFormInfoUser}
-                                    className={
-                                        !user.fechaDeNacimiento && "p-invalid"
-                                    }
+                                    onChange={(e) => {
+                                        let f = JSON.stringify(e.target.value);
+                                        let d = f.substring(1, f.length - 1);
+                                        setUser({
+                                            ...user,
+                                            fechaDeNacimiento: d,
+                                        });
+                                    }}
                                 />
                                 {!user.fechaDeNacimiento && (
                                     <small
@@ -479,7 +573,12 @@ export default function CrudUsers() {
                                     name="correo"
                                     type="email"
                                     value={user.correo}
-                                    onChange={handleFormInfoUser}
+                                    onChange={(e) => {
+                                        setUser({
+                                            ...user,
+                                            correo: e.target.value,
+                                        });
+                                    }}
                                     className={!user.correo && "p-invalid"}
                                 />
                                 {!user.correo && (

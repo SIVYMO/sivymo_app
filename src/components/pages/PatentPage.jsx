@@ -1,8 +1,13 @@
-import React from "react";
+import React,{useEffect} from "react";
+import useActive from '../CustomHooks/useActive'
 import PatentTemplate from "../templates/PatentTemplate";
 import MenuTop from "../organisms/MenuTop";
 
 export default function PatentPage() {
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        useActive()
+    }, [])
     return (
         <>
             <MenuTop />

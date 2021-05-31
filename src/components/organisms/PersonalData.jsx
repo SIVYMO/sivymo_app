@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { InputText } from "primereact/inputtext";
 import { Calendar } from "primereact/calendar";
 import { Password } from "primereact/password";
@@ -29,7 +29,9 @@ import {
     txtRepeatNewPasswordLabel,
     txtRepeatNewPasswordHelp,
     txtUpdatePassword,
+    txtMessageErrorGeneral,
 } from "../../utils/Strings";
+import UsuarioService from "../../service/UsuarioService";
 
 export default function PersonalData() {
     // ? Controla la habilitación y deshabilitación de todos los campos
@@ -37,64 +39,106 @@ export default function PersonalData() {
     const [activePasswordFields, setActivePasswordFields] = useState(true);
     const toast = useRef(null);
 
+    useEffect(() => {
+        getPersonalInformation();
+    }, []);
+
+    function getPersonalInformation() {
+        setUserInfo(JSON.parse(localStorage.getItem("userActive")));
+    }
+
+    function changePassword({
+        contraseñaActual,
+        nuevaContraseña,
+        repetirNuevaContraseña,
+    }) {
+        console.log("llega");
+        UsuarioService.changePassword(
+            userInfo.correo,
+            contraseñaActual,
+            nuevaContraseña,
+            repetirNuevaContraseña
+        )
+            .then((response) => {
+                if (response.data) {
+                    showMessage(txtMessageUserPasswordSuccess);
+                    localStorage.clear();
+                    window.location = "/";
+                } else {
+                    txtMessageErrorGeneral.description =
+                        "Verifica que la contraseña actual sea correcta";
+                    showMessage(txtMessageErrorGeneral);
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+                showMessage(txtMessageErrorGeneral);
+            });
+    }
+
+    function updateOne(user) {
+        UsuarioService.updateOne(user)
+            .then((response) => {
+                setUserInfo(response.data)
+                localStorage.setItem("userActive", JSON.stringify(userInfo));
+                showMessage(txtMessageUserSuccess);
+            })
+            .catch((err) => {
+                console.error(err);
+                showMessage(txtMessageErrorGeneral);
+            });
+    }
+
     //? Aquí se guarda la información de la persona que está operando el sistema
     const [userInfo, setUserInfo] = useState({
-        name: "Hector",
-        firstSurname: "Saldaña",
-        secondSurname: "Espinoza",
-        dateOfBirth: "2001-02-05",
-        email: "20193tn070@utez.edu.mx",
-        superAdmin: true,
+        nombre: "",
+        primerApellido: "",
+        segundoApellido: "",
+        fechaDeNacimiento: "",
+        correo: "",
+        superAdmin: false,
     });
 
     // ? Aquí se guarda la información del cambio de contraseña
     const [userPassword, setUserPassword] = useState({
-        passwordCurrently: "****",
-        newPassword: "****",
-        repeatNewPassword: "****",
+        contraseñaActual: "****",
+        nuevaContraseña: "****",
+        repetirNuevaContraseña: "****",
     });
 
-    //? Guardar cada input o campo con el state de userInfo
-    const handleFormInfoUser = (e) => {
-        setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
-    };
-
-    //? Guardar cada campo de la contraseña en el state de userPassword
-    const handleFormPasswordUser = (e) => {
-        setUserPassword({ ...userPassword, [e.target.name]: e.target.value });
-    };
-
-    //? Valida los valores de userInfo
+    //? Valida los valores de userInfo y cambiar datos
     const checkFormInfoUser = () => {
-        console.log(
-            userInfo.dateOfBirth.substring(1, userInfo.dateOfBirth.length - 1)
-        );
-        const { name, firstSurname, secondSurname, dateOfBirth, email } =
-            userInfo;
+        const {
+            nombre,
+            primerApellido,
+            segundoApellido,
+            fechaDeNacimiento,
+            correo,
+        } = userInfo;
         if (
-            Validations.validateNames(name) &&
-            Validations.validateNames(firstSurname) &&
-            Validations.validateSecondSurname(secondSurname) &&
-            dateOfBirth !== "" &&
-            Validations.validateEmail(email)
+            Validations.validateNames(nombre) &&
+            Validations.validateNames(primerApellido) &&
+            Validations.validateSecondSurname(segundoApellido) &&
+            fechaDeNacimiento !== "" &&
+            Validations.validateEmail(correo)
         ) {
-            showMessage(txtMessageUserSuccess);
+            updateOne(userInfo);
         } else {
             showMessage(txtMessageUserError);
         }
     };
 
-    //? Valida los valores de userPassword
+    //? Valida los valores de userPassword  y cambiar datos
     const checkFormPasswordUser = () => {
-        const { passwordCurrently, newPassword, repeatNewPassword } =
+        const { contraseñaActual, nuevaContraseña, repetirNuevaContraseña } =
             userPassword;
         if (
-            passwordCurrently !== "" &&
-            newPassword !== "" &&
-            repeatNewPassword !== ""
+            contraseñaActual !== "" &&
+            nuevaContraseña !== "" &&
+            repetirNuevaContraseña !== ""
         ) {
-            if (newPassword === repeatNewPassword) {
-                showMessage(txtMessageUserPasswordSuccess);
+            if (nuevaContraseña === repetirNuevaContraseña) {
+                changePassword(userPassword);
             } else {
                 showMessage(txtMessageUserPasswordError);
             }
@@ -108,15 +152,15 @@ export default function PersonalData() {
         setActivePasswordFields(!activePasswordFields);
         if (activePasswordFields) {
             setUserPassword({
-                passwordCurrently: "",
-                newPassword: "",
-                repeatNewPassword: "",
+                contraseñaActual: "",
+                nuevaContraseña: "",
+                repetirNuevaContraseña: "",
             });
         } else {
             setUserPassword({
-                passwordCurrently: "****",
-                newPassword: "****",
-                repeatNewPassword: "****",
+                contraseñaActual: "****",
+                nuevaContraseña: "****",
+                repetirNuevaContraseña: "****",
             });
         }
     };
@@ -138,38 +182,51 @@ export default function PersonalData() {
                 <h2>{txtTitlePersonalData}</h2>
                 <div className="p-fluid">
                     <div className="p-field">
-                        <label htmlFor="name">{txtNameLabel}</label>
+                        <label htmlFor="nombre">{txtNameLabel}</label>
                         <InputText
-                            id="name"
-                            name="name"
+                            id="nombre"
+                            name="nombre"
                             type="text"
                             disabled={activePersonalFields}
-                            value={userInfo.name}
-                            onChange={handleFormInfoUser}
-                            className={!userInfo.name && "p-invalid"}
+                            value={userInfo.nombre}
+                            onChange={(e) => {
+                                setUserInfo({
+                                    ...userInfo,
+                                    nombre: e.target.value,
+                                });
+                            }}
+                            className={!userInfo.nombre && "p-invalid"}
                         />
-                        {!userInfo.name && (
-                            <small id="name-help" className="p-error p-d-block">
+                        {!userInfo.nombre && (
+                            <small
+                                id="nombre-help"
+                                className="p-error p-d-block"
+                            >
                                 {txtNameHelp}
                             </small>
                         )}
                     </div>
                     <div className="p-field">
-                        <label htmlFor="firstSurname">
+                        <label htmlFor="primerApellido">
                             {txtFistSurnameLabel}
                         </label>
                         <InputText
-                            id="firstSurname"
-                            name="firstSurname"
+                            id="primerApellido"
+                            name="primerApellido"
                             type="text"
                             disabled={activePersonalFields}
-                            value={userInfo.firstSurname}
-                            onChange={handleFormInfoUser}
-                            className={!userInfo.firstSurname && "p-invalid"}
+                            value={userInfo.primerApellido}
+                            onChange={(e) => {
+                                setUserInfo({
+                                    ...userInfo,
+                                    primerApellido: e.target.value,
+                                });
+                            }}
+                            className={!userInfo.primerApellido && "p-invalid"}
                         />
-                        {!userInfo.firstSurname && (
+                        {!userInfo.primerApellido && (
                             <small
-                                id="firstSurname-help"
+                                id="primerApellido-help"
                                 className="p-error p-d-block"
                             >
                                 {txtFistSurnameHelp}
@@ -177,44 +234,55 @@ export default function PersonalData() {
                         )}
                     </div>
                     <div className="p-field">
-                        <label htmlFor="secondSurname">
+                        <label htmlFor="segundoApellido">
                             {txtSecondSurnameLabel}
                         </label>
                         <InputText
-                            id="secondSurname"
-                            name="secondSurname"
+                            id="segundoApellido"
+                            name="segundoApellido"
                             type="text"
                             disabled={activePersonalFields}
-                            value={userInfo.secondSurname}
-                            onChange={handleFormInfoUser}
+                            value={userInfo.segundoApellido}
+                            onChange={(e) => {
+                                setUserInfo({
+                                    ...userInfo,
+                                    segundoApellido: e.target.value,
+                                });
+                            }}
                         />
                     </div>
                     <div className="p-field">
-                        <label htmlFor="dateOfBirth">
+                        <label htmlFor="fechaDeNacimiento">
                             {txtDateOfBirthLabel}
                         </label>
                         <Calendar
-                            id="dateOfBirth"
-                            name="dateOfBirth"
+                            id="fechaDeNacimiento"
+                            name="fechaDeNacimiento"
                             monthNavigator
                             yearNavigator
                             showIcon
                             yearRange="1950:2010"
                             dateFormat="yy-mm-dd"
-                            placeholder={userInfo.dateOfBirth}
+                            placeholder={
+                                userInfo.fechaDeNacimiento.split("T")[0]
+                            }
                             disabled={activePersonalFields}
-                            value={userInfo.dateOfBirth}
+                            value={userInfo.fechaDeNacimiento}
                             onChange={(e) => {
+                                let f = JSON.stringify(e.target.value);
+                                let d = f.substring(1, f.length - 1);
                                 setUserInfo({
                                     ...userInfo,
-                                    dateOfBirth: JSON.stringify(e.value),
+                                    fechaDeNacimiento: d,
                                 });
                             }}
-                            className={!userInfo.dateOfBirth && "p-invalid"}
+                            className={
+                                !userInfo.fechaDeNacimiento && "p-invalid"
+                            }
                         />
-                        {!userInfo.dateOfBirth && (
+                        {!userInfo.fechaDeNacimiento && (
                             <small
-                                id="dateOfBirth-help"
+                                id="fechaDeNacimiento-help"
                                 className="p-error p-d-block"
                             >
                                 {txtDateOfBirthHelp}
@@ -222,19 +290,24 @@ export default function PersonalData() {
                         )}
                     </div>
                     <div className="p-field">
-                        <label htmlFor="email">{txtEmailLabel}</label>
+                        <label htmlFor="correo">{txtEmailLabel}</label>
                         <InputText
-                            id="email"
-                            name="email"
-                            type="email"
+                            id="correo"
+                            name="correo"
+                            type="correo"
                             disabled={activePersonalFields}
-                            value={userInfo.email}
-                            onChange={handleFormInfoUser}
-                            className={!userInfo.email && "p-invalid"}
+                            value={userInfo.correo}
+                            onChange={(e) => {
+                                setUserInfo({
+                                    ...userInfo,
+                                    correo: e.target.value,
+                                });
+                            }}
+                            className={!userInfo.correo && "p-invalid"}
                         />
-                        {!userInfo.email && (
+                        {!userInfo.correo && (
                             <small
-                                id="email-help"
+                                id="correo-help"
                                 className="p-error p-d-block"
                             >
                                 {txtEmailHelp}
@@ -262,25 +335,30 @@ export default function PersonalData() {
                 <h2>Cambio de contraseña</h2>
                 <div className="p-fluid">
                     <div className="p-field">
-                        <label htmlFor="passwordCurrently">
+                        <label htmlFor="contraseñaActual">
                             {txtPasswordCurrentlyLabel}
                         </label>
                         <Password
-                            id="passwordCurrently"
-                            name="passwordCurrently"
+                            id="contraseñaActual"
+                            name="contraseñaActual"
                             toggleMask
                             feedback={false}
                             maxLength="50"
                             disabled={activePasswordFields}
-                            value={userPassword.passwordCurrently}
-                            onChange={handleFormPasswordUser}
+                            value={userPassword.contraseñaActual}
+                            onChange={(e) => {
+                                setUserPassword({
+                                    ...userPassword,
+                                    contraseñaActual: e.target.value,
+                                });
+                            }}
                             className={
-                                !userPassword.passwordCurrently && "p-invalid"
+                                !userPassword.contraseñaActual && "p-invalid"
                             }
                         />
-                        {!userPassword.passwordCurrently && (
+                        {!userPassword.contraseñaActual && (
                             <small
-                                id="passwordCurrently-help"
+                                id="contraseñaActual-help"
                                 className="p-error p-d-block"
                             >
                                 {txtPasswordCurrentlyHelp}
@@ -288,23 +366,30 @@ export default function PersonalData() {
                         )}
                     </div>
                     <div className="p-field">
-                        <label htmlFor="newPassword">
+                        <label htmlFor="nuevaContraseña">
                             {txtNewPasswordLabel}
                         </label>
                         <Password
-                            id="newPassword"
-                            name="newPassword"
+                            id="nuevaContraseña"
+                            name="nuevaContraseña"
                             toggleMask
                             feedback={true}
                             maxLength="50"
                             disabled={activePasswordFields}
-                            value={userPassword.newPassword}
-                            onChange={handleFormPasswordUser}
-                            className={!userPassword.newPassword && "p-invalid"}
+                            value={userPassword.nuevaContraseña}
+                            onChange={(e) => {
+                                setUserPassword({
+                                    ...userPassword,
+                                    nuevaContraseña: e.target.value,
+                                });
+                            }}
+                            className={
+                                !userPassword.nuevaContraseña && "p-invalid"
+                            }
                         />
-                        {!userPassword.newPassword && (
+                        {!userPassword.nuevaContraseña && (
                             <small
-                                id="newPassword-help"
+                                id="nuevaContraseña-help"
                                 className="p-error p-d-block"
                             >
                                 {txtNewPasswordHelp}
@@ -312,25 +397,31 @@ export default function PersonalData() {
                         )}
                     </div>
                     <div className="p-field">
-                        <label htmlFor="repeatNewPassword">
+                        <label htmlFor="repetirNuevaContraseña">
                             {txtRepeatNewPasswordLabel}
                         </label>
                         <Password
-                            id="repeatNewPassword"
-                            name="repeatNewPassword"
+                            id="repetirNuevaContraseña"
+                            name="repetirNuevaContraseña"
                             toggleMask
                             feedback={true}
                             maxLength="50"
                             disabled={activePasswordFields}
-                            value={userPassword.repeatNewPassword}
-                            onChange={handleFormPasswordUser}
+                            value={userPassword.repetirNuevaContraseña}
+                            onChange={(e) => {
+                                setUserPassword({
+                                    ...userPassword,
+                                    repetirNuevaContraseña: e.target.value,
+                                });
+                            }}
                             className={
-                                !userPassword.repeatNewPassword && "p-invalid"
+                                !userPassword.repetirNuevaContraseña &&
+                                "p-invalid"
                             }
                         />
-                        {!userPassword.repeatNewPassword && (
+                        {!userPassword.repetirNuevaContraseña && (
                             <small
-                                id="repeatNewPassword-help"
+                                id="repetirNuevaContraseña-help"
                                 className="p-error p-d-block"
                             >
                                 {txtRepeatNewPasswordHelp}

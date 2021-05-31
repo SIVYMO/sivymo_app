@@ -1,11 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "../../assets/css/MyCustom.css";
-import Validations from '../../utils/Validations'
+import Validations from "../../utils/Validations";
 import logonovopatent from "../../assets/img/logonovopatent.jpg";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Button } from "primereact/button";
-import { ProgressSpinner } from "primereact/progressspinner";
 import { Dialog } from "primereact/dialog";
 import { Toast } from "primereact/toast";
 import {
@@ -20,13 +19,14 @@ import {
     txtFillFields,
     txtEmailLabel,
     txtPasswordLabel,
-    txtPleaseWait,
     txtLoginButton,
     txtCodeVerification,
     txtCodeVerificationLabel,
     txtCancelButton,
     txtVerifyButton,
 } from "../../utils/Strings";
+import useLogin from '../CustomHooks/useLogin'
+import UsuarioService from "../../service/UsuarioService";
 
 export default function Login() {
     const [emailInput, setEmailInput] = useState("");
@@ -40,9 +40,15 @@ export default function Login() {
     const [codeUIError, setCodeUIError] = useState("p-inputtext-lg p-d-block");
     const [showDialog, setShowDialog] = useState(false);
     const toastMessages = useRef(null);
+    const [userData, setUserData] = useState({});
+
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        useLogin();
+    }, []);
 
     const login = () => {
-        if (emailInput.length <= 0 || !(Validations.validateEmail(emailInput))) {
+        if (emailInput.length <= 0 || !Validations.validateEmail(emailInput)) {
             setEmailErrorSms(txtEmailValid);
             setEmailUIError("p-invalid p-d-block");
         } else {
@@ -56,8 +62,24 @@ export default function Login() {
             setPasswordErrorSms("");
             setPasswordUIError("p-d-block");
         }
-        if (emailInput.length > 0 && passwordInput.length > 0 && Validations.validateEmail(emailInput)) {
-            changeStateDialog(true);
+        if (
+            emailInput.length > 0 &&
+            passwordInput.length > 0 &&
+            Validations.validateEmail(emailInput)
+        ) {
+            let userLogin = {
+                correo: emailInput,
+                contrasena: passwordInput,
+            };
+            showMessage({ type: "info", title: "Cargando..." });
+            UsuarioService.login(userLogin)
+                .then((response) => {
+                    setUserData(response.data);
+                    changeStateDialog(true);
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
         }
     };
 
@@ -72,8 +94,10 @@ export default function Login() {
         } else {
             setCodeErrorSms(txtCodeMustBe);
             setCodeUIError("p-inputtext-lg p-d-block");
-            if (codeInput === "01HEC") {
+            if (codeInput === userData.codigo) {
+                localStorage.setItem("userActive", JSON.stringify(userData.usuario));
                 showMessage(txtMessageSucces);
+                window.location = "/inicio";
             } else {
                 showMessage(txtMessageError);
             }
@@ -162,15 +186,6 @@ export default function Login() {
                                         {passwordErrorSms}
                                     </small>
                                 </div>
-                            </div>
-                            <div
-                                className="p-text-center"
-                                style={{ display: "none" }}
-                            >
-                                <div className="p-text-bold">
-                                    {txtPleaseWait}
-                                </div>
-                                <ProgressSpinner style={{ width: "60px" }} />
                             </div>
                             <div className="p-text-center">
                                 <Button

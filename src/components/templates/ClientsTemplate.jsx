@@ -4,6 +4,18 @@ import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { FileUpload } from "primereact/fileupload";
 import { Toast } from "primereact/toast";
+import ClienteService from "../../service/ClienteService";
+import HistorialService from "../../service/HistorialService";
+import { BreadCrumb } from 'primereact/breadcrumb';
+import {
+    txtSmsLoading,
+    txtMessageErrorGeneral,
+    txtMessageClientsSaved,
+    txtTitleClients,
+    txtSaveButton,
+    txtClearButton,
+    txtNoDataLabel,
+} from "../../utils/Strings";
 
 export default function ClientsTemplate() {
     const [importedData, setImportedData] = useState([]);
@@ -47,8 +59,7 @@ export default function ClientsTemplate() {
     // ? Para ser visto de manera visual y para ser visto en formato json
     const toCapitalize = (s) => {
         let r = s.replaceAll(" ", "_");
-        let c = r.charAt(0).toUpperCase() + r.slice(1);
-        console.log(c)
+        let c = r.charAt(0).toLowerCase() + r.slice(1);
         return c;
     };
 
@@ -74,26 +85,54 @@ export default function ClientsTemplate() {
                             className="pi pi-spin pi-spinner"
                             style={{ fontSize: "3em" }}
                         ></i>
-                        <h4>Cargando</h4>
-                        <p>Espere a que los datos esten listos</p>
+                        <h4>{txtSmsLoading[0]}</h4>
+                        <p>{txtSmsLoading[1]}</p>
                     </div>
                 </div>
             ),
         });
     };
 
+    function saveHistory() {
+        HistorialService.insertOne("4")
+            .then((response) => {})
+            .catch((err) => {
+                console.error(err);
+            });
+    }
+
     const saveAllImportedData = () => {
-        importedData.forEach((element) => {
-            console.log(element);
-            
+        ClienteService.insertAll(importedData)
+            .then((response) => {
+                if (response.data) {
+                    saveHistory();
+                    showMessage(txtMessageClientsSaved);
+                } else {
+                    showMessage(txtMessageErrorGeneral);
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+                showMessage(txtMessageErrorGeneral);
+            });
+    };
+
+    //? Muestra los mensajes de los Toast
+    const showMessage = ({ type, title, description }) => {
+        toast.current.show({
+            severity: type,
+            summary: title,
+            detail: description,
+            life: 3000,
         });
     };
 
     return (
         <>
+        <BreadCrumb model={[{label: txtTitleClients}]} home={{icon: 'pi pi-home'}}/>
             <div className="p-grid">
                 <div className="p-col p-p-3">
-                    <h1>Clientes</h1>
+                    <h1>{txtTitleClients}</h1>
                     <Toast ref={toast} />
                     <div className="p-d-flex p-ai-center p-py-2">
                         <FileUpload
@@ -113,7 +152,7 @@ export default function ClientsTemplate() {
 
                         <Button
                             type="button"
-                            label="Limpiar todo"
+                            label={txtClearButton}
                             icon="pi pi-times"
                             onClick={clear}
                             className="p-button-info p-ml-auto"
@@ -121,7 +160,7 @@ export default function ClientsTemplate() {
                         />
                         <Button
                             type="button"
-                            label="Guardar todo"
+                            label={txtSaveButton}
                             icon="pi pi-save"
                             className="p-button-success p-ml-2"
                             disabled={importedData.length === 0 ? true : false}
@@ -131,25 +170,23 @@ export default function ClientsTemplate() {
                 </div>
             </div>
 
-            <div style={{ width: "100%", overflowX: "scroll" }}>
-                <DataTable
-                    value={importedData}
-                    emptyMessage="Sin ningun dato subido"
-                    paginator
-                    rows={7}
-                    alwaysShowPaginator={false}
-                    selection={selectedImportedData}
-                >
-                    {importedCols.map((col, index) => (
-                        <Column
-                            key={index}
-                            field={col.field}
-                            header={col.header}
-                            style={{ width: "8em" }}
-                        />
-                    ))}
-                </DataTable>
-            </div>
+            <DataTable
+                value={importedData}
+                emptyMessage={txtNoDataLabel}
+                paginator
+                rows={7}
+                scrollable
+                selection={selectedImportedData}
+            >
+                {importedCols.map((col, index) => (
+                    <Column
+                        key={index}
+                        field={col.field}
+                        header={col.header}
+                        style={{ width: "15em" }}
+                    />
+                ))}
+            </DataTable>
         </>
     );
 }

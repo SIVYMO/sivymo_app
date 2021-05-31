@@ -1,7 +1,12 @@
-import React from 'react'
+import React,{useEffect} from "react";
+import useActive from '../CustomHooks/useActive'
 import ProfileTemplate from '../templates/ProfileTemplate';
 import MenuTop from "../organisms/MenuTop";
 export default function ProfilePage() {
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        useActive()
+    }, [])
      return (
           <>
             <MenuTop />
