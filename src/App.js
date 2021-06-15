@@ -17,6 +17,7 @@ import ErrorPage from "./components/pages/ErrorPage";
 addLocale("es", localLocation);
 locale("es");
 
+
 export default function App() {
     return (
         <Router>

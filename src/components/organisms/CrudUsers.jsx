@@ -80,6 +80,7 @@ export default function CrudUsers() {
         UsuarioService.getAll()
             .then((response) => {
                 setUsers(response.data);
+                console.log(response.data)
             })
             .catch((err) => {
                 console.error(err);

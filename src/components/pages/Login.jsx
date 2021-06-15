@@ -233,6 +233,7 @@ export default function Login() {
                                 >
                                     {codeErrorSms}
                                 </small>
+                                <div className="p-mt-2">¿No ves el correo?, quizá esta en spam o intenta ver todos los correos</div>
                             </div>
                         </div>
 

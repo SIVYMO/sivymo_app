@@ -75,7 +75,7 @@ export default function HomeTemplate() {
         ResumeService.getResume()
             .then((response) => {
                 setResume({ ...response.data });
-                localStorage.setItem("resume", JSON.stringify(resume));
+                localStorage.setItem("resume", JSON.stringify(response.data));
             })
             .catch((err) => {
                 console.error(err);

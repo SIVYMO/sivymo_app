@@ -56,10 +56,10 @@ export const localLocation = {
 // ? HomeTemplate.jsx
 export const backgroundWallpaper = "Fondo de portada",
     txtWelcome = "Hola, bienvenido(a) de nuevo",
-    txtLastQueryPatent = "Última búsqueda de patentes:",
-    txtLastQueryBrand = "Última búsqueda de marcas:",
-    txtLastQueryEjemplares = "Última búsqueda de ejemplares extraordinarios:",
-    txtLastUpdateClients = "Última actualización en clientes:";
+    txtLastQueryPatent = "Última búsqueda de patentes: ",
+    txtLastQueryBrand = "Última búsqueda de marcas: ",
+    txtLastQueryEjemplares = "Última búsqueda de ejemplares extraordinarios: ",
+    txtLastUpdateClients = "Última actualización en clientes: ";
 
 // ? MenuTop.jsx
 export const txtConfirmExit = "¿Estás seguro de salir del sistema?",
@@ -245,4 +245,29 @@ export const txtExportButton = "Exportar resultados",
     txtNoData = "No hay datos",
     txtTitleExtraordinaryExamples = "Ejemplares extraordinarios",
     txtTitlePatents = "Patentes",
-    txtTitleBrands = "Marcas";
+    txtTitleBrands = "Marcas",
+    txtMessageNoClients = {
+        type: "error",
+        title: "No hay clientes registrados",
+        description: "Registra algunos para realizar búsquedas",
+    },
+    txtMessageSearchSuccess = {
+        type: "success",
+        title: "Búsqueda realizada con éxito",
+        description: "Revisa si hubieron coincidencias con los registros",
+    },
+    txtMessageSearchError = {
+        type: "error",
+        title: "Ocurrió un error al realizar la búsqueda",
+        description: "Vuelve a intentarlo de nuevo",
+    },
+    txtSubtitleBrand = "Notificaciones de marcas",
+    txtSubitlePatent1 = "Notificaciones de patentes",
+    txtSubitlePatent2 = "Patentes, registros y modelos de utilidad y diseños industriales",
+    txtSubitlePatent3 = "Requisitos de forma y fondo, y abandono notificados",
+    txtLodaing = "Realizando las búsquedas necesarias",
+    txtStartSearch = "Iniciar búsqueda",
+    txtInstructionsSearch =
+        "Puedes colocar alguna fecha en especifico o ignorar y continuar con la búsqueda regular",
+    txtDateStartLabel = "Fecha inicio:",
+    txtDateEndLabel = "Fecha fin:";
