@@ -29,6 +29,7 @@ import {
     txtDateEndLabel,
 } from "../../utils/Strings";
 import { dark_sea_green } from "../../utils/Colors";
+import Validations from "../../utils/Validations";
 import moment from "moment";
 import "moment/locale/es";
 moment.locale("es");
@@ -36,26 +37,41 @@ moment.locale("es");
 export default function BrandTemplate() {
     const [showDialog, setShowDialog] = useState(false);
     const [resume, setResume] = useState({});
+
     const [marcas, setMarcas] = useState([]);
+
     const [inputFechaInicio, setInputFechaInicio] = useState("");
     const [inputFechaFin, setInputFechaFin] = useState("");
+
     const [history, setHistory] = useState(false);
+
     const toast = useRef(null);
     const dt1 = useRef(null);
 
     useEffect(() => {
         getResume();
     }, []);
+
     const getResume = () => {
         setResume(JSON.parse(localStorage.getItem("resume")));
     };
 
-    const startSearch = () => {
+    const confirmStartSearch = () => {
+        setInputFechaFin(Validations.convertInputDate(new Date()));
+        setInputFechaInicio(
+            Validations.convertAPIDate(resume.ultimaBusquedaMarcas)
+        );
         if (resume.clientesTotales > 0) {
-            setData();
+            setShowDialog(true);
         } else {
             showMessage(txtMessageNoClients);
         }
+    };
+
+    const startSearch = () => {
+        setHistory(true);
+        saveHistory();
+        setData();
     };
 
     function saveHistory() {
@@ -68,13 +84,12 @@ export default function BrandTemplate() {
 
     const setData = async () => {
         let info = await getClients();
-        let dates = await getDates();
-        let obj = {
-            fechaInicio: dates[0],
-            fechaFin: dates[1],
+        let objSend = {
+            fechaInicio: inputFechaInicio,
+            fechaFin: inputFechaFin,
             datos: info,
         };
-        await ScrapingService.getMarcas(obj)
+        await ScrapingService.getMarcas(objSend)
             .then((resp) => {
                 viewData(resp.data);
                 showMessage(txtMessageSearchSuccess);
@@ -83,21 +98,24 @@ export default function BrandTemplate() {
                 showMessage(txtMessageSearchError);
                 console.log(err);
             });
-
         setShowDialog(false);
         setHistory(false);
     };
 
     const viewData = (data) => {
-        if (history) {
-            saveHistory();
-        }
-        if (data.data !== "No hubo coincidencias" || data.data.length !== 0) {
-            let allData = [];
-            for (const key in data.data) {
-                allData.push(data.data[key]);
-            }
-            setMarcas(allData);
+        if (data.data !== false) {
+            setMarcas(data.data);
+            showMessage({
+                type: "info",
+                title: txtSubtitleBrand,
+                description: "Se encontraron coincidencias",
+            });
+        } else {
+            showMessage({
+                type: "warn",
+                title: txtSubtitleBrand,
+                description: "No se encontraron coincidencias",
+            });
         }
     };
 
@@ -107,29 +125,11 @@ export default function BrandTemplate() {
             .catch((err) => console.error(err));
     };
 
-    const getDates = () => {
-        return new Promise((reject) => {
-            let r, y;
-            if (inputFechaInicio === "" && inputFechaFin === "") {
-                let d = resume.ultimaBusquedaMarcas.split("T")[0];
-                r = d.replaceAll("-", "/");
-                let f = JSON.stringify(new Date());
-                let t = f.substring(1, f.length - 1);
-                let x = t.split("T")[0];
-                y = x.replaceAll("-", "/");
-                setHistory(true);
-            } else {
-                r = inputFechaInicio;
-                y = inputFechaFin;
-            }
-            setInputFechaInicio("");
-            setInputFechaFin("");
-            reject([r, y]);
-        });
-    };
-
-    const confirmStartSearch = () => {
-        setShowDialog(true);
+    const datesValidation = () => {
+        return Validations.validateDateStartEnd(
+            inputFechaInicio,
+            inputFechaFin
+        );
     };
 
     const exports = () => {
@@ -166,7 +166,7 @@ export default function BrandTemplate() {
             severity: type,
             summary: title,
             detail: description,
-            life: 3000,
+            sticky: true,
         });
     };
 
@@ -272,7 +272,7 @@ export default function BrandTemplate() {
                                         <InputText
                                             id="dateStartInput"
                                             type="text"
-                                            placeholder="2021/02/01"
+                                            placeholder="Ej. 2021/02/01"
                                             maxLength="10"
                                             value={inputFechaInicio}
                                             onChange={(e) => {
@@ -292,7 +292,7 @@ export default function BrandTemplate() {
                                         <InputText
                                             id="dateEndInput"
                                             type="text"
-                                            placeholder="2021/02/05"
+                                            placeholder="Ej. 2021/02/05"
                                             maxLength="10"
                                             value={inputFechaFin}
                                             onChange={(e) => {
@@ -316,6 +316,7 @@ export default function BrandTemplate() {
                                         type="button"
                                         className="p-mr-2 p-button-success"
                                         label="Búscar"
+                                        disabled={datesValidation()}
                                         onClick={startSearch}
                                     />
                                 </div>

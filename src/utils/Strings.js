@@ -133,10 +133,15 @@ export const txtCodeMustBe = "El código es de 5 carácteres",
     txtPleaseWait = "Por favor espere...",
     txtLoginButton = "Iniciar sesión",
     txtCodeVerification =
-        "Ingrese el código de verificación que fue enviado a su correo electrónico",
+        "Ingrese el código de verificación que ha sido enviado a su correo electrónico",
     txtCodeVerificationLabel = "Código de verificación",
     txtCancelButton = "Cancelar",
-    txtVerifyButton = "Verificar";
+    txtVerifyButton = "Verificar",
+    txtMessageLoginError = {
+        type: "error",
+        title: "Correo electrónico y/o contraseña incorrectos",
+        description: "Por favor verifíquelos nuevamente",
+    };
 
 // ? ErrorPage.jsx
 export const txt404 = "404",
@@ -263,7 +268,7 @@ export const txtExportButton = "Exportar resultados",
     },
     txtSubtitleBrand = "Notificaciones de marcas",
     txtSubitlePatent1 = "Notificaciones de patentes",
-    txtSubitlePatent2 = "Patentes, registros y modelos de utilidad y diseños industriales",
+    txtSubitlePatent2 = "Patentes, registros de modelos de utilidad y diseños industriales",
     txtSubitlePatent3 = "Requisitos de forma y fondo, y abandono notificados",
     txtLodaing = "Realizando las búsquedas necesarias",
     txtStartSearch = "Iniciar búsqueda",

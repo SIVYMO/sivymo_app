@@ -24,6 +24,7 @@ import {
     txtCodeVerificationLabel,
     txtCancelButton,
     txtVerifyButton,
+    txtMessageLoginError
 } from "../../utils/Strings";
 import useLogin from '../CustomHooks/useLogin'
 import UsuarioService from "../../service/UsuarioService";
@@ -78,7 +79,7 @@ export default function Login() {
                     changeStateDialog(true);
                 })
                 .catch((err) => {
-                    console.error(err);
+                    showMessage(txtMessageLoginError)
                 });
         }
     };
@@ -109,7 +110,7 @@ export default function Login() {
             severity: type,
             summary: title,
             detail: description,
-            life: 3000,
+            life: 5000,
         });
     };
 

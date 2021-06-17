@@ -30,6 +30,30 @@ class Validations {
             return this.validateNames(surname);
         }
     }
+
+    convertAPIDate(date){
+        let tempDate = date.split("T")[0];
+        return tempDate.replaceAll("-", "/");
+    }
+
+    convertInputDate(date){
+        let tempDate = JSON.stringify(date);
+        let cutDate = tempDate.substring(1, tempDate.length - 1);
+        return this.convertAPIDate(cutDate)
+    }
+
+    validateDateStartEnd(dateStart, dateEnd){
+        if (
+            dateStart.length === 10 &&
+            dateEnd.length === 10 &&
+            dateStart.split("/").length === 3 &&
+            dateEnd.split("/").length === 3
+        ) {
+            return false;
+        }
+        return true;
+    }
+
 }
 
 export default new Validations();

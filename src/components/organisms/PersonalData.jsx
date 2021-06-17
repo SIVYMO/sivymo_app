@@ -79,7 +79,7 @@ export default function PersonalData() {
     function updateOne(user) {
         UsuarioService.updateOne(user)
             .then((response) => {
-                setUserInfo(response.data)
+                setUserInfo(response.data);
                 localStorage.setItem("userActive", JSON.stringify(userInfo));
                 showMessage(txtMessageUserSuccess);
             })
@@ -269,11 +269,12 @@ export default function PersonalData() {
                             disabled={activePersonalFields}
                             value={userInfo.fechaDeNacimiento}
                             onChange={(e) => {
-                                let f = JSON.stringify(e.target.value);
-                                let d = f.substring(1, f.length - 1);
+                                let result = Validations.convertInputDate(
+                                    e.target.value
+                                );
                                 setUserInfo({
                                     ...userInfo,
-                                    fechaDeNacimiento: d,
+                                    fechaDeNacimiento: result,
                                 });
                             }}
                             className={

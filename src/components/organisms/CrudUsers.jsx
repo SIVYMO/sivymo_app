@@ -80,7 +80,7 @@ export default function CrudUsers() {
         UsuarioService.getAll()
             .then((response) => {
                 setUsers(response.data);
-                console.log(response.data)
+                console.log(response.data);
             })
             .catch((err) => {
                 console.error(err);
@@ -550,11 +550,13 @@ export default function CrudUsers() {
                                     dateFormat="yy-mm-d"
                                     value={user.fechaDeNacimiento}
                                     onChange={(e) => {
-                                        let f = JSON.stringify(e.target.value);
-                                        let d = f.substring(1, f.length - 1);
+                                        let result =
+                                            Validations.convertInputDate(
+                                                e.target.value
+                                            );
                                         setUser({
                                             ...user,
-                                            fechaDeNacimiento: d,
+                                            fechaDeNacimiento: result,
                                         });
                                     }}
                                 />

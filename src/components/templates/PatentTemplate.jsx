@@ -32,6 +32,7 @@ import {
     txtDateEndLabel,
 } from "../../utils/Strings";
 import { dark_sea_green } from "../../utils/Colors";
+import Validations from "../../utils/Validations";
 import moment from "moment";
 import "moment/locale/es";
 moment.locale("es");
@@ -39,10 +40,13 @@ moment.locale("es");
 export default function PatentTemplate() {
     const [showDialog, setShowDialog] = useState(false);
     const [resume, setResume] = useState({});
+
     const [notificaciones, setNotificaciones] = useState([]);
     const [patentesRegistros, setPatentesRegistros] = useState([]);
     const [requisitos, setRequisitos] = useState([]);
+
     const [history, setHistory] = useState(false);
+
     const [inputFechaInicio, setInputFechaInicio] = useState("");
     const [inputFechaFin, setInputFechaFin] = useState("");
 
@@ -53,22 +57,28 @@ export default function PatentTemplate() {
 
     useEffect(() => {
         getResume();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
     const getResume = () => {
         setResume(JSON.parse(localStorage.getItem("resume")));
     };
 
     const confirmStartSearch = () => {
-        setShowDialog(true);
-    };
-
-    const startSearch = () => {
+        setInputFechaFin(Validations.convertInputDate(new Date()));
+        setInputFechaInicio(
+            Validations.convertAPIDate(resume.ultimaBusquedaPatentes)
+        );
         if (resume.clientesTotales > 0) {
-            setData();
+            setShowDialog(true);
         } else {
             showMessage(txtMessageNoClients);
         }
+    };
+
+    const startSearch = () => {
+        setHistory(true);
+        saveHistory();
+        setData();
     };
 
     function saveHistory() {
@@ -81,13 +91,12 @@ export default function PatentTemplate() {
 
     const setData = async () => {
         let info = await getClients();
-        let dates = await getDates();
-        let obj = {
-            fechaInicio: dates[0],
-            fechaFin: dates[1],
+        let objSend = {
+            fechaInicio: inputFechaInicio,
+            fechaFin: inputFechaFin,
             datos: info,
         };
-        await ScrapingService.getPatentes(obj)
+        await ScrapingService.getPatentes(objSend)
             .then((resp) => {
                 viewData(resp.data);
                 showMessage(txtMessageSearchSuccess);
@@ -100,78 +109,62 @@ export default function PatentTemplate() {
         setHistory(false);
     };
 
-    const showMessage = ({ type, title, description }) => {
-        toast.current.show({
-            severity: type,
-            summary: title,
-            detail: description,
-            life: 3000,
-        });
-    };
-
     const viewData = (data) => {
-        if (history) {
-            saveHistory();
+        if (data[0].data !== false) {
+            setNotificaciones(data[0].data);
+            showMessage({
+                type: "info",
+                title: txtSubitlePatent1,
+                description: "Se encontraron coincidencias",
+            });
+        } else {
+            showMessage({
+                type: "warn",
+                title: txtSubitlePatent1,
+                description: "No se encontraron coincidencias",
+            });
         }
-        if (
-            data[0].data !== "No hubo coincidencias" ||
-            data[0].data.length !== 0
-        ) {
-            let allData = [];
-            for (const key in data[0].data) {
-                allData.push(data[0].data[key]);
-            }
-            setNotificaciones(allData);
+        if (data[1].data !== false) {
+            setPatentesRegistros(data[1].data);
+            showMessage({
+                type: "info",
+                title: txtSubitlePatent2,
+                description: "Se encontraron coincidencias",
+            });
+        } else {
+            showMessage({
+                type: "warn",
+                title: txtSubitlePatent2,
+                description: "No se encontraron coincidencias",
+            });
         }
-
-        if (
-            data[1].data !== "No hubo coincidencias" ||
-            data[1].data.length !== 0
-        ) {
-            let allData = [];
-            for (const key in data[1].data) {
-                allData.push(data[1].data[key]);
-            }
-            setPatentesRegistros(allData);
+        if (data[2].data !== false) {
+            setRequisitos(data[2].data);
+            showMessage({
+                type: "info",
+                title: txtSubitlePatent3,
+                description: "Se encontraron coincidencias",
+            });
+        } else {
+            showMessage({
+                type: "warn",
+                title: txtSubitlePatent3,
+                description: "No se encontraron coincidencias",
+            });
         }
-
-        if (
-            data[2].data !== "No hubo coincidencias" ||
-            data[2].data.length !== 0
-        ) {
-            let allData = [];
-            for (const key in data[2].data) {
-                allData.push(data[2].data[key]);
-            }
-            setRequisitos(allData);
-        }
-    };
-
-    const getDates = () => {
-        return new Promise((reject) => {
-            let r, y;
-            if (inputFechaInicio === "" && inputFechaFin === "") {
-                let d = resume.ultimaBusquedaPatentes.split("T")[0];
-                r = d.replaceAll("-", "/");
-                let f = JSON.stringify(new Date());
-                let t = f.substring(1, f.length - 1);
-                let x = t.split("T")[0];
-                y = x.replaceAll("-", "/");
-                setHistory(true);
-            } else {
-                r = inputFechaInicio;
-                y = inputFechaFin;
-            }
-            setInputFechaInicio("");
-            setInputFechaFin("");
-            reject([r, y]);
-        });
     };
 
     const getClients = () => {
         return ClienteService.getAll()
             .then((resp) => resp.data)
             .catch((err) => console.error(err));
+    };
+
+    const datesValidation = () => {
+        return Validations.validateDateStartEnd(
+            inputFechaInicio,
+            inputFechaFin
+        );
     };
 
     const exports = () => {
@@ -184,6 +177,15 @@ export default function PatentTemplate() {
         setNotificaciones([]);
         setPatentesRegistros([]);
         setRequisitos([]);
+    };
+
+    const showMessage = ({ type, title, description }) => {
+        toast.current.show({
+            severity: type,
+            summary: title,
+            detail: description,
+            sticky: true
+        });
     };
 
     function NotificacionPatentes() {
@@ -445,6 +447,7 @@ export default function PatentTemplate() {
                                         type="button"
                                         className="p-mr-2 p-button-success"
                                         label="Búscar"
+                                        disabled={datesValidation()}
                                         onClick={startSearch}
                                     />
                                 </div>
