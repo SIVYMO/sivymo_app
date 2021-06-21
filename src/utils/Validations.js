@@ -42,6 +42,11 @@ class Validations {
         return this.convertAPIDate(cutDate)
     }
 
+    convertOnlyInputDate(date){
+        let tempDate = JSON.stringify(date);
+        return tempDate.substring(1, tempDate.length - 1);
+    }
+
     validateDateStartEnd(dateStart, dateEnd){
         if (
             dateStart.length === 10 &&
@@ -53,6 +58,7 @@ class Validations {
         }
         return true;
     }
+
 
 }
 

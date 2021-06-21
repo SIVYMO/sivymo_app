@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Fragment } from "react";
 import { Button } from "primereact/button";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -140,6 +140,16 @@ export default function BrandTemplate() {
         setMarcas([]);
     };
 
+    const enlaceBodyTemplate = (rowdata) => {
+        return (
+            <Fragment>
+                <a href={rowdata["Enlace electrónico"]} target="_blank" rel="noopener">
+                    {rowdata["Enlace electrónico"]}
+                </a>
+            </Fragment>
+        );
+    };
+
     const headerExport = (
         <div className="p-d-flex p-ai-center export-buttons">
             <Button
@@ -229,6 +239,7 @@ export default function BrandTemplate() {
                         <Column
                             field="Enlace electrónico"
                             header="Enlace electrónico"
+                            body={enlaceBodyTemplate}
                             sortable
                         />
                     </DataTable>

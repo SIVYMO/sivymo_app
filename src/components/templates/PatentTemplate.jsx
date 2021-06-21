@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Fragment } from "react";
 import { Button } from "primereact/button";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -184,8 +184,18 @@ export default function PatentTemplate() {
             severity: type,
             summary: title,
             detail: description,
-            sticky: true
+            sticky: true,
         });
+    };
+
+    const enlaceBodyTemplate = (rowdata) => {
+        return (
+            <Fragment>
+                <a href={rowdata["Enlace electrónico"]} target="_blank" rel="noopener">
+                    {rowdata["Enlace electrónico"]}
+                </a>
+            </Fragment>
+        );
     };
 
     function NotificacionPatentes() {
@@ -217,6 +227,7 @@ export default function PatentTemplate() {
                     <Column
                         field="Enlace electrónico"
                         header="Enlace electrónico"
+                        body={enlaceBodyTemplate}
                         sortable
                     />
                     <Column field="Expediente" header="Expediente" sortable />

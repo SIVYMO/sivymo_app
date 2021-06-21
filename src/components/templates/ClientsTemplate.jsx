@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
@@ -6,7 +6,7 @@ import { FileUpload } from "primereact/fileupload";
 import { Toast } from "primereact/toast";
 import ClienteService from "../../service/ClienteService";
 import HistorialService from "../../service/HistorialService";
-import { BreadCrumb } from 'primereact/breadcrumb';
+import { BreadCrumb } from "primereact/breadcrumb";
 import {
     txtSmsLoading,
     txtMessageErrorGeneral,
@@ -15,9 +15,15 @@ import {
     txtSaveButton,
     txtClearButton,
     txtNoDataLabel,
+    txtLastUpdateClients
 } from "../../utils/Strings";
+import moment from "moment";
+import "moment/locale/es";
+moment.locale("es");
 
 export default function ClientsTemplate() {
+
+    const [resume, setResume] = useState({});
     const [importedData, setImportedData] = useState([]);
     const [selectedImportedData, setSelectedImportedData] = useState([]);
     const [importedCols, setImportedCols] = useState([
@@ -25,10 +31,18 @@ export default function ClientsTemplate() {
     ]);
     const toast = useRef(null);
 
-    const importExcel = (e) => {
+    useEffect(() => {
+        getResume();
+    }, []);
+
+    const getResume = () => {
+        setResume(JSON.parse(localStorage.getItem("resume")));
+    };
+
+    const importExcel = async (e) => {
         showMessageloading();
         const file = e.files[0];
-        import("xlsx").then((xlsx) => {
+        await import("xlsx").then((xlsx) => {
             const reader = new FileReader();
             reader.onload = (e) => {
                 const wb = xlsx.read(e.target.result, { type: "array" });
@@ -71,7 +85,6 @@ export default function ClientsTemplate() {
 
     const clearMessageLoading = () => {
         toast.current.clear();
-        console.log(importedData);
     };
 
     const showMessageloading = () => {
@@ -106,13 +119,13 @@ export default function ClientsTemplate() {
             .then((response) => {
                 if (response.data) {
                     saveHistory();
+                    clear();
                     showMessage(txtMessageClientsSaved);
                 } else {
                     showMessage(txtMessageErrorGeneral);
                 }
             })
             .catch((err) => {
-                console.error(err);
                 showMessage(txtMessageErrorGeneral);
             });
     };
@@ -129,11 +142,18 @@ export default function ClientsTemplate() {
 
     return (
         <>
-        <BreadCrumb model={[{label: txtTitleClients}]} home={{icon: 'pi pi-home'}}/>
+            <BreadCrumb
+                model={[{ label: txtTitleClients }]}
+                home={{ icon: "pi pi-home" }}
+            />
+                    <Toast ref={toast} />
             <div className="p-grid">
                 <div className="p-col p-p-3">
                     <h1>{txtTitleClients}</h1>
-                    <Toast ref={toast} />
+                    <div>
+                        {txtLastUpdateClients}
+                        {moment(resume.ultimaModificacionClientes).format("LLLL")}
+                    </div>
                     <div className="p-d-flex p-ai-center p-py-2">
                         <FileUpload
                             chooseOptions={{

@@ -269,7 +269,7 @@ export default function PersonalData() {
                             disabled={activePersonalFields}
                             value={userInfo.fechaDeNacimiento}
                             onChange={(e) => {
-                                let result = Validations.convertInputDate(
+                                let result = Validations.convertOnlyInputDate(
                                     e.target.value
                                 );
                                 setUserInfo({

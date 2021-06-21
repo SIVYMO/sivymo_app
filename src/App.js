@@ -27,7 +27,7 @@ export default function App() {
                 <Route path="/patentes" component={PatentPage} />
                 <Route path="/marcas" component={BrandPage} />
                 <Route path="/ejemplares" component={SpecimensPage} />
-                <Route path="/clientes" component={InformationPage} />
+                <Route path="/expedientes" component={InformationPage} />
                 <Route path="/perfil" component={ProfilePage} />
                 <Route component={ErrorPage} />
             </Switch>

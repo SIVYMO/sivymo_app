@@ -59,7 +59,8 @@ export const backgroundWallpaper = "Fondo de portada",
     txtLastQueryPatent = "Última búsqueda de patentes: ",
     txtLastQueryBrand = "Última búsqueda de marcas: ",
     txtLastQueryEjemplares = "Última búsqueda de ejemplares extraordinarios: ",
-    txtLastUpdateClients = "Última actualización en clientes: ";
+    txtLastUpdateClients = "Última actualización en expedientes: ",
+    txtBadgeClients ="Ingresar expedientes para poder realizar consultas";
 
 // ? MenuTop.jsx
 export const txtConfirmExit = "¿Estás seguro de salir del sistema?",
@@ -94,10 +95,10 @@ export const txtConfirmExit = "¿Estás seguro de salir del sistema?",
             },
         },
         {
-            label: "Clientes",
+            label: "Expedientes",
             icon: "pi pi-fw pi-id-card",
             command: () => {
-                window.location = "/clientes";
+                window.location = "/expedientes";
             },
         },
         {
@@ -235,10 +236,10 @@ export const txtSmsLoading = [
     ],
     txtMessageClientsSaved = {
         type: "success",
-        title: "Clientes guardados",
+        title: "Expedientes guardados",
         description: "Se han actualizado correctamente",
     },
-    txtTitleClients = "Clientes",
+    txtTitleClients = "Expedientes",
     txtClearButton = "Limpiar todo",
     txtNoDataLabel = "Sin ningún dato subido";
 
@@ -253,7 +254,7 @@ export const txtExportButton = "Exportar resultados",
     txtTitleBrands = "Marcas",
     txtMessageNoClients = {
         type: "error",
-        title: "No hay clientes registrados",
+        title: "No hay expedientes registrados",
         description: "Registra algunos para realizar búsquedas",
     },
     txtMessageSearchSuccess = {

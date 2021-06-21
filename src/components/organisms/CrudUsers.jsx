@@ -80,7 +80,6 @@ export default function CrudUsers() {
         UsuarioService.getAll()
             .then((response) => {
                 setUsers(response.data);
-                console.log(response.data);
             })
             .catch((err) => {
                 console.error(err);
@@ -89,8 +88,10 @@ export default function CrudUsers() {
     }
 
     function insertOne(user) {
+        console.log(user)
         UsuarioService.insertOne(user)
             .then((response) => {
+                console.log(response.data)
                 getAll();
                 showMessage(txtMessageUserSuccess);
             })
@@ -551,7 +552,7 @@ export default function CrudUsers() {
                                     value={user.fechaDeNacimiento}
                                     onChange={(e) => {
                                         let result =
-                                            Validations.convertInputDate(
+                                            Validations.convertOnlyInputDate(
                                                 e.target.value
                                             );
                                         setUser({

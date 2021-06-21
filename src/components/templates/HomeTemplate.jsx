@@ -9,6 +9,7 @@ import {
     txtLastQueryBrand,
     txtLastQueryEjemplares,
     txtLastUpdateClients,
+    txtBadgeClients
 } from "../../utils/Strings";
 import ResumeService from "../../service/ResumeService";
 import moment from "moment";
@@ -98,12 +99,12 @@ export default function HomeTemplate() {
                 <div className="p-col-12 p-md-6 p-xl-6">
                     <h1>
                         <Badge
-                            value={`Existen ${resume.clientesTotales} clientes guardados en la nube`}
+                            value={`Existen ${resume.clientesTotales} expedientes guardados en la nube`}
                             size="xlarge"
                             severity={resume.clientesTotales<=0?"danger":"success"}
                         />
                     </h1>
-                    {resume.clientesTotales<=0&&(<Badge value="Ingresar clientes para poder realizar consultas" severity="warning" className="p-mr-2"></Badge>)}
+                    {resume.clientesTotales<=0&&(<Badge value={txtBadgeClients} severity="warning" className="p-mr-2"></Badge>)}
                 </div>
             </div>
             <div className="p-grid p-mt-2">
