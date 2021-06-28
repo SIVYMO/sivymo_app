@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable react/jsx-no-target-blank */
 import React, { useState, useEffect, useRef, Fragment } from "react";
 import { Button } from "primereact/button";
 import { DataTable } from "primereact/datatable";
@@ -191,7 +191,11 @@ export default function PatentTemplate() {
     const enlaceBodyTemplate = (rowdata) => {
         return (
             <Fragment>
-                <a href={rowdata["Enlace electrónico"]} target="_blank" rel="noopener">
+                <a
+                    href={rowdata["Enlace electrónico"]}
+                    target="_blank"
+                    rel="noopener"
+                >
                     {rowdata["Enlace electrónico"]}
                 </a>
             </Fragment>
@@ -200,7 +204,7 @@ export default function PatentTemplate() {
 
     function NotificacionPatentes() {
         return (
-            <div>
+            <div className="p-grid p-col">
                 <h2>{txtSubitlePatent1}</h2>
                 <DataTable
                     ref={dt1}
@@ -238,7 +242,7 @@ export default function PatentTemplate() {
 
     function PatentesIndustriales() {
         return (
-            <div>
+            <div className="p-grid p-col">
                 <h2>{txtSubitlePatent2}</h2>
                 <DataTable
                     ref={dt2}
@@ -251,41 +255,63 @@ export default function PatentTemplate() {
                     <Column
                         field="Oficina, No de Patente y Tipo de documento"
                         header="Oficina, No de Patente y Tipo de documento"
+                        headerStyle={{ width: "17vh" }}
                         sortable
                     />
                     <Column
                         field="Número de concesión"
                         header="Número de concesión"
+                        headerStyle={{ width: "17vh" }}
                         sortable
                     />
                     <Column
                         field="Tipo de documento"
                         header="Tipo de documento"
+                        headerStyle={{ width: "17vh" }}
                         sortable
                     />
                     <Column
                         field="Número de solicitud"
                         header="Número de solicitud"
+                        headerStyle={{ width: "17vh" }}
                         sortable
                     />
                     <Column
                         field="Fecha de presentación"
                         header="Fecha de presentación"
+                        headerStyle={{ width: "17vh" }}
                         sortable
                     />
                     <Column
                         field="Fecha de concesión"
                         header="Fecha de concesión"
+                        headerStyle={{ width: "17vh" }}
                         sortable
                     />
-                    <Column field="Título" header="Título" sortable />
+                    <Column
+                        field="Título"
+                        header="Título"
+                        headerStyle={{ width: "17vh" }}
+                        sortable
+                    />
                     <Column
                         field="Inventor(es)"
                         header="Inventor(es)"
+                        headerStyle={{ width: "17vh" }}
                         sortable
                     />
-                    <Column field="Titular" header="Titular" sortable />
-                    <Column field="Agente" header="Agente" sortable />
+                    <Column
+                        field="Titular"
+                        header="Titular"
+                        headerStyle={{ width: "17vh" }}
+                        sortable
+                    />
+                    <Column
+                        field="Agente"
+                        header="Agente"
+                        headerStyle={{ width: "17vh" }}
+                        sortable
+                    />
                 </DataTable>
             </div>
         );
@@ -293,7 +319,7 @@ export default function PatentTemplate() {
 
     function PatentesNotificados() {
         return (
-            <div>
+            <div className="p-grid p-col">
                 <h2>{txtSubitlePatent3}</h2>
                 <DataTable
                     ref={dt3}

@@ -88,13 +88,6 @@ export const txtConfirmExit = "¿Estás seguro de salir del sistema?",
             },
         },
         {
-            label: "Ejemplares extraordinarios",
-            icon: "pi pi-fw pi-copy",
-            command: () => {
-                window.location = "/ejemplares";
-            },
-        },
-        {
             label: "Expedientes",
             icon: "pi pi-fw pi-id-card",
             command: () => {

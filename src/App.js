@@ -10,13 +10,11 @@ import Login from "./components/pages/Login";
 import HomePage from "./components/pages/HomePage";
 import PatentPage from "./components/pages/PatentPage";
 import BrandPage from "./components/pages/BrandPage";
-import SpecimensPage from "./components/pages/SpecimensPage";
 import InformationPage from "./components/pages/ClientsPage";
 import ProfilePage from "./components/pages/ProfilePage";
 import ErrorPage from "./components/pages/ErrorPage";
 addLocale("es", localLocation);
 locale("es");
-
 
 export default function App() {
     return (
@@ -26,7 +24,6 @@ export default function App() {
                 <Route path="/inicio" component={HomePage} />
                 <Route path="/patentes" component={PatentPage} />
                 <Route path="/marcas" component={BrandPage} />
-                <Route path="/ejemplares" component={SpecimensPage} />
                 <Route path="/expedientes" component={InformationPage} />
                 <Route path="/perfil" component={ProfilePage} />
                 <Route component={ErrorPage} />

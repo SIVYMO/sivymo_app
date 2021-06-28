@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React, { useState, useEffect, useRef, Fragment } from "react";
 import { Button } from "primereact/button";
 import { DataTable } from "primereact/datatable";
@@ -214,31 +215,37 @@ export default function BrandTemplate() {
                         header={headerExport}
                         emptyMessage={txtNoData}
                         paginator
+                        scrollable
                         rows={7}
                     >
                         <Column
                             field="Expediente"
                             header="Expediente"
+                            headerStyle={{ width: '20vh' }}
                             sortable
                         />
                         <Column
                             field="Descripción del oficio"
                             header="Descripción del oficio"
+                            headerStyle={{ width: '20vh' }}
                             sortable
                         />
                         <Column
                             field="Fecha del oficio"
                             header="Fecha del oficio"
+                            headerStyle={{ width: '20vh' }}
                             sortable
                         />
                         <Column
                             field="Número del oficio"
                             header="Número del oficio"
+                            headerStyle={{ width: '20vh' }}
                             sortable
                         />
                         <Column
                             field="Enlace electrónico"
                             header="Enlace electrónico"
+                            headerStyle={{ width: '20vh' }}
                             body={enlaceBodyTemplate}
                             sortable
                         />

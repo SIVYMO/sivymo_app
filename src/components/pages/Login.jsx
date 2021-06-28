@@ -203,7 +203,7 @@ export default function Login() {
                 <Dialog
                     showHeader={false}
                     visible={showDialog}
-                    style={{ width: "50vw" }}
+                    className="p-col-12 p-md-6 p-lg-4 p-mt-6"
                     draggable={false}
                     closable={false}
                     onHide={() => {}}
