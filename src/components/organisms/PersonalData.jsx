@@ -30,6 +30,7 @@ import {
     txtRepeatNewPasswordHelp,
     txtUpdatePassword,
     txtMessageErrorGeneral,
+    txtCheckPasswords,
 } from "../../utils/Strings";
 import UsuarioService from "../../service/UsuarioService";
 
@@ -65,8 +66,7 @@ export default function PersonalData() {
                     localStorage.clear();
                     window.location = "/";
                 } else {
-                    txtMessageErrorGeneral.description =
-                        "Verifica que la contraseña actual sea correcta";
+                    txtMessageErrorGeneral.description = txtCheckPasswords;
                     showMessage(txtMessageErrorGeneral);
                 }
             })

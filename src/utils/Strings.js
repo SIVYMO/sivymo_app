@@ -220,7 +220,8 @@ export const txtMessageUserSuccess = {
         "El usuario se eliminará permanente de la aplicación",
     txtTitleProfile = "Perfil",
     txtTabPersonalData = "Datos personales",
-    txtTabUserTable = "Tabla de usuarios";
+    txtTabUserTable = "Tabla de usuarios",
+    txtCheckPasswords = "Verifica que la contraseña actual sea correcta"
 
 //  ? ClientsTemplate.js
 export const txtSmsLoading = [
@@ -269,4 +270,6 @@ export const txtExportButton = "Exportar resultados",
     txtInstructionsSearch =
         "Puedes colocar alguna fecha en especifico o ignorar y continuar con la búsqueda regular",
     txtDateStartLabel = "Fecha inicio:",
-    txtDateEndLabel = "Fecha fin:";
+    txtDateEndLabel = "Fecha fin:",
+    txtNoDataSearch = "No se encontraron coincidencias",
+    txtDataSearch = "Se encontraron coincidencias"

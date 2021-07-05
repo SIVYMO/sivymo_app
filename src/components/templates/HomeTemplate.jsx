@@ -121,11 +121,6 @@ export default function HomeTemplate() {
             </div>
             <div className="p-grid p-mt-2">
                 <LastDateCategory
-                    icon="pi pi-copy"
-                    last_search_info={txtLastQueryEjemplares}
-                    last_date={resume.ultimaBusquedaEjemplares}
-                />
-                <LastDateCategory
                     icon="pi pi-id-card"
                     last_search_info={txtLastUpdateClients}
                     last_date={resume.ultimaModificacionClientes}

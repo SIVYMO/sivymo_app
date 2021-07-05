@@ -7,10 +7,11 @@ import { BreadCrumb } from "primereact/breadcrumb";
 import { ProgressBar } from "primereact/progressbar";
 import { InputText } from "primereact/inputtext";
 import { Dialog } from "primereact/dialog";
+import { Toast } from "primereact/toast";
+import { Checkbox } from "primereact/checkbox";
 import ClienteService from "../../service/ClienteService";
 import ScrapingService from "../../service/ScrapingService";
 import HistorialService from "../../service/HistorialService";
-import { Toast } from "primereact/toast";
 import {
     txtNoData,
     txtTitlePatents,
@@ -30,6 +31,8 @@ import {
     txtInstructionsSearch,
     txtDateStartLabel,
     txtDateEndLabel,
+    txtNoDataSearch,
+    txtDataSearch,
 } from "../../utils/Strings";
 import { dark_sea_green } from "../../utils/Colors";
 import Validations from "../../utils/Validations";
@@ -46,6 +49,8 @@ export default function PatentTemplate() {
     const [requisitos, setRequisitos] = useState([]);
 
     const [history, setHistory] = useState(false);
+
+    const [filesReady, setFilesReady] = useState(false);
 
     const [inputFechaInicio, setInputFechaInicio] = useState("");
     const [inputFechaFin, setInputFechaFin] = useState("");
@@ -64,6 +69,7 @@ export default function PatentTemplate() {
     };
 
     const confirmStartSearch = () => {
+        setFilesReady(false);
         setInputFechaFin(Validations.convertInputDate(new Date()));
         setInputFechaInicio(
             Validations.convertAPIDate(resume.ultimaBusquedaPatentes)
@@ -95,6 +101,7 @@ export default function PatentTemplate() {
             fechaInicio: inputFechaInicio,
             fechaFin: inputFechaFin,
             datos: info,
+            descargado: filesReady,
         };
         await ScrapingService.getPatentes(objSend)
             .then((resp) => {
@@ -115,13 +122,13 @@ export default function PatentTemplate() {
             showMessage({
                 type: "info",
                 title: txtSubitlePatent1,
-                description: "Se encontraron coincidencias",
+                description: txtDataSearch,
             });
         } else {
             showMessage({
                 type: "warn",
                 title: txtSubitlePatent1,
-                description: "No se encontraron coincidencias",
+                description: txtNoDataSearch,
             });
         }
         if (data[1].data !== false) {
@@ -129,13 +136,13 @@ export default function PatentTemplate() {
             showMessage({
                 type: "info",
                 title: txtSubitlePatent2,
-                description: "Se encontraron coincidencias",
+                description: txtDataSearch,
             });
         } else {
             showMessage({
                 type: "warn",
                 title: txtSubitlePatent2,
-                description: "No se encontraron coincidencias",
+                description: txtNoDataSearch,
             });
         }
         if (data[2].data !== false) {
@@ -143,13 +150,13 @@ export default function PatentTemplate() {
             showMessage({
                 type: "info",
                 title: txtSubitlePatent3,
-                description: "Se encontraron coincidencias",
+                description: txtDataSearch,
             });
         } else {
             showMessage({
                 type: "warn",
                 title: txtSubitlePatent3,
-                description: "No se encontraron coincidencias",
+                description: txtNoDataSearch,
             });
         }
     };
@@ -406,7 +413,6 @@ export default function PatentTemplate() {
             <Dialog
                 showHeader={false}
                 visible={showDialog}
-                style={{ width: "40vw" }}
                 draggable={false}
                 closable={false}
                 onHide={() => {}}
@@ -443,6 +449,7 @@ export default function PatentTemplate() {
                                             placeholder="2021/02/01"
                                             maxLength="10"
                                             value={inputFechaInicio}
+                                            disabled={filesReady}
                                             onChange={(e) => {
                                                 setInputFechaInicio(
                                                     e.target.value
@@ -463,12 +470,27 @@ export default function PatentTemplate() {
                                             placeholder="2021/02/05"
                                             maxLength="10"
                                             value={inputFechaFin}
+                                            disabled={filesReady}
                                             onChange={(e) => {
                                                 setInputFechaFin(
                                                     e.target.value
                                                 );
                                             }}
                                         />
+                                    </div>
+
+                                    <div className=" p-field-checkbox">
+                                        <Checkbox
+                                            inputId="filesReady"
+                                            checked={filesReady}
+                                            onChange={(e) =>
+                                                setFilesReady(e.checked)
+                                            }
+                                        />
+                                        <label htmlFor="filesReady">
+                                            Ya cuento con los archivos
+                                            descargados
+                                        </label>
                                     </div>
                                 </div>
                                 <div className="p-ai-center p-text-center">

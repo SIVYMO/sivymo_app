@@ -8,6 +8,7 @@ import { Toast } from "primereact/toast";
 import { ProgressBar } from "primereact/progressbar";
 import { InputText } from "primereact/inputtext";
 import { Dialog } from "primereact/dialog";
+import { Checkbox } from "primereact/checkbox";
 import ClienteService from "../../service/ClienteService";
 import ScrapingService from "../../service/ScrapingService";
 import HistorialService from "../../service/HistorialService";
@@ -28,6 +29,8 @@ import {
     txtInstructionsSearch,
     txtDateStartLabel,
     txtDateEndLabel,
+    txtNoDataSearch,
+    txtDataSearch,
 } from "../../utils/Strings";
 import { dark_sea_green } from "../../utils/Colors";
 import Validations from "../../utils/Validations";
@@ -44,6 +47,8 @@ export default function BrandTemplate() {
     const [inputFechaInicio, setInputFechaInicio] = useState("");
     const [inputFechaFin, setInputFechaFin] = useState("");
 
+    const [filesReady, setFilesReady] = useState(false);
+
     const [history, setHistory] = useState(false);
 
     const toast = useRef(null);
@@ -58,6 +63,7 @@ export default function BrandTemplate() {
     };
 
     const confirmStartSearch = () => {
+        setFilesReady(false);
         setInputFechaFin(Validations.convertInputDate(new Date()));
         setInputFechaInicio(
             Validations.convertAPIDate(resume.ultimaBusquedaMarcas)
@@ -89,6 +95,7 @@ export default function BrandTemplate() {
             fechaInicio: inputFechaInicio,
             fechaFin: inputFechaFin,
             datos: info,
+            descargado: filesReady,
         };
         await ScrapingService.getMarcas(objSend)
             .then((resp) => {
@@ -109,13 +116,13 @@ export default function BrandTemplate() {
             showMessage({
                 type: "info",
                 title: txtSubtitleBrand,
-                description: "Se encontraron coincidencias",
+                description: txtDataSearch,
             });
         } else {
             showMessage({
                 type: "warn",
                 title: txtSubtitleBrand,
-                description: "No se encontraron coincidencias",
+                description: txtNoDataSearch,
             });
         }
     };
@@ -144,7 +151,11 @@ export default function BrandTemplate() {
     const enlaceBodyTemplate = (rowdata) => {
         return (
             <Fragment>
-                <a href={rowdata["Enlace electrónico"]} target="_blank" rel="noopener">
+                <a
+                    href={rowdata["Enlace electrónico"]}
+                    target="_blank"
+                    rel="noopener"
+                >
                     {rowdata["Enlace electrónico"]}
                 </a>
             </Fragment>
@@ -221,31 +232,31 @@ export default function BrandTemplate() {
                         <Column
                             field="Expediente"
                             header="Expediente"
-                            headerStyle={{ width: '20vh' }}
+                            headerStyle={{ width: "20vh" }}
                             sortable
                         />
                         <Column
                             field="Descripción del oficio"
                             header="Descripción del oficio"
-                            headerStyle={{ width: '20vh' }}
+                            headerStyle={{ width: "20vh" }}
                             sortable
                         />
                         <Column
                             field="Fecha del oficio"
                             header="Fecha del oficio"
-                            headerStyle={{ width: '20vh' }}
+                            headerStyle={{ width: "20vh" }}
                             sortable
                         />
                         <Column
                             field="Número del oficio"
                             header="Número del oficio"
-                            headerStyle={{ width: '20vh' }}
+                            headerStyle={{ width: "20vh" }}
                             sortable
                         />
                         <Column
                             field="Enlace electrónico"
                             header="Enlace electrónico"
-                            headerStyle={{ width: '20vh' }}
+                            headerStyle={{ width: "20vh" }}
                             body={enlaceBodyTemplate}
                             sortable
                         />
@@ -256,7 +267,6 @@ export default function BrandTemplate() {
             <Dialog
                 showHeader={false}
                 visible={showDialog}
-                style={{ width: "40vw" }}
                 draggable={false}
                 closable={false}
                 onHide={() => {}}
@@ -293,6 +303,7 @@ export default function BrandTemplate() {
                                             placeholder="Ej. 2021/02/01"
                                             maxLength="10"
                                             value={inputFechaInicio}
+                                            disabled={filesReady}
                                             onChange={(e) => {
                                                 setInputFechaInicio(
                                                     e.target.value
@@ -313,12 +324,26 @@ export default function BrandTemplate() {
                                             placeholder="Ej. 2021/02/05"
                                             maxLength="10"
                                             value={inputFechaFin}
+                                            disabled={filesReady}
                                             onChange={(e) => {
                                                 setInputFechaFin(
                                                     e.target.value
                                                 );
                                             }}
                                         />
+                                    </div>
+                                    <div className=" p-field-checkbox">
+                                        <Checkbox
+                                            inputId="filesReady"
+                                            checked={filesReady}
+                                            onChange={(e) =>
+                                                setFilesReady(e.checked)
+                                            }
+                                        />
+                                        <label htmlFor="filesReady">
+                                            Ya cuento con los archivos
+                                            descargados
+                                        </label>
                                     </div>
                                 </div>
                                 <div className="p-ai-center p-text-center">
