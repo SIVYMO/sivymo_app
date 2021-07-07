@@ -106,7 +106,7 @@ export const txtConfirmExit = "¿Estás seguro de salir del sistema?",
     txtLogoutButton = "Salir";
 
 // ? Login.jsx
-export const txtCodeMustBe = "El código es de 5 carácteres",
+export const txtCodeMustBe = "El código es de 8 carácteres",
     txtEmailValid = "El email no debe estar vacío y debe ser valido",
     txtPasswordValid = "La contraseña no debe estar vacía",
     txtCodeValid = "El código no debe estár vacío o ser menor a 5 caracteres",

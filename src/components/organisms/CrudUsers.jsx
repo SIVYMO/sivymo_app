@@ -60,7 +60,7 @@ export default function CrudUsers() {
 
     // ? State de lista de usuarios
     const [users, setUsers] = useState([]);
-
+    const [userInfo, setUserInfo] = useState({});
     //? Demás states
     const [userDialog, setUserDialog] = useState(false);
     const [deleteUserDialog, setDeleteUserDialog] = useState(false);
@@ -73,7 +73,12 @@ export default function CrudUsers() {
 
     useEffect(() => {
         getAll();
+        getPersonalInformation();
     }, []);
+
+    function getPersonalInformation() {
+        setUserInfo(JSON.parse(localStorage.getItem("userActive")));
+    }
 
     // * Métodos CRUD
     function getAll() {
@@ -88,10 +93,10 @@ export default function CrudUsers() {
     }
 
     function insertOne(user) {
-        console.log(user)
+        console.log(user);
         UsuarioService.insertOne(user)
             .then((response) => {
-                console.log(response.data)
+                console.log(response.data);
                 getAll();
                 showMessage(txtMessageUserSuccess);
             })
@@ -218,6 +223,10 @@ export default function CrudUsers() {
     const resetPassword = (user) => {
         resetPasswordUser(user.correo);
         toast.current.clear();
+        if (user.correo === userInfo.correo) {
+            localStorage.clear();
+            window.location = "/";
+        }
     };
 
     //? Confirmar al restablecer la contraseña

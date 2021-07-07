@@ -89,7 +89,7 @@ export default function Login() {
     };
 
     const verifyCode = () => {
-        if (codeInput.length <= 4) {
+        if (codeInput.length <= 7) {
             setCodeErrorSms(txtCodeValid);
             setCodeUIError("p-invalid p-inputtext-lg p-d-block");
         } else {
@@ -222,7 +222,7 @@ export default function Login() {
                                     type="text"
                                     className={codeUIError}
                                     placeholder={txtCodeVerificationLabel}
-                                    maxLength="5"
+                                    maxLength="8"
                                     value={codeInput}
                                     onChange={(e) => {
                                         setCodeInput(e.target.value);

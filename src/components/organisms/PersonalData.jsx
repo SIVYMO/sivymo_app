@@ -53,7 +53,6 @@ export default function PersonalData() {
         nuevaContraseña,
         repetirNuevaContraseña,
     }) {
-        console.log("llega");
         UsuarioService.changePassword(
             userInfo.correo,
             contraseñaActual,
