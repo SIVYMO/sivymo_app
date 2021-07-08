@@ -7,9 +7,8 @@ import {
     txtWelcome,
     txtLastQueryPatent,
     txtLastQueryBrand,
-    txtLastQueryEjemplares,
     txtLastUpdateClients,
-    txtBadgeClients
+    txtBadgeClients,
 } from "../../utils/Strings";
 import ResumeService from "../../service/ResumeService";
 import moment from "moment";
@@ -42,7 +41,7 @@ function LastDateCategory({ icon, last_search_info, last_date }) {
                         {last_search_info}
                     </div>
                     <div style={{ fontSize: "1.2em", fontWeight: "bold" }}>
-                        {moment(last_date).format('LLLL')}
+                        {moment(last_date).format("LLLL")}
                     </div>
                 </div>
             </div>
@@ -51,7 +50,6 @@ function LastDateCategory({ icon, last_search_info, last_date }) {
 }
 
 export default function HomeTemplate() {
-
     const [userInfo, setUserInfo] = useState({});
 
     const [resume, setResume] = useState({
@@ -65,10 +63,10 @@ export default function HomeTemplate() {
     useEffect(() => {
         getResume();
         getPersonalInformation();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    function getPersonalInformation(){
+    function getPersonalInformation() {
         setUserInfo(JSON.parse(localStorage.getItem("userActive")));
     }
 
@@ -93,7 +91,8 @@ export default function HomeTemplate() {
             <div className="p-grid">
                 <div className="p-col-12 p-md-6 p-xl-6">
                     <h1>
-                        {txtWelcome} <i>{`${userInfo.nombre} ${userInfo.primerApellido}`}</i>
+                        {txtWelcome}{" "}
+                        <i>{`${userInfo.nombre} ${userInfo.primerApellido}`}</i>
                     </h1>
                 </div>
                 <div className="p-col-12 p-md-6 p-xl-6">
@@ -101,10 +100,20 @@ export default function HomeTemplate() {
                         <Badge
                             value={`Existen ${resume.clientesTotales} expedientes guardados en la nube`}
                             size="xlarge"
-                            severity={resume.clientesTotales<=0?"danger":"success"}
+                            severity={
+                                resume.clientesTotales <= 0
+                                    ? "danger"
+                                    : "success"
+                            }
                         />
                     </h1>
-                    {resume.clientesTotales<=0&&(<Badge value={txtBadgeClients} severity="warning" className="p-mr-2"></Badge>)}
+                    {resume.clientesTotales <= 0 && (
+                        <Badge
+                            value={txtBadgeClients}
+                            severity="warning"
+                            className="p-mr-2"
+                        ></Badge>
+                    )}
                 </div>
             </div>
             <div className="p-grid p-mt-2">
