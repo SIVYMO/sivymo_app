@@ -109,7 +109,7 @@ export const txtConfirmExit = "¿Estás seguro de salir del sistema?",
 export const txtCodeMustBe = "El código es de 8 carácteres",
     txtEmailValid = "El email no debe estar vacío y debe ser valido",
     txtPasswordValid = "La contraseña no debe estar vacía",
-    txtCodeValid = "El código no debe estár vacío o ser menor a 5 caracteres",
+    txtCodeValid = "El código no debe estár vacío o ser menor a 8 caracteres",
     txtMessageSucces = {
         type: "success",
         title: "El código es correcto",
