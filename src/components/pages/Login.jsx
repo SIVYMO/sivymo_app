@@ -72,13 +72,15 @@ export default function Login() {
                 correo: emailInput,
                 contrasena: passwordInput,
             };
-            showMessage({ type: "info", title: "Cargando..." });
+            showMessage({ type: "info", title: "Cargando...", description: "Por favor espere" });
             UsuarioService.login(userLogin)
                 .then((response) => {
+                    clearMessages();
                     setUserData(response.data);
                     changeStateDialog(true);
                 })
                 .catch((err) => {
+                    clearMessages();
                     showMessage(txtMessageLoginError)
                 });
         }
@@ -105,12 +107,16 @@ export default function Login() {
         }
     };
 
+    const clearMessages = ()=>{
+        toastMessages.current.clear();
+    }
+
     const showMessage = ({ type, title, description }) => {
         toastMessages.current.show({
             severity: type,
             summary: title,
             detail: description,
-            life: 5000,
+            sticky: true,
         });
     };
 
