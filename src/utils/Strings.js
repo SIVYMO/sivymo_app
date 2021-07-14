@@ -258,7 +258,7 @@ export const txtExportButton = "Exportar resultados",
     },
     txtMessageSearchError = {
         type: "error",
-        title: "Ocurrió un error al realizar la búsqueda",
+        title: "Ocurrió un error de conexión",
         description: "Vuelve a intentarlo de nuevo",
     },
     txtSubtitleBrand = "Notificaciones de marcas",
