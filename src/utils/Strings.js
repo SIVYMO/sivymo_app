@@ -106,10 +106,10 @@ export const txtConfirmExit = "¿Estás seguro de salir del sistema?",
     txtLogoutButton = "Salir";
 
 // ? Login.jsx
-export const txtCodeMustBe = "El código es de 8 carácteres",
-    txtEmailValid = "El email no debe estar vacío y debe ser valido",
+export const txtCodeMustBe = "El código es de 8 caracteres",
+    txtEmailValid = "El email no debe estar vacío y debe ser válido",
     txtPasswordValid = "La contraseña no debe estar vacía",
-    txtCodeValid = "El código no debe estár vacío o ser menor a 8 caracteres",
+    txtCodeValid = "El código no debe estar vacío o ser menor a 8 caracteres",
     txtMessageSucces = {
         type: "success",
         title: "El código es correcto",
@@ -162,12 +162,12 @@ export const txtMessageUserSuccess = {
     },
     txtMessageUserPasswordSuccess = {
         type: "success",
-        title: "Contraseña guardado correctamente",
+        title: "Contraseña guardada correctamente",
         description: "La contraseña del usuario se han actualizado",
     },
     txtMessageUserPasswordError = {
         type: "error",
-        title: "Las contraseña no coinciden o están vacías",
+        title: "Las contraseñas no coinciden o están vacías",
         description: "Verificar los campos de las contraseñas",
     },
     txtMessageUserPasswordReset = {
@@ -180,27 +180,27 @@ export const txtMessageUserSuccess = {
         title: "No se ejecutó la operación",
         description: "Intentar de nuevo",
     },
-    txtTitlePersonalData = "Tú información",
+    txtTitlePersonalData = "Tu información",
     txtNameLabel = "Nombre:",
-    txtNameHelp = " El nombre no debe estar vacío y debe ser valido",
+    txtNameHelp = " El nombre no debe estar vacío y debe ser válido",
     txtFistSurnameLabel = "Primer apellido:",
     txtFistSurnameHelp =
-        " El primer apellido no debe estar vacío y debe ser valido",
+        " El primer apellido no debe estar vacío y debe ser válido",
     txtSecondSurnameLabel = "Segundo apellido:",
     txtDateOfBirthLabel = "Fecha de nacimiento:",
     txtDateOfBirthHelp =
-        "La fecha de nacimiento no debe estar vacía y debe ser valida",
+        "La fecha de nacimiento no debe estar vacía y debe ser válida",
     txtEmailHelp =
-        "El correo electrónico no debe estar vacío y debe ser valido",
+        "El correo electrónico no debe estar vacío y debe ser válido",
     txtDesactiveActiveFieldsLabel = "Habilitar/Deshabilitar campos",
     txtUpdateInformationLabel = "Actualizar información",
     txtUpdatePassword = "Actualizar contraseña",
     txtPasswordCurrentlyLabel = "Contraseña actual:",
-    txtPasswordCurrentlyHelp = "La contraseña actual no debe estár vacía",
+    txtPasswordCurrentlyHelp = "La contraseña actual no debe estar vacía",
     txtNewPasswordLabel = "Nueva contraseña:",
-    txtNewPasswordHelp = "La contraseña nueva no debe estár vacía",
+    txtNewPasswordHelp = "La contraseña nueva no debe estar vacía",
     txtRepeatNewPasswordLabel = "Repetir nueva contraseña:",
-    txtRepeatNewPasswordHelp = "La contraseña nueva no debe estár vacía",
+    txtRepeatNewPasswordHelp = "La contraseña nueva no debe estar vacía",
     txtRestartPasswordTitle = "¿Restablecer la contraseña de este usuario?",
     txtRestartPasswordContent =
         " Se le enviará un correo electrónico a esa persona con la nueva contraseña",
@@ -254,7 +254,7 @@ export const txtExportButton = "Exportar resultados",
     txtMessageSearchSuccess = {
         type: "success",
         title: "Búsqueda realizada con éxito",
-        description: "Revisa si hubieron coincidencias con los registros",
+        description: "Revisa si hubo coincidencias con los registros",
     },
     txtMessageSearchError = {
         type: "error",
@@ -264,7 +264,7 @@ export const txtExportButton = "Exportar resultados",
     txtSubtitleBrand = "Notificaciones de marcas",
     txtSubitlePatent1 = "Notificaciones de patentes",
     txtSubitlePatent2 = "Patentes, registros de modelos de utilidad y diseños industriales",
-    txtSubitlePatent3 = "Requisitos de forma y fondo, y abandono notificados",
+    txtSubitlePatent3 = "Requisitos de forma y fondo, y abandonos notificados",
     txtLodaing = "Realizando las búsquedas necesarias",
     txtStartSearch = "Iniciar búsqueda",
     txtInstructionsSearch =
