@@ -176,11 +176,13 @@ export default function CrudUsers() {
             correo,
         } = user;
         if (
-            Validations.validateNames(nombre) &&
-            Validations.validateNames(primerApellido) &&
-            Validations.validateSecondSurname(segundoApellido) &&
-            fechaDeNacimiento !== "" &&
-            Validations.validateEmail(correo)
+            Validations.validateFormUser(
+                nombre,
+                primerApellido,
+                segundoApellido,
+                fechaDeNacimiento,
+                correo
+            )
         ) {
             if (saveOrUpdate) {
                 insertOne(user);
@@ -223,9 +225,11 @@ export default function CrudUsers() {
     const resetPassword = (user) => {
         resetPasswordUser(user.correo);
         toast.current.clear();
-        if (user.correo === userInfo.correo) {
-            localStorage.clear();
-            window.location = "/";
+        if (Validations.validateSameEmail(user.correo, userInfo.correo)) {
+            setTimeout(() => {
+                localStorage.clear();
+                window.location = "/";
+            }, 3000);
         }
     };
 

@@ -115,11 +115,13 @@ export default function PersonalData() {
             correo,
         } = userInfo;
         if (
-            Validations.validateNames(nombre) &&
-            Validations.validateNames(primerApellido) &&
-            Validations.validateSecondSurname(segundoApellido) &&
-            fechaDeNacimiento !== "" &&
-            Validations.validateEmail(correo)
+            Validations.validateFormUser(
+                nombre,
+                primerApellido,
+                segundoApellido,
+                fechaDeNacimiento,
+                correo
+            )
         ) {
             updateOne(userInfo);
         } else {
@@ -132,9 +134,11 @@ export default function PersonalData() {
         const { contraseñaActual, nuevaContraseña, repetirNuevaContraseña } =
             userPassword;
         if (
-            contraseñaActual !== "" &&
-            nuevaContraseña !== "" &&
-            repetirNuevaContraseña !== ""
+            Validations.validatePassworsNoEmpty(
+                contraseñaActual,
+                nuevaContraseña,
+                repetirNuevaContraseña
+            )
         ) {
             if (nuevaContraseña === repetirNuevaContraseña) {
                 changePassword(userPassword);

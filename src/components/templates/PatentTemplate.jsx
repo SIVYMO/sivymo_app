@@ -43,18 +43,13 @@ moment.locale("es");
 export default function PatentTemplate() {
     const [showDialog, setShowDialog] = useState(false);
     const [resume, setResume] = useState({});
-
     const [notificaciones, setNotificaciones] = useState([]);
     const [patentesRegistros, setPatentesRegistros] = useState([]);
     const [requisitos, setRequisitos] = useState([]);
-
     const [history, setHistory] = useState(false);
-
     const [filesReady, setFilesReady] = useState(false);
-
     const [inputFechaInicio, setInputFechaInicio] = useState("");
     const [inputFechaFin, setInputFechaFin] = useState("");
-
     const toast = useRef(null);
     const dt1 = useRef(null);
     const dt2 = useRef(null);
@@ -118,6 +113,7 @@ export default function PatentTemplate() {
 
     const viewData = (data) => {
         if (data[0].data !== false) {
+            window.onbeforeunload = () => "¿Seguro que quieres salir?";
             setNotificaciones(data[0].data);
             showMessage({
                 type: "info",
@@ -132,6 +128,7 @@ export default function PatentTemplate() {
             });
         }
         if (data[1].data !== false) {
+            window.onbeforeunload = () => "¿Seguro que quieres salir?";
             setPatentesRegistros(data[1].data);
             showMessage({
                 type: "info",
@@ -146,6 +143,7 @@ export default function PatentTemplate() {
             });
         }
         if (data[2].data !== false) {
+            window.onbeforeunload = () => "¿Seguro que quieres salir?";
             setRequisitos(data[2].data);
             showMessage({
                 type: "info",

@@ -10,16 +10,16 @@ class Validations {
 
     validateNames(name) {
         let flag = true;
-          if(name!==""){
-               for (let i = 0; i < name.length; i++) {
-                    if (CHARS.indexOf(name.charAt(i)) === -1) {
-                        flag = false;
-                        break;
-                    }
+        if (name !== "") {
+            for (let i = 0; i < name.length; i++) {
+                if (CHARS.indexOf(name.charAt(i)) === -1) {
+                    flag = false;
+                    break;
                 }
-          }else{
-               return false;
-          }
+            }
+        } else {
+            return false;
+        }
         return flag;
     }
 
@@ -31,23 +31,23 @@ class Validations {
         }
     }
 
-    convertAPIDate(date){
+    convertAPIDate(date) {
         let tempDate = date.split("T")[0];
         return tempDate.replaceAll("-", "/");
     }
 
-    convertInputDate(date){
+    convertInputDate(date) {
         let tempDate = JSON.stringify(date);
         let cutDate = tempDate.substring(1, tempDate.length - 1);
-        return this.convertAPIDate(cutDate)
+        return this.convertAPIDate(cutDate);
     }
 
-    convertOnlyInputDate(date){
+    convertOnlyInputDate(date) {
         let tempDate = JSON.stringify(date);
         return tempDate.substring(1, tempDate.length - 1);
     }
 
-    validateDateStartEnd(dateStart, dateEnd){
+    validateDateStartEnd(dateStart, dateEnd) {
         if (
             dateStart.length === 10 &&
             dateEnd.length === 10 &&
@@ -59,7 +59,25 @@ class Validations {
         return true;
     }
 
+    validateFormUser(name, first, second, dateBirth, email) {
+        if (
+            this.validateNames(name) &&
+            this.validateNames(first) &&
+            this.validateSecondSurname(second) &&
+            dateBirth !== "" &&
+            this.validateEmail(email)
+        )
+            return true;
+        else return false;
+    }
 
+    validatePassworsNoEmpty(curently, newPas, repeat){
+        return curently !== "" && newPas !== "" && repeat !== ""
+    }
+
+    validateSameEmail(userEmail, userEmailInfo){
+        return userEmail === userEmailInfo;
+    }
 }
 
 export default new Validations();

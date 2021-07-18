@@ -41,16 +41,11 @@ moment.locale("es");
 export default function BrandTemplate() {
     const [showDialog, setShowDialog] = useState(false);
     const [resume, setResume] = useState({});
-
     const [marcas, setMarcas] = useState([]);
-
     const [inputFechaInicio, setInputFechaInicio] = useState("");
     const [inputFechaFin, setInputFechaFin] = useState("");
-
     const [filesReady, setFilesReady] = useState(false);
-
     const [history, setHistory] = useState(false);
-
     const toast = useRef(null);
     const dt1 = useRef(null);
 
@@ -118,6 +113,7 @@ export default function BrandTemplate() {
                 title: txtSubtitleBrand,
                 description: txtDataSearch,
             });
+            window.onbeforeunload = () => "¿Seguro que quieres salir?";
         } else {
             showMessage({
                 type: "warn",
