@@ -5,8 +5,12 @@ class ClienteService {
           return api.get("/clients");
      }
 
-     insertAll(obj){
-          return api.post("/clients", obj);
+     insertOne(obj){
+          return api.post("/clientsOne", obj);
+     }
+
+     insertTwo(obj){
+          return api.post("/clientsTwo", obj);
      }
 
      removeAll(){

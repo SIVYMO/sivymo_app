@@ -15,14 +15,13 @@ import {
     txtSaveButton,
     txtClearButton,
     txtNoDataLabel,
-    txtLastUpdateClients
+    txtLastUpdateClients,
 } from "../../utils/Strings";
 import moment from "moment";
 import "moment/locale/es";
 moment.locale("es");
 
 export default function ClientsTemplate() {
-
     const [resume, setResume] = useState({});
     const [importedData, setImportedData] = useState([]);
     const [selectedImportedData, setSelectedImportedData] = useState([]);
@@ -114,20 +113,43 @@ export default function ClientsTemplate() {
             });
     }
 
-    const saveAllImportedData = () => {
-        ClienteService.insertAll(importedData)
+    const saveAllImportedData = async () => {
+        showMessageloading();
+        let m1 = importedData.splice(0, importedData.length / 2);
+        let m2 = importedData.splice(0, importedData.length);
+
+        await ClienteService.insertOne(m1)
             .then((response) => {
                 if (response.data) {
+                    console.log(response.data);
+                } else {
+                    showMessage(txtMessageErrorGeneral);
+                }
+            })
+            .catch((err) => {
+                clearMessageLoading();
+                console.error(err);
+                return;
+            });
+
+        await ClienteService.insertTwo(m2)
+            .then((response) => {
+                clearMessageLoading();
+                console.log(response.data);
+                if (response.data) {
                     saveHistory();
-                    clear();
                     showMessage(txtMessageClientsSaved);
                 } else {
                     showMessage(txtMessageErrorGeneral);
                 }
             })
             .catch((err) => {
+                clearMessageLoading();
+                console.error(err);
                 showMessage(txtMessageErrorGeneral);
+                return;
             });
+        console.log("Termino otro");
     };
 
     //? Muestra los mensajes de los Toast
@@ -146,13 +168,15 @@ export default function ClientsTemplate() {
                 model={[{ label: txtTitleClients }]}
                 home={{ icon: "pi pi-home" }}
             />
-                    <Toast ref={toast} />
+            <Toast ref={toast} />
             <div className="p-grid">
                 <div className="p-col p-p-3">
                     <h1>{txtTitleClients}</h1>
                     <div>
                         {txtLastUpdateClients}
-                        {moment(resume.ultimaModificacionClientes).format("LLLL")}
+                        {moment(resume.ultimaModificacionClientes).format(
+                            "LLLL"
+                        )}
                     </div>
                     <div className="p-d-flex p-ai-center p-py-2">
                         <FileUpload
