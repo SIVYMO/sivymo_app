@@ -138,6 +138,7 @@ export default function ClientsTemplate() {
                 console.log(response.data);
                 if (response.data) {
                     saveHistory();
+                    clear();
                     showMessage(txtMessageClientsSaved);
                 } else {
                     showMessage(txtMessageErrorGeneral);
