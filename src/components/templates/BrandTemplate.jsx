@@ -6,9 +6,9 @@ import { Column } from "primereact/column";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Toast } from "primereact/toast";
 import { ProgressBar } from "primereact/progressbar";
-import { InputText } from "primereact/inputtext";
 import { Dialog } from "primereact/dialog";
 import { Checkbox } from "primereact/checkbox";
+import { Calendar } from "primereact/calendar";
 import ClienteService from "../../service/ClienteService";
 import ScrapingService from "../../service/ScrapingService";
 import HistorialService from "../../service/HistorialService";
@@ -293,17 +293,22 @@ export default function BrandTemplate() {
                                         >
                                             {txtDateStartLabel}
                                         </label>
-                                        <InputText
+                                        <Calendar
                                             id="dateStartInput"
-                                            type="text"
-                                            placeholder="Ej. 2021/02/01"
-                                            maxLength="10"
+                                            dateFormat="yy/mm/dd"
+                                            mask="9999/99/99"
                                             value={inputFechaInicio}
+                                            monthNavigator
+                                            yearNavigator
+                                            yearRange="2010:2030"
+                                            placeholder={inputFechaInicio}
                                             disabled={filesReady}
                                             onChange={(e) => {
-                                                setInputFechaInicio(
-                                                    e.target.value
-                                                );
+                                                let dateFormat =
+                                                    Validations.convertInputDate(
+                                                        e.target.value
+                                                    );
+                                                setInputFechaInicio(dateFormat);
                                             }}
                                         />
                                     </div>
@@ -314,17 +319,22 @@ export default function BrandTemplate() {
                                         >
                                             {txtDateEndLabel}
                                         </label>
-                                        <InputText
+                                        <Calendar
                                             id="dateEndInput"
-                                            type="text"
-                                            placeholder="Ej. 2021/02/05"
-                                            maxLength="10"
+                                            dateFormat="yy/mm/dd"
+                                            mask="9999/99/99"
                                             value={inputFechaFin}
+                                            monthNavigator
+                                            yearNavigator
+                                            yearRange="2010:2030"
+                                            placeholder={inputFechaFin}
                                             disabled={filesReady}
                                             onChange={(e) => {
-                                                setInputFechaFin(
-                                                    e.target.value
-                                                );
+                                                let dateFormat =
+                                                    Validations.convertInputDate(
+                                                        e.target.value
+                                                    );
+                                                setInputFechaFin(dateFormat);
                                             }}
                                         />
                                     </div>
