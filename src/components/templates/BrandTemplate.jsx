@@ -376,7 +376,7 @@ export default function BrandTemplate() {
                                     <Button
                                         type="button"
                                         className="p-mr-2 p-button-success"
-                                        label="Búscar"
+                                        label="Buscar"
                                         disabled={datesValidation()}
                                         onClick={startSearch}
                                     />

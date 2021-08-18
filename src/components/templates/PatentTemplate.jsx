@@ -525,7 +525,7 @@ export default function PatentTemplate() {
                                     <Button
                                         type="button"
                                         className="p-mr-2 p-button-success"
-                                        label="Búscar"
+                                        label="Buscar"
                                         disabled={datesValidation()}
                                         onClick={startSearch}
                                     />
