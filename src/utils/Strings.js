@@ -234,8 +234,9 @@ export const txtSmsLoading = [
         description: "Se han actualizado correctamente",
     },
     txtTitleClients = "Expedientes",
-    txtClearButton = "Limpiar todo",
-    txtNoDataLabel = "Sin ningún dato subido";
+    txtClearButton = "Limpiar datos",
+    txtNoDataLabel = "Sin ningún dato subido",
+    txtClearMessages = "Limpiar mensajes";
 
 // ? SpecimensTemplate.jsx
 // ? PatentTemplate.jsx

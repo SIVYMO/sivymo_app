@@ -33,6 +33,7 @@ import {
     txtDateEndLabel,
     txtNoDataSearch,
     txtDataSearch,
+    txtClearMessages
 } from "../../utils/Strings";
 import { dark_sea_green } from "../../utils/Colors";
 import Validations from "../../utils/Validations";
@@ -192,6 +193,10 @@ export default function PatentTemplate() {
             sticky: true,
         });
     };
+
+    const clearMessages = () =>{
+        toast.current.clear();
+    }
 
     const enlaceBodyTemplate = (rowdata) => {
         return (
@@ -394,8 +399,15 @@ export default function PatentTemplate() {
                             type="button"
                             icon="pi pi-times"
                             label={txtClearButton}
-                            className="p-button-info"
+                            className="p-button-info  p-mr-2"
                             onClick={clear}
+                        />
+                        <Button
+                            type="button"
+                            icon="pi pi-comments"
+                            label={txtClearMessages}
+                            className="p-button-info"
+                            onClick={clearMessages}
                         />
                     </div>
                     <NotificacionPatentes />
