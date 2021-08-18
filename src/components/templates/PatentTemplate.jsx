@@ -105,6 +105,7 @@ export default function PatentTemplate() {
                 showMessage(txtMessageSearchSuccess);
             })
             .catch((err) => {
+                setShowDialog(false);
                 showMessage(txtMessageSearchError);
                 console.log(err);
             });

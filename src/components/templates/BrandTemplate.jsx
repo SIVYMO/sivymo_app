@@ -99,6 +99,7 @@ export default function BrandTemplate() {
                 showMessage(txtMessageSearchSuccess);
             })
             .catch((err) => {
+                setShowDialog(false);
                 showMessage(txtMessageSearchError);
                 console.log(err);
             });
