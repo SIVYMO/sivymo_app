@@ -48,7 +48,6 @@ import "moment/locale/es";
 moment.locale("es");
 
 export default function CrudUsers() {
-    // ? Objeto con estructura de un usuario
     let emptyUser = {
         nombre: "",
         primerApellido: "",
@@ -58,29 +57,22 @@ export default function CrudUsers() {
         superAdmin: false,
     };
 
-    // ? State de lista de usuarios
     const [users, setUsers] = useState([]);
-    const [userInfo, setUserInfo] = useState({});
-    //? Demás states
     const [userDialog, setUserDialog] = useState(false);
     const [deleteUserDialog, setDeleteUserDialog] = useState(false);
     const [selectedUsers, setSelectedUsers] = useState(null);
     const [globalFilter, setGlobalFilter] = useState(null);
     const [user, setUser] = useState(emptyUser);
     const [saveOrUpdate, setSaveOrUpdate] = useState(false);
+    const [detailsUser, setDetailsUser] = useState(false);
+    const [detailUserChange, setDetailUserChange] = useState({});
     const toast = useRef(null);
     const dt = useRef(null);
 
     useEffect(() => {
         getAll();
-        getPersonalInformation();
     }, []);
 
-    function getPersonalInformation() {
-        setUserInfo(JSON.parse(localStorage.getItem("userActive")));
-    }
-
-    // * Métodos CRUD
     function getAll() {
         UsuarioService.getAll()
             .then((response) => {
@@ -93,10 +85,9 @@ export default function CrudUsers() {
     }
 
     function insertOne(user) {
-        console.log(user);
         UsuarioService.insertOne(user)
             .then((response) => {
-                console.log(response.data);
+                setDetailUserChange(response.data);
                 getAll();
                 showMessage(txtMessageUserSuccess);
             })
@@ -138,35 +129,34 @@ export default function CrudUsers() {
         UsuarioService.resetPassword(email)
             .then((response) => {
                 if (response.data) {
+                    setDetailUserChange(response.data);
+                    hideDetailsUser();
                     showMessage(txtMessageUserPasswordReset);
                 } else {
                     showMessage(txtMessageErrorGeneral);
                 }
             })
             .catch((err) => {
-                console.error(err);
                 showMessage(txtMessageErrorGeneral);
             });
     }
 
-    // ? Al dar click al boton de usuario nuevo mapea un nuevo usuario
     const openNew = () => {
         setUser(emptyUser);
         setUserDialog(true);
         setSaveOrUpdate(true);
     };
 
-    // ? Oculta dialogo del formulario del usuario
     const hideDialog = () => {
         setUserDialog(false);
     };
 
-    // ? Oculta dialogo del mensaje eliminación del usuario
     const hideDeleteUserDialog = () => {
         setDeleteUserDialog(false);
     };
 
-    // ? Se ejecuta cuando se guarda el formulario
+    const hideDetailsUser = () => setDetailsUser(!detailsUser);
+
     const saveUser = () => {
         const {
             nombre,
@@ -186,6 +176,7 @@ export default function CrudUsers() {
         ) {
             if (saveOrUpdate) {
                 insertOne(user);
+                hideDetailsUser();
             } else {
                 updateOne(user);
             }
@@ -197,43 +188,38 @@ export default function CrudUsers() {
         setUser(emptyUser);
     };
 
-    // ? Al dar click al boton del lápiz mapea los datos al formulario del usuario
     const editUser = (user) => {
         setUser({ ...user });
         setUserDialog(true);
     };
 
-    // ? Mensaje de eliminación cuando se da click en el bote de basura
     const confirmDeleteUser = (user) => {
         setUser(user);
         setDeleteUserDialog(true);
     };
 
-    // ? Aqui procedemos a elimiar el usuario, ya tenemos los datos
     const deleteUser = () => {
         removeOne(user.correo);
         setDeleteUserDialog(false);
         setUser(emptyUser);
     };
 
-    // ? Aqui se exporta la tabla a CSV
     const exportCSV = () => {
         dt.current.exportCSV();
     };
 
-    // ? Se procede a cambiar la contraseña de ese usuario
     const resetPassword = (user) => {
         resetPasswordUser(user.correo);
         toast.current.clear();
+        /*
         if (Validations.validateSameEmail(user.correo, userInfo.correo)) {
             setTimeout(() => {
                 localStorage.clear();
                 window.location = "/";
             }, 3000);
-        }
+        }*/
     };
 
-    //? Confirmar al restablecer la contraseña
     const showConfirmResetPassword = (rowData) => {
         toast.current.show({
             severity: "warn",
@@ -273,7 +259,6 @@ export default function CrudUsers() {
         });
     };
 
-    //? Muestra los mensajes de los Toast
     const showMessage = ({ type, title, description }) => {
         toast.current.show({
             severity: type,
@@ -283,7 +268,6 @@ export default function CrudUsers() {
         });
     };
 
-    //? Muestra la columna de las acciones de modificar y eliminar
     const actionBodyTemplate = (rowData) => {
         return (
             <React.Fragment>
@@ -306,7 +290,6 @@ export default function CrudUsers() {
         );
     };
 
-    //? Muestra la columna de si es super administrador
     const adminBodyTemplate = (rowData) => {
         return (
             <React.Fragment>
@@ -323,7 +306,6 @@ export default function CrudUsers() {
         );
     };
 
-    // ? Muestra la columna  de fecha de nacimiento
     const dateBirthBodyTemplane = (rowData) => {
         return (
             <React.Fragment>
@@ -332,7 +314,6 @@ export default function CrudUsers() {
         );
     };
 
-    //? Muestra los botones de la parte de abajo del formulario del usuario
     const userDialogFooter = (
         <React.Fragment>
             <Button
@@ -350,7 +331,6 @@ export default function CrudUsers() {
         </React.Fragment>
     );
 
-    //? Muestra los botones de la parte de abajo de la eliminación del usuario
     const deleteUserDialogFooter = (
         <React.Fragment>
             <Button
@@ -368,7 +348,6 @@ export default function CrudUsers() {
         </React.Fragment>
     );
 
-    //? Muestra el boton de nuevo usuario
     const leftToolbarTemplate = () => {
         return (
             <React.Fragment>
@@ -382,7 +361,6 @@ export default function CrudUsers() {
         );
     };
 
-    //? Muestra el boton de exportar
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
@@ -397,7 +375,6 @@ export default function CrudUsers() {
         );
     };
 
-    //? Muestra el campo para hacer busquedass
     const header = (
         <div className="table-header">
             <span className="p-input-icon-left">
@@ -637,6 +614,43 @@ export default function CrudUsers() {
                     >
                         <div className="confirmation-content">
                             {txtDeleteUserContent}
+                        </div>
+                    </Dialog>
+
+                    <Dialog
+                        visible={detailsUser}
+                        style={{ width: "450px" }}
+                        header={"Detalles de usuario"}
+                        draggable={false}
+                        onHide={hideDetailsUser}
+                        footer={
+                            <Button
+                                label="¡Listo!"
+                                className="p-button-success"
+                                onClick={hideDetailsUser}
+                            />
+                        }
+                    >
+                        <div>
+                            Nombre completo:{" "}
+                            <span>{`${detailUserChange.nombre} ${detailUserChange.primerApellido} ${detailUserChange.segundoApellido}`}</span>
+                        </div>
+                        <div>
+                            Fecha de nacimiento:{" "}
+                            <span>{`${detailUserChange.fechaDeNacimiento}`}</span>
+                        </div>
+                        <div>
+                            Correo: <span>{`${detailUserChange.correo}`}</span>
+                        </div>
+                        <div>
+                            Contraseña creada:{" "}
+                            <span>{`${detailUserChange.contrasena}`}</span>
+                            <p>
+                                <i>
+                                    Favor de guardar y cambiar la contraseña más
+                                    tarde
+                                </i>
+                            </p>
                         </div>
                     </Dialog>
                 </div>

@@ -280,9 +280,6 @@ export default function PersonalData() {
                                     fechaDeNacimiento: result,
                                 });
                             }}
-                            className={
-                                !userInfo.fechaDeNacimiento && "p-invalid"
-                            }
                         />
                         {!userInfo.fechaDeNacimiento && (
                             <small
@@ -356,9 +353,6 @@ export default function PersonalData() {
                                     contraseñaActual: e.target.value,
                                 });
                             }}
-                            className={
-                                !userPassword.contraseñaActual && "p-invalid"
-                            }
                         />
                         {!userPassword.contraseñaActual && (
                             <small
@@ -387,9 +381,6 @@ export default function PersonalData() {
                                     nuevaContraseña: e.target.value,
                                 });
                             }}
-                            className={
-                                !userPassword.nuevaContraseña && "p-invalid"
-                            }
                         />
                         {!userPassword.nuevaContraseña && (
                             <small
@@ -418,10 +409,6 @@ export default function PersonalData() {
                                     repetirNuevaContraseña: e.target.value,
                                 });
                             }}
-                            className={
-                                !userPassword.repetirNuevaContraseña &&
-                                "p-invalid"
-                            }
                         />
                         {!userPassword.repetirNuevaContraseña && (
                             <small

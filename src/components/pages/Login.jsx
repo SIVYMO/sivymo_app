@@ -5,43 +5,30 @@ import logonovopatent from "../../assets/img/logonovopatent.jpg";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Button } from "primereact/button";
-import { Dialog } from "primereact/dialog";
 import { Toast } from "primereact/toast";
 import {
     txtAltLogoImg,
-    txtCodeMustBe,
     txtEmailValid,
     txtPasswordValid,
-    txtCodeValid,
-    txtMessageSucces,
-    txtMessageError,
     txtLogin,
     txtFillFields,
     txtEmailLabel,
     txtPasswordLabel,
     txtLoginButton,
-    txtCodeVerification,
-    txtCodeVerificationLabel,
-    txtCancelButton,
-    txtVerifyButton,
-    txtMessageLoginError
+    txtMessageLoginError,
+    txtMessageSucces,
 } from "../../utils/Strings";
-import useLogin from '../CustomHooks/useLogin'
+import useLogin from "../CustomHooks/useLogin";
 import UsuarioService from "../../service/UsuarioService";
 
 export default function Login() {
     const [emailInput, setEmailInput] = useState("");
     const [passwordInput, setPasswordInput] = useState("");
-    const [codeInput, setCodeInput] = useState("");
     const [emailErrorSms, setEmailErrorSms] = useState("");
     const [passwordErrorSms, setPasswordErrorSms] = useState("");
-    const [codeErrorSms, setCodeErrorSms] = useState(txtCodeMustBe);
     const [emailUIError, setEmailUIError] = useState("p-d-block");
     const [passwordUIError, setPasswordUIError] = useState("p-d-block");
-    const [codeUIError, setCodeUIError] = useState("p-inputtext-lg p-d-block");
-    const [showDialog, setShowDialog] = useState(false);
     const toastMessages = useRef(null);
-    const [userData, setUserData] = useState({});
 
     useEffect(() => {
         // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -72,44 +59,31 @@ export default function Login() {
                 correo: emailInput,
                 contrasena: passwordInput,
             };
-            showMessage({ type: "info", title: "Cargando...", description: "Por favor espere" });
+            showMessage({
+                type: "info",
+                title: "Cargando...",
+                description: "Por favor espere",
+            });
             UsuarioService.login(userLogin)
                 .then((response) => {
                     clearMessages();
-                    setUserData(response.data);
-                    changeStateDialog(true);
+                    localStorage.setItem(
+                        "userActive",
+                        JSON.stringify(response.data.usuario)
+                    );
+                    showMessage(txtMessageSucces);
+                    window.location = "/inicio";
                 })
                 .catch((err) => {
                     clearMessages();
-                    showMessage(txtMessageLoginError)
+                    showMessage(txtMessageLoginError);
                 });
         }
     };
 
-    const changeStateDialog = (b) => {
-        setShowDialog(b);
-    };
-
-    const verifyCode = () => {
-        if (codeInput.length <= 7) {
-            setCodeErrorSms(txtCodeValid);
-            setCodeUIError("p-invalid p-inputtext-lg p-d-block");
-        } else {
-            setCodeErrorSms(txtCodeMustBe);
-            setCodeUIError("p-inputtext-lg p-d-block");
-            if (codeInput === userData.codigo) {
-                localStorage.setItem("userActive", JSON.stringify(userData.usuario));
-                showMessage(txtMessageSucces);
-                window.location = "/inicio";
-            } else {
-                showMessage(txtMessageError);
-            }
-        }
-    };
-
-    const clearMessages = ()=>{
+    const clearMessages = () => {
         toastMessages.current.clear();
-    }
+    };
 
     const showMessage = ({ type, title, description }) => {
         toastMessages.current.show({
@@ -122,6 +96,7 @@ export default function Login() {
 
     return (
         <div className="pagelogin">
+            <Toast ref={toastMessages} />
             <div className="p-d-flex p-jc-center">
                 <div className="p-col-12 p-md-6 p-lg-4 p-mt-6 card p-shadow-11">
                     <div className="p-col p-p-0 p-text-center">
@@ -205,67 +180,6 @@ export default function Login() {
                         </div>
                     </div>
                 </div>
-                <Toast ref={toastMessages} />
-                <Dialog
-                    showHeader={false}
-                    visible={showDialog}
-                    className="p-col-12 p-md-6 p-lg-4 p-mt-6"
-                    draggable={false}
-                    closable={false}
-                    onHide={() => {}}
-                >
-                    <div>
-                        <p
-                            className="p-text-center"
-                            style={{ fontSize: "1.2em", fontWeight: "500" }}
-                        >
-                            {txtCodeVerification}
-                        </p>
-                        <div className="p-fluid">
-                            <div className="p-field">
-                                <InputText
-                                    id="codeInput"
-                                    type="text"
-                                    className={codeUIError}
-                                    placeholder={txtCodeVerificationLabel}
-                                    maxLength="8"
-                                    value={codeInput}
-                                    onChange={(e) => {
-                                        setCodeInput(e.target.value);
-                                    }}
-                                />
-                                <small
-                                    id="codeInput-help"
-                                    className=" p-d-block"
-                                >
-                                    {codeErrorSms}
-                                </small>
-                                <div className="p-mt-2">¿No ves el correo?, quizá esta en spam o intenta ver todos los correos</div>
-                            </div>
-                        </div>
-
-                        <div className="p-d-flex p-jc-center">
-                            <div className="p-mr-2">
-                                <Button
-                                    label={txtCancelButton}
-                                    className="p-button-danger"
-                                    onClick={() => {
-                                        changeStateDialog(false);
-                                    }}
-                                />
-                            </div>
-                            <div className="p-mr-2 ">
-                                <Button
-                                    label={txtVerifyButton}
-                                    className="p-button-success"
-                                    onClick={() => {
-                                        verifyCode();
-                                    }}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </Dialog>
             </div>
         </div>
     );
