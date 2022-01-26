@@ -19,6 +19,7 @@ import {
 } from "../../utils/Strings";
 import moment from "moment";
 import "moment/locale/es";
+
 moment.locale("es");
 
 export default function ClientsTemplate() {
@@ -69,7 +70,6 @@ export default function ClientsTemplate() {
         clearMessageLoading();
     };
 
-    // ? Para ser visto de manera visual y para ser visto en formato json
     const toCapitalize = (s) => {
         let r = s.replaceAll(" ", "_");
         let c = r.charAt(0).toLowerCase() + r.slice(1);
@@ -150,7 +150,6 @@ export default function ClientsTemplate() {
                 showMessage(txtMessageErrorGeneral);
                 return;
             });
-        console.log("Termino otro");
     };
 
     //? Muestra los mensajes de los Toast
@@ -189,7 +188,7 @@ export default function ClientsTemplate() {
                             mode="basic"
                             name="demo[]"
                             auto
-                            url="https://primefaces.org/primereact/showcase/upload.php"
+                            url="https://sivymoapi.herokuapp.com/novopatent-api/uploadFake"
                             accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                             className="p-mr-2"
                             onUpload={importExcel}
