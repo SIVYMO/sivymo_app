@@ -61,7 +61,7 @@ export default function CrudUsers() {
     const [userDialog, setUserDialog] = useState(false);
     const [deleteUserDialog, setDeleteUserDialog] = useState(false);
     const [selectedUsers, setSelectedUsers] = useState(null);
-    const [globalFilter, setGlobalFilter] = useState(null);
+    const [globalFilter, setGlobalFilter] = useState("");
     const [user, setUser] = useState(emptyUser);
     const [saveOrUpdate, setSaveOrUpdate] = useState(false);
     const [detailsUser, setDetailsUser] = useState(false);
@@ -211,13 +211,6 @@ export default function CrudUsers() {
     const resetPassword = (user) => {
         resetPasswordUser(user.correo);
         toast.current.clear();
-        /*
-        if (Validations.validateSameEmail(user.correo, userInfo.correo)) {
-            setTimeout(() => {
-                localStorage.clear();
-                window.location = "/";
-            }, 3000);
-        }*/
     };
 
     const showConfirmResetPassword = (rowData) => {
@@ -637,7 +630,7 @@ export default function CrudUsers() {
                         </div>
                         <div>
                             Fecha de nacimiento:{" "}
-                            <span>{`${detailUserChange.fechaDeNacimiento}`}</span>
+                            <span>{`${moment(detailUserChange.fechaDeNacimiento).format("LLL") }`}</span>
                         </div>
                         <div>
                             Correo: <span>{`${detailUserChange.correo}`}</span>

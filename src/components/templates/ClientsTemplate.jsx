@@ -121,7 +121,6 @@ export default function ClientsTemplate() {
         await ClienteService.insertOne(m1)
             .then((response) => {
                 if (response.data) {
-                    console.log(response.data);
                 } else {
                     showMessage(txtMessageErrorGeneral);
                 }
@@ -135,7 +134,6 @@ export default function ClientsTemplate() {
         await ClienteService.insertTwo(m2)
             .then((response) => {
                 clearMessageLoading();
-                console.log(response.data);
                 if (response.data) {
                     saveHistory();
                     clear();
@@ -152,7 +150,6 @@ export default function ClientsTemplate() {
             });
     };
 
-    //? Muestra los mensajes de los Toast
     const showMessage = ({ type, title, description }) => {
         toast.current.show({
             severity: type,
