@@ -21,7 +21,7 @@
         "web-vitals": "^1.0.1",
         "xlsx": "^0.17.0"
     },
-    "homepage": "sivymo_app/",
+    "homepage": "https://sivymo.github.io/sivymo_app/",
     "scripts": {
         "predeploy": "npm run build",
         "deploy": "gh-pages -d build",
