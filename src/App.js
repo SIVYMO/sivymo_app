@@ -5,7 +5,7 @@ import "primeflex/primeflex.css";
 import React from "react";
 import { locale, addLocale } from "primereact/api";
 import { localLocation } from "./utils/Strings";
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./components/pages/Login";
 import HomePage from "./components/pages/HomePage";
 import PatentPage from "./components/pages/PatentPage";
