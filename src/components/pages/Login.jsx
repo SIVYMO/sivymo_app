@@ -72,7 +72,7 @@ export default function Login() {
                         JSON.stringify(response.data.usuario)
                     );
                     showMessage(txtMessageSucces);
-                    window.location = "/inicio";
+                    window.location = "/sivymo_app/#/inicio";
                 })
                 .catch((err) => {
                     clearMessages();

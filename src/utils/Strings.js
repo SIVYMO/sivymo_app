@@ -70,35 +70,35 @@ export const txtConfirmExit = "¿Estás seguro de salir del sistema?",
             label: "Inicio",
             icon: "pi pi-fw pi-home",
             command: () => {
-                window.location = "/inicio";
+                window.location = "/sivymo_app/#/inicio";
             },
         },
         {
             label: "Patentes",
             icon: "pi pi-fw pi-file",
             command: () => {
-                window.location = "/patentes";
+                window.location = "/sivymo_app/#/patentes";
             },
         },
         {
             label: "Marcas",
             icon: "pi pi-fw pi-globe",
             command: () => {
-                window.location = "/marcas";
+                window.location = "/sivymo_app/#/marcas";
             },
         },
         {
             label: "Expedientes",
             icon: "pi pi-fw pi-id-card",
             command: () => {
-                window.location = "/expedientes";
+                window.location = "/sivymo_app/#/expedientes";
             },
         },
         {
             label: "Perfil",
             icon: "pi pi-fw pi-user",
             command: () => {
-                window.location = "/perfil";
+                window.location = "/sivymo_app/#/perfil";
             },
         },
     ],
