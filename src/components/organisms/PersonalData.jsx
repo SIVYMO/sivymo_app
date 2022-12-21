@@ -63,7 +63,7 @@ export default function PersonalData() {
                 if (response.data) {
                     showMessage(txtMessageUserPasswordSuccess);
                     localStorage.clear();
-                    window.location = "/sivymo_app/";
+                    window.location = "/";
                 } else {
                     txtMessageErrorGeneral.description = txtCheckPasswords;
                     showMessage(txtMessageErrorGeneral);
