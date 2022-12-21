@@ -16,7 +16,8 @@ export default function MenuTop() {
             rejectClassName: "p-button-plain p-button-text",
             accept: () => {
                 localStorage.clear();
-                window.location= "/sivymo_app/#/"
+                window.location= "https://sivymo.github.io/sivymo_app/#/"
+                
             },
             reject: () => {},
         });
