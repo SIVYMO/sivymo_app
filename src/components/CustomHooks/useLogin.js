@@ -1,5 +1,5 @@
 export default function useLogin() {
-    if (localStorage.key("userActive") !== null) {
+    if (localStorage.getItem("userActive") !== null) {
         window.location = "/sivymo_app/#/inicio";
     }
 }
