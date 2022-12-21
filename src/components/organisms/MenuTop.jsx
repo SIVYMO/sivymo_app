@@ -16,7 +16,7 @@ export default function MenuTop() {
             rejectClassName: "p-button-plain p-button-text",
             accept: () => {
                 localStorage.clear();
-                window.location= "/"
+                window.location= "/sivymo_app"
             },
             reject: () => {},
         });
@@ -28,7 +28,7 @@ export default function MenuTop() {
             src={logonovopatent}
             height="50"
             className="p-mr-2"
-            onClick={() => { window.location = "/inicio"}}
+            onClick={() => { window.location = "/sivymo_app/inicio"}}
         />
     );
 
