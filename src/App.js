@@ -20,7 +20,7 @@ export default function App() {
     return (
         <Router>
             <Switch>
-                <Route path="/sivymo_app/" exact component={Login} />
+                <Route path="/" exact component={Login} />
                 <Route path="/sivymo_app/inicio" component={HomePage} />
                 <Route path="/sivymo_app/patentes" component={PatentPage} />
                 <Route path="/sivymo_app/marcas" component={BrandPage} />
