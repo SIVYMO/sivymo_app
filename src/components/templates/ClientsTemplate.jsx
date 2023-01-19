@@ -145,6 +145,7 @@ export default function ClientsTemplate() {
             .catch((err) => {
                 clearMessageLoading();
                 console.error(err);
+                
                 showMessage(txtMessageErrorGeneral);
                 return;
             });
