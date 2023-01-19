@@ -185,7 +185,7 @@ export default function ClientsTemplate() {
                             mode="basic"
                             name="demo[]"
                             auto
-                            url="https://sivymoapi.herokuapp.com/novopatent-api/uploadFake"
+                            url="https://sivymoapi-production.up.railway.app/novopatent-api/uploadFake"
                             accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                             className="p-mr-2"
                             onUpload={importExcel}
