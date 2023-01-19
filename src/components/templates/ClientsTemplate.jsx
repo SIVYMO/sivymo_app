@@ -188,7 +188,6 @@ export default function ClientsTemplate() {
                             className="p-mr-2"
                             onUpload={importExcel}
                         />
-
                         <Button
                             type="button"
                             label={txtClearButton}
