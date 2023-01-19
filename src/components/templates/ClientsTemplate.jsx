@@ -171,9 +171,7 @@ export default function ClientsTemplate() {
                     <h1>{txtTitleClients}</h1>
                     <div>
                         {txtLastUpdateClients}
-                        {moment(resume.ultimaModificacionClientes).format(
-                            "LLLL"
-                        )}
+                        {moment(resume.ultimaModificacionClientes).format( "LLLL" )}
                     </div>
                     <div className="p-d-flex p-ai-center p-py-2">
                         <FileUpload
