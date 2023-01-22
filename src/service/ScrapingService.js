@@ -1,12 +1,12 @@
-import api from "./apiScraping";
+import API from "./APIScraping";
 
 class ScrapingService {
     getPatentes(obj) {
-        return api.post("/patentes", obj);
+        return API.post("/patentes", obj);
     }
 
     getMarcas(obj) {
-        return api.post("marcas", obj);
+        return API.post("marcas", obj);
     }
 }
 

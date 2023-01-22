@@ -1,13 +1,11 @@
-import React,{useEffect} from "react";
-import useActive from '../CustomHooks/useActive'
+import React from "react";
 import PatentTemplate from "../templates/PatentTemplate";
 import MenuTop from "../organisms/MenuTop";
+import {useHistory} from "react-router-dom";
 
 export default function PatentPage() {
-    useEffect(() => {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        useActive()
-    }, [])
+    const history = useHistory();
+    if (localStorage.getItem("userActive") === null) history.push("/");
     return (
         <>
             <MenuTop />

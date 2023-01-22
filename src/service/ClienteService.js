@@ -1,21 +1,17 @@
-import api from "./api";
+import API from "./API";
 
 class ClienteService {
-     getAll(){
-          return api.get("/clients");
-     }
+    getAll() {
+        return API.get("/clients");
+    }
 
-     insertOne(obj){
-          return api.post("/clientsOne", obj);
-     }
+    insertAll(obj) {
+        return API.post("/clientsAll", obj);
+    }
 
-     insertTwo(obj){
-          return api.post("/clientsTwo", obj);
-     }
+    insertOne(obj) {
+        return API.post("/clientsOne", obj);
+    }
 
-     removeAll(){
-          return api.delete("/clients")
-     }
 }
-
 export default new ClienteService();

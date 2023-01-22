@@ -1,25 +1,62 @@
 import React from "react";
 import logonovopatent from "../../assets/img/logonovopatent.jpg";
-import { Menubar } from "primereact/menubar";
-import { Button } from "primereact/button";
-import { confirmDialog } from "primereact/confirmdialog";
-import { txtConfirmExit, txtExit, txtAltLogoImg, txtLogoutButton } from "../../utils/Strings";
-import {itemsMenuTop} from '../../utils/Strings'
+import {Menubar} from "primereact/menubar";
+import {Button} from "primereact/button";
+import {confirmDialog} from "primereact/confirmdialog";
+import {txtConfirmExit, txtExit, txtAltLogoImg, txtLogoutButton} from "../../utils/Strings";
+import {useHistory} from "react-router-dom";
 
 export default function MenuTop() {
+    const history = useHistory();
+    const itemsMenuTop = [
+        {
+            label: "Inicio",
+            icon: "pi pi-fw pi-home",
+            command: () => {
+                history.push("/inicio");
+            },
+        },
+        {
+            label: "Patentes",
+            icon: "pi pi-fw pi-file",
+            command: () => {
+                history.push("/patentes");
+            },
+        },
+        {
+            label: "Marcas",
+            icon: "pi pi-fw pi-globe",
+            command: () => {
+                history.push("/marcas");
+            },
+        },
+        {
+            label: "Expedientes",
+            icon: "pi pi-fw pi-id-card",
+            command: () => {
+                history.push("/expedientes");
+            },
+        },
+        {
+            label: "Perfil",
+            icon: "pi pi-fw pi-user",
+            command: () => {
+                history.push("/perfil");
+            },
+        },
+    ];
+
     const confirmLogout = () => {
         confirmDialog({
             message: txtConfirmExit,
             header: txtExit,
             icon: "pi pi-exclamation-triangle",
-            acceptClassName:"p-button-success",
+            acceptClassName: "p-button-success",
             rejectClassName: "p-button-plain p-button-text",
             accept: () => {
                 localStorage.clear();
-                window.location= "https://sivymo.github.io/sivymo_app/#/"
-                
+                history.push("/");
             },
-            reject: () => {},
         });
     };
 
@@ -29,7 +66,7 @@ export default function MenuTop() {
             src={logonovopatent}
             height="50"
             className="p-mr-2"
-            onClick={() => { window.location = "/sivymo_app/#/inicio"}}
+            onClick={() => {history.push("/inicio");}}
         />
     );
 
@@ -46,7 +83,7 @@ export default function MenuTop() {
         <div className="p-grid p-m-1">
             <div className="p-col">
                 <div className="card">
-                    <Menubar model={itemsMenuTop} start={start} end={end} />
+                    <Menubar model={itemsMenuTop} start={start} end={end}/>
                 </div>
             </div>
         </div>

@@ -58,67 +58,27 @@ export const backgroundWallpaper = "Fondo de portada",
     txtWelcome = "Hola, bienvenido(a) de nuevo",
     txtLastQueryPatent = "Última búsqueda de patentes: ",
     txtLastQueryBrand = "Última búsqueda de marcas: ",
-    txtLastQueryEjemplares = "Última búsqueda de ejemplares extraordinarios: ",
     txtLastUpdateClients = "Última actualización en expedientes: ",
     txtBadgeClients ="Ingresar expedientes para poder realizar consultas";
 
 // ? MenuTop.jsx
 export const txtConfirmExit = "¿Estás seguro de salir del sistema?",
     txtExit = "Salir",
-    itemsMenuTop = [
-        {
-            label: "Inicio",
-            icon: "pi pi-fw pi-home",
-            command: () => {
-                window.location = "/sivymo_app/#/inicio";
-            },
-        },
-        {
-            label: "Patentes",
-            icon: "pi pi-fw pi-file",
-            command: () => {
-                window.location = "/sivymo_app/#/patentes";
-            },
-        },
-        {
-            label: "Marcas",
-            icon: "pi pi-fw pi-globe",
-            command: () => {
-                window.location = "/sivymo_app/#/marcas";
-            },
-        },
-        {
-            label: "Expedientes",
-            icon: "pi pi-fw pi-id-card",
-            command: () => {
-                window.location = "/sivymo_app/#/expedientes";
-            },
-        },
-        {
-            label: "Perfil",
-            icon: "pi pi-fw pi-user",
-            command: () => {
-                window.location = "/sivymo_app/#/perfil";
-            },
-        },
-    ],
     txtAltLogoImg = "Logo Novopatent",
     txtLogoutButton = "Salir";
 
 // ? Login.jsx
-export const txtCodeMustBe = "El código es de 8 caracteres",
-    txtEmailValid = "El email no debe estar vacío y debe ser válido",
+export const txtEmailValid = "El email no debe estar vacío y debe ser válido",
     txtPasswordValid = "La contraseña no debe estar vacía",
-    txtCodeValid = "El código no debe estar vacío o ser menor a 8 caracteres",
     txtMessageSucces = {
         type: "success",
         title: "El código es correcto",
         description: "Redirigiendo...",
     },
-    txtMessageError = {
-        type: "error",
-        title: "El código es incorrecto",
-        description: "Por favor verifíquelo nuevamente",
+    txtMessageLoading = {
+        type: "info",
+        title: "Cargando...",
+        description: "Por favor espere",
     },
     txtLogin = "Inicio de sesión",
     txtFillFields = "Favor de llenar todos los campos",
@@ -178,7 +138,7 @@ export const txtMessageUserSuccess = {
     txtMessageErrorGeneral = {
         type: "error",
         title: "No se ejecutó la operación",
-        description: "Intentar de nuevo",
+        description: "Intente de nuevo",
     },
     txtTitlePersonalData = "Tu información",
     txtNameLabel = "Nombre:",

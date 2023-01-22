@@ -1,8 +1,8 @@
-import api from './api'
+import API from './API'
 
 class ResumeService{
      getResume(){
-          return api.get("/resume")
+          return API.get("/resume")
      }
 }
 

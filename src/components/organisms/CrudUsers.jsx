@@ -1,15 +1,14 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useRef, useEffect } from "react";
-import { InputText } from "primereact/inputtext";
-import { Calendar } from "primereact/calendar";
-import { Button } from "primereact/button";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-import { Toast } from "primereact/toast";
-import { Toolbar } from "primereact/toolbar";
-import { InputSwitch } from "primereact/inputswitch";
-import { Dialog } from "primereact/dialog";
-import { Badge } from "primereact/badge";
+import React, {useState, useRef, useEffect} from "react";
+import {InputText} from "primereact/inputtext";
+import {Calendar} from "primereact/calendar";
+import {Button} from "primereact/button";
+import {DataTable} from "primereact/datatable";
+import {Column} from "primereact/column";
+import {Toast} from "primereact/toast";
+import {Toolbar} from "primereact/toolbar";
+import {InputSwitch} from "primereact/inputswitch";
+import {Dialog} from "primereact/dialog";
+import {Badge} from "primereact/badge";
 import Validations from "../../utils/Validations";
 import {
     txtMessageUserSuccess,
@@ -45,6 +44,7 @@ import {
 import UsuarioService from "../../service/UsuarioService";
 import moment from "moment";
 import "moment/locale/es";
+
 moment.locale("es");
 
 export default function CrudUsers() {
@@ -73,7 +73,7 @@ export default function CrudUsers() {
         getAll();
     }, []);
 
-    function getAll() {
+    const getAll = ()=> {
         UsuarioService.getAll()
             .then((response) => {
                 setUsers(response.data);
@@ -137,6 +137,7 @@ export default function CrudUsers() {
                 }
             })
             .catch((err) => {
+                console.error(err);
                 showMessage(txtMessageErrorGeneral);
             });
     }
@@ -189,7 +190,7 @@ export default function CrudUsers() {
     };
 
     const editUser = (user) => {
-        setUser({ ...user });
+        setUser({...user});
         setUserDialog(true);
     };
 
@@ -218,12 +219,9 @@ export default function CrudUsers() {
             severity: "warn",
             sticky: true,
             content: (
-                <div className="p-flex p-flex-column" style={{ flex: "1" }}>
+                <div className="p-flex p-flex-column" style={{flex: "1"}}>
                     <div className="p-text-center">
-                        <i
-                            className="pi pi-exclamation-triangle"
-                            style={{ fontSize: "3rem" }}
-                        ></i>
+                        <i className="pi pi-exclamation-triangle" style={{fontSize: "3rem"}}></i>
                         <h4>{txtRestartPasswordTitle}</h4>
                         <p>{txtRestartPasswordContent}</p>
                     </div>
@@ -252,7 +250,7 @@ export default function CrudUsers() {
         });
     };
 
-    const showMessage = ({ type, title, description }) => {
+    const showMessage = ({type, title, description}) => {
         toast.current.show({
             severity: type,
             summary: title,
@@ -287,13 +285,9 @@ export default function CrudUsers() {
         return (
             <React.Fragment>
                 {rowData.superAdmin ? (
-                    <Badge
-                        value={txtYES}
-                        severity="success"
-                        className="p-mr-2"
-                    />
+                    <Badge value={txtYES} severity="success" className="p-mr-2"/>
                 ) : (
-                    <Badge value={txtNO} className="p-mr-2" severity="danger" />
+                    <Badge value={txtNO} className="p-mr-2" severity="danger"/>
                 )}
             </React.Fragment>
         );
@@ -361,7 +355,7 @@ export default function CrudUsers() {
                     label={txtExport}
                     icon="pi pi-download"
                     className="p-button"
-                    style={{ backgroundColor: "var(--teal-600)" }}
+                    style={{backgroundColor: "var(--teal-600)"}}
                     onClick={exportCSV}
                 />
             </React.Fragment>
@@ -371,7 +365,7 @@ export default function CrudUsers() {
     const header = (
         <div className="table-header">
             <span className="p-input-icon-left">
-                <i className="pi pi-search" />
+                <i className="pi pi-search"/>
                 <InputText
                     type="search"
                     value={globalFilter}
@@ -384,7 +378,7 @@ export default function CrudUsers() {
 
     return (
         <div className="p-grid">
-            <Toast ref={toast} />
+            <Toast ref={toast}/>
             <div className="p-col p-p-3">
                 <h2>{txtTitleCrud}</h2>
                 <div className="card">
@@ -407,7 +401,7 @@ export default function CrudUsers() {
                         header={header}
                         emptyMessage="Sin ningun usuario aún"
                     >
-                        <Column field="nombre" header="Nombre" sortable />
+                        <Column field="nombre" header="Nombre" sortable/>
                         <Column
                             field="primerApellido"
                             header="Primer apellido"
@@ -434,19 +428,16 @@ export default function CrudUsers() {
                             header="Super administrador"
                             body={adminBodyTemplate}
                         />
-
-                        <Column header="Acciones" body={actionBodyTemplate} />
+                        <Column header="Acciones" body={actionBodyTemplate}/>
                     </DataTable>
-
                     <Dialog
                         visible={userDialog}
-                        style={{ width: "450px" }}
+                        style={{width: "450px"}}
                         header={txtUserDetails}
                         modal
                         className="p-fluid"
                         footer={userDialogFooter}
-                        onHide={hideDialog}
-                    >
+                        onHide={hideDialog}>
                         <div className="p-fluid">
                             <div className="p-field">
                                 <label htmlFor="nombre">{txtNameLabel}</label>
@@ -464,10 +455,7 @@ export default function CrudUsers() {
                                     className={!user.nombre && "p-invalid"}
                                 />
                                 {!user.nombre && (
-                                    <small
-                                        id="nombre-help"
-                                        className="p-error p-d-block"
-                                    >
+                                    <small id="nombre-help" className="p-error p-d-block">
                                         {txtNameHelp}
                                     </small>
                                 )}
@@ -487,15 +475,10 @@ export default function CrudUsers() {
                                             primerApellido: e.target.value,
                                         });
                                     }}
-                                    className={
-                                        !user.primerApellido && "p-invalid"
-                                    }
+                                    className={!user.primerApellido && "p-invalid"}
                                 />
                                 {!user.primerApellido && (
-                                    <small
-                                        id="primerApellido-help"
-                                        className="p-error p-d-block"
-                                    >
+                                    <small id="primerApellido-help" className="p-error p-d-block">
                                         {txtFistSurnameHelp}
                                     </small>
                                 )}
@@ -545,10 +528,7 @@ export default function CrudUsers() {
                                     }}
                                 />
                                 {!user.fechaDeNacimiento && (
-                                    <small
-                                        id="fechaDeNacimiento-help"
-                                        className="p-error p-d-block"
-                                    >
+                                    <small id="fechaDeNacimiento-help" className="p-error p-d-block">
                                         {txtDateOfBirthHelp}
                                     </small>
                                 )}
@@ -569,10 +549,7 @@ export default function CrudUsers() {
                                     className={!user.correo && "p-invalid"}
                                 />
                                 {!user.correo && (
-                                    <small
-                                        id="correo-help"
-                                        className="p-error p-d-block"
-                                    >
+                                    <small id="correo-help" className="p-error p-d-block">
                                         {txtEmailHelp}
                                     </small>
                                 )}
@@ -581,7 +558,7 @@ export default function CrudUsers() {
                                 <label htmlFor="superAdmin">
                                     {txtSuperAdminLabel}
                                 </label>
-                                <br />
+                                <br/>
                                 <InputSwitch
                                     id="superAdmin"
                                     name="superAdmin"
@@ -599,12 +576,11 @@ export default function CrudUsers() {
 
                     <Dialog
                         visible={deleteUserDialog}
-                        style={{ width: "450px" }}
+                        style={{width: "450px"}}
                         header={txtDeleteUserTitle}
                         modal
                         footer={deleteUserDialogFooter}
-                        onHide={hideDeleteUserDialog}
-                    >
+                        onHide={hideDeleteUserDialog}>
                         <div className="confirmation-content">
                             {txtDeleteUserContent}
                         </div>
@@ -612,7 +588,7 @@ export default function CrudUsers() {
 
                     <Dialog
                         visible={detailsUser}
-                        style={{ width: "450px" }}
+                        style={{width: "450px"}}
                         header={"Detalles de usuario"}
                         draggable={false}
                         onHide={hideDetailsUser}
@@ -622,15 +598,14 @@ export default function CrudUsers() {
                                 className="p-button-success"
                                 onClick={hideDetailsUser}
                             />
-                        }
-                    >
+                        }>
                         <div>
                             Nombre completo:{" "}
                             <span>{`${detailUserChange.nombre} ${detailUserChange.primerApellido} ${detailUserChange.segundoApellido}`}</span>
                         </div>
                         <div>
                             Fecha de nacimiento:{" "}
-                            <span>{`${moment(detailUserChange.fechaDeNacimiento).format("LLL") }`}</span>
+                            <span>{`${moment(detailUserChange.fechaDeNacimiento).format("LLL")}`}</span>
                         </div>
                         <div>
                             Correo: <span>{`${detailUserChange.correo}`}</span>
@@ -638,12 +613,7 @@ export default function CrudUsers() {
                         <div>
                             Contraseña creada:{" "}
                             <span>{`${detailUserChange.contrasena}`}</span>
-                            <p>
-                                <i>
-                                    Favor de guardar y cambiar la contraseña más
-                                    tarde
-                                </i>
-                            </p>
+                            <p><i>Favor de guardar y cambiar la contraseña más tarde</i></p>
                         </div>
                     </Dialog>
                 </div>

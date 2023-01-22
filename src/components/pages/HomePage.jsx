@@ -1,20 +1,16 @@
-import React,{useEffect} from "react";
-import useActive from '../CustomHooks/useActive'
+import React from "react";
 import HomeTemplate from "../templates/HomeTemplate";
 import MenuTop from "../organisms/MenuTop";
+import {useHistory} from "react-router-dom";
 
 export default function HomePage() {
-    useEffect(() => {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        useActive()
-    }, [])
+    const history = useHistory();
+    if (localStorage.getItem("userActive") === null) history.push("/");
     return (
         <>
-            <MenuTop />
+            <MenuTop/>
             <div className="p-grid p-d-flex">
-                <div className="p-col-10 p-offset-1">
-                    <HomeTemplate />
-                </div>
+                <div className="p-col-10 p-offset-1"><HomeTemplate/></div>
             </div>
         </>
     );
