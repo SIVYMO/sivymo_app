@@ -14,4 +14,5 @@ class ClienteService {
     }
 
 }
+/* eslint import/no-anonymous-default-export: [2, {"allowNew": true}] */
 export default new ClienteService();

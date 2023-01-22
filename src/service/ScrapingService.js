@@ -9,5 +9,5 @@ class ScrapingService {
         return API.post("marcas", obj);
     }
 }
-
+/* eslint import/no-anonymous-default-export: [2, {"allowNew": true}] */
 export default new ScrapingService();
