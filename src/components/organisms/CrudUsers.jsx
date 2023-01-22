@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useRef, useEffect} from "react";
 import {InputText} from "primereact/inputtext";
 import {Calendar} from "primereact/calendar";
