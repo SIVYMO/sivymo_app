@@ -1,61 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import "../../assets/css/MyCustom.css";
-import { Badge } from "primereact/badge";
-import { Avatar } from "primereact/avatar";
 import {
     backgroundWallpaper,
     txtWelcome,
     txtLastQueryPatent,
     txtLastQueryBrand,
     txtLastUpdateClients,
-    txtBadgeClients,
 } from "../../utils/Strings";
 import ResumeService from "../../service/ResumeService";
 import moment from "moment";
 import "moment/locale/es";
+
 moment.locale("es");
-
-function Logo() {
-    return (
-        <img
-            src="https://picsum.photos/1080/720"
-            alt={backgroundWallpaper}
-            style={{
-                width: "100%",
-                height: "300px",
-                objectFit: "cover",
-            }}
-        />
-    );
-}
-
-function LastDateCategory({ icon, last_search_info, last_date }) {
-    return (
-        <div className="p-col-12 p-md-6 p-xl-6">
-            <div className="p-grid">
-                <div>
-                    <Avatar icon={icon} className="p-mr-2" size="xlarge" />
-                </div>
-                <div className="p-col">
-                    <div style={{ fontSize: "1.2em", fontWeight: "lighter" }}>
-                        {last_search_info}
-                    </div>
-                    <div style={{ fontSize: "1.2em", fontWeight: "bold" }}>
-                        {moment(last_date).format("LLLL")}
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-}
 
 export default function HomeTemplate() {
     const [userInfo, setUserInfo] = useState({});
-
     const [resume, setResume] = useState({
         ultimaBusquedaPatentes: "",
         ultimaBusquedaMarcas: "",
-        ultimaBusquedaEjemplares: "",
         ultimaModificacionClientes: "",
         clientesTotales: 0,
     });
@@ -63,8 +25,15 @@ export default function HomeTemplate() {
     useEffect(() => {
         getResume();
         getPersonalInformation();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+
+    const Cover = () => (
+        <img src="https://random.imagecdn.app/1080/720" alt={backgroundWallpaper}
+             style={{width: "100%", height: "300px", objectFit: "cover"}}
+        />
+    );
+
 
     function getPersonalInformation() {
         setUserInfo(JSON.parse(localStorage.getItem("userActive")));
@@ -72,69 +41,48 @@ export default function HomeTemplate() {
 
     function getResume() {
         ResumeService.getResume()
-            .then((response) => {
-                setResume({ ...response.data });
-                localStorage.setItem("resume", JSON.stringify(response.data));
+            .then(({data}) => {
+                setResume({...data});
+                localStorage.setItem("resume", JSON.stringify(data));
             })
-            .catch((err) => {
-                console.error(err);
-            });
+            .catch((err) => console.error(err));
     }
 
+    const Card = ({icon, text, value}) => (
+            <div className="p-col-12 p-sm-3 card p-shadow-2">
+                <div className="p-d-flex p-d-flex p-jc-center p-ai-center" style={{height: '200px'}}>
+                    <div className='p-text-center'>
+                        <i className={icon} style={{'fontSize': '2em'}}></i>
+                        <div className='p-mb-2 p-mt-1' style={{'fontSize': '1.5em'}}>{text}</div>
+                        <div className='p-text-bold' style={{'fontSize': '1.6em'}}>{moment(value).format("LLLL")}</div>
+                    </div>
+                </div>
+            </div>
+        );
+
     return (
-        <div>
-            <div className="p-grid">
+        <>
+            <div className="p-grid p-dir-col">
                 <div className="p-col">
-                    <Logo />
+                    <h1>{txtWelcome}{' '}<i>{`${userInfo.nombre} ${userInfo.primerApellido}`}</i></h1>
                 </div>
+                <div className="p-col"><Cover/></div>
             </div>
-            <div className="p-grid">
-                <div className="p-col-12 p-md-6 p-xl-6">
-                    <h1>
-                        {txtWelcome}{" "}
-                        <i>{`${userInfo.nombre} ${userInfo.primerApellido}`}</i>
-                    </h1>
+            <div className='p-grid p-mt-3'>
+                <div className="p-col-12 p-sm-3 card p-shadow-2"
+                     style={{backgroundColor: resume.clientesTotales === 0 ? 'var(--pink-100)' : 'var(--green-200)'}}>
+                    <div className="p-d-flex p-d-flex p-jc-center p-ai-center" style={{height: '200px'}}>
+                        <div className='p-text-center'>
+                            <i className='pi pi-user' style={{'fontSize': '2em'}}></i>
+                            <div className='p-mb-2 p-mt-1' style={{'fontSize': '1.5em'}}>Total de expedientes:</div>
+                            <div className='p-text-bold' style={{'fontSize': '5em'}}>{resume.clientesTotales}</div>
+                        </div>
+                    </div>
                 </div>
-                <div className="p-col-12 p-md-6 p-xl-6">
-                    <h1>
-                        <Badge
-                            value={`Existen ${resume.clientesTotales} expedientes guardados en la nube`}
-                            size="xlarge"
-                            severity={
-                                resume.clientesTotales <= 0
-                                    ? "danger"
-                                    : "success"
-                            }
-                        />
-                    </h1>
-                    {resume.clientesTotales <= 0 && (
-                        <Badge
-                            value={txtBadgeClients}
-                            severity="warning"
-                            className="p-mr-2"
-                        ></Badge>
-                    )}
-                </div>
+                <Card icon='pi pi-file' text={txtLastQueryPatent} value={resume.ultimaBusquedaPatentes}/>
+                <Card icon='pi pi-globe' text={txtLastQueryBrand} value={resume.ultimaBusquedaMarcas}/>
+                <Card icon='pi pi-id-card' text={txtLastUpdateClients} value={resume.ultimaModificacionClientes}/>
             </div>
-            <div className="p-grid p-mt-2">
-                <LastDateCategory
-                    icon="pi pi-file"
-                    last_search_info={txtLastQueryPatent}
-                    last_date={resume.ultimaBusquedaPatentes}
-                />
-                <LastDateCategory
-                    icon="pi pi-globe"
-                    last_search_info={txtLastQueryBrand}
-                    last_date={resume.ultimaBusquedaMarcas}
-                />
-            </div>
-            <div className="p-grid p-mt-2">
-                <LastDateCategory
-                    icon="pi pi-id-card"
-                    last_search_info={txtLastUpdateClients}
-                    last_date={resume.ultimaModificacionClientes}
-                />
-            </div>
-        </div>
+        </>
     );
 }

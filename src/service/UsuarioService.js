@@ -1,38 +1,38 @@
-import api from "./api";
+import API from "./API";
 
 class UsuarioService {
     resetPassword(email) {
-        return api.put(`/reset-password/${email}`);
+        return API.put(`/reset-password/${email}`);
     }
 
     changePassword(email, oldPassword, newPassword) {
-        return api.put(
+        return API.put(
             `/change-password/${email}/${oldPassword}/${newPassword}`
         );
     }
 
     login(obj) {
-        return api.post("/login", obj);
+        return API.post("/login", obj);
     }
 
     getAll() {
-        return api.get("/users");
+        return API.get("/users");
     }
 
     getOne(id) {
-        return api.get(`/users/${id}`);
+        return API.get(`/users/${id}`);
     }
 
     insertOne(obj) {
-        return api.post("/users", obj);
+        return API.post("/users", obj);
     }
 
     updateOne(obj) {
-        return api.put("/users", obj);
+        return API.put("/users", obj);
     }
 
     removeOne(email) {
-        return api.delete(`/users/${email}`);
+        return API.delete(`/users/${email}`);
     }
 }
 

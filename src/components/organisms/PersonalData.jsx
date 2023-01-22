@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
-import { InputText } from "primereact/inputtext";
-import { Calendar } from "primereact/calendar";
-import { Password } from "primereact/password";
-import { Button } from "primereact/button";
-import { Toast } from "primereact/toast";
+import React, {useState, useRef, useEffect} from "react";
+import {InputText} from "primereact/inputtext";
+import {Calendar} from "primereact/calendar";
+import {Password} from "primereact/password";
+import {Button} from "primereact/button";
+import {Toast} from "primereact/toast";
 import Validations from "../../utils/Validations";
 import {
     txtMessageUserSuccess,
@@ -33,12 +33,14 @@ import {
     txtCheckPasswords,
 } from "../../utils/Strings";
 import UsuarioService from "../../service/UsuarioService";
+import {useHistory} from "react-router-dom";
 
 export default function PersonalData() {
     // ? Controla la habilitación y deshabilitación de todos los campos
     const [activePersonalFields, setActivePersonalFields] = useState(true);
     const [activePasswordFields, setActivePasswordFields] = useState(true);
     const toast = useRef(null);
+    const history = useHistory();
 
     useEffect(() => {
         getPersonalInformation();
@@ -48,11 +50,7 @@ export default function PersonalData() {
         setUserInfo(JSON.parse(localStorage.getItem("userActive")));
     }
 
-    function changePassword({
-        contraseñaActual,
-        nuevaContraseña,
-        repetirNuevaContraseña,
-    }) {
+    function changePassword({contraseñaActual, nuevaContraseña, repetirNuevaContraseña,}) {
         UsuarioService.changePassword(
             userInfo.correo,
             contraseñaActual,
@@ -63,7 +61,7 @@ export default function PersonalData() {
                 if (response.data) {
                     showMessage(txtMessageUserPasswordSuccess);
                     localStorage.clear();
-                    window.location = "/sivymo_app/#/";
+                    history.push("/");
                 } else {
                     txtMessageErrorGeneral.description = txtCheckPasswords;
                     showMessage(txtMessageErrorGeneral);
@@ -131,7 +129,7 @@ export default function PersonalData() {
 
     //? Valida los valores de userPassword  y cambiar datos
     const checkFormPasswordUser = () => {
-        const { contraseñaActual, nuevaContraseña, repetirNuevaContraseña } =
+        const {contraseñaActual, nuevaContraseña, repetirNuevaContraseña} =
             userPassword;
         if (
             Validations.validatePassworsNoEmpty(
@@ -169,7 +167,7 @@ export default function PersonalData() {
     };
 
     //? Muestra los mensajes de los Toast
-    const showMessage = ({ type, title, description }) => {
+    const showMessage = ({type, title, description}) => {
         toast.current.show({
             severity: type,
             summary: title,
@@ -180,7 +178,7 @@ export default function PersonalData() {
 
     return (
         <div className="p-grid">
-            <Toast ref={toast} />
+            <Toast ref={toast}/>
             <div className="p-col p-p-3">
                 <h2>{txtTitlePersonalData}</h2>
                 <div className="p-fluid">
@@ -201,10 +199,7 @@ export default function PersonalData() {
                             className={!userInfo.nombre && "p-invalid"}
                         />
                         {!userInfo.nombre && (
-                            <small
-                                id="nombre-help"
-                                className="p-error p-d-block"
-                            >
+                            <small id="nombre-help" className="p-error p-d-block">
                                 {txtNameHelp}
                             </small>
                         )}
@@ -228,10 +223,7 @@ export default function PersonalData() {
                             className={!userInfo.primerApellido && "p-invalid"}
                         />
                         {!userInfo.primerApellido && (
-                            <small
-                                id="primerApellido-help"
-                                className="p-error p-d-block"
-                            >
+                            <small id="primerApellido-help" className="p-error p-d-block">
                                 {txtFistSurnameHelp}
                             </small>
                         )}
@@ -307,10 +299,7 @@ export default function PersonalData() {
                             className={!userInfo.correo && "p-invalid"}
                         />
                         {!userInfo.correo && (
-                            <small
-                                id="correo-help"
-                                className="p-error p-d-block"
-                            >
+                            <small id="correo-help" className="p-error p-d-block">
                                 {txtEmailHelp}
                             </small>
                         )}
@@ -355,10 +344,7 @@ export default function PersonalData() {
                             }}
                         />
                         {!userPassword.contraseñaActual && (
-                            <small
-                                id="contraseñaActual-help"
-                                className="p-error p-d-block"
-                            >
+                            <small id="contraseñaActual-help" className="p-error p-d-block">
                                 {txtPasswordCurrentlyHelp}
                             </small>
                         )}
@@ -383,10 +369,7 @@ export default function PersonalData() {
                             }}
                         />
                         {!userPassword.nuevaContraseña && (
-                            <small
-                                id="nuevaContraseña-help"
-                                className="p-error p-d-block"
-                            >
+                            <small id="nuevaContraseña-help" className="p-error p-d-block">
                                 {txtNewPasswordHelp}
                             </small>
                         )}
@@ -411,10 +394,7 @@ export default function PersonalData() {
                             }}
                         />
                         {!userPassword.repetirNuevaContraseña && (
-                            <small
-                                id="repetirNuevaContraseña-help"
-                                className="p-error p-d-block"
-                            >
+                            <small id="repetirNuevaContraseña-help" className="p-error p-d-block">
                                 {txtRepeatNewPasswordHelp}
                             </small>
                         )}

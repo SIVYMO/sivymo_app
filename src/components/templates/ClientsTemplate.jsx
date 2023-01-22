@@ -1,34 +1,29 @@
-import React, { useState, useRef, useEffect } from "react";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-import { Button } from "primereact/button";
-import { FileUpload } from "primereact/fileupload";
-import { Toast } from "primereact/toast";
+import React, {useState, useRef, useEffect} from "react";
+import {Toast} from "primereact/toast";
+import {InputTextarea} from 'primereact/inputtextarea';
 import ClienteService from "../../service/ClienteService";
 import HistorialService from "../../service/HistorialService";
-import { BreadCrumb } from "primereact/breadcrumb";
+import {BreadCrumb} from "primereact/breadcrumb";
 import {
     txtSmsLoading,
     txtMessageErrorGeneral,
     txtMessageClientsSaved,
     txtTitleClients,
-    txtSaveButton,
-    txtClearButton,
-    txtNoDataLabel,
     txtLastUpdateClients,
 } from "../../utils/Strings";
 import moment from "moment";
 import "moment/locale/es";
+import {Button} from "primereact/button";
 
 moment.locale("es");
 
 export default function ClientsTemplate() {
     const [resume, setResume] = useState({});
-    const [importedData, setImportedData] = useState([]);
-    const [selectedImportedData, setSelectedImportedData] = useState([]);
-    const [importedCols, setImportedCols] = useState([
-        { field: "", header: "Columnas" },
-    ]);
+    const [allClients, setAllClients] = useState([]);
+    const [clients, setClients] = useState([]);
+    const [allClientsText, setAllClientsText] = useState("");
+    const [clientsText, setClientsText] = useState("");
+
     const toast = useRef(null);
 
     useEffect(() => {
@@ -39,48 +34,76 @@ export default function ClientsTemplate() {
         setResume(JSON.parse(localStorage.getItem("resume")));
     };
 
-    const importExcel = async (e) => {
-        showMessageloading();
-        const file = e.files[0];
-        await import("xlsx").then((xlsx) => {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const wb = xlsx.read(e.target.result, { type: "array" });
-                const wsname = wb.SheetNames[0];
-                const ws = wb.Sheets[wsname];
-                const data = xlsx.utils.sheet_to_json(ws, { header: 1 });
-                const cols = data[0];
-                data.shift();
-                let _importedCols = cols.map((col) => ({
-                    field: toCapitalize(col),
-                    header: toCapitalize(col),
-                }));
-                let _importedData = data.map((d) => {
-                    return cols.reduce((obj, c, i) => {
-                        let key = toCapitalize(c);
-                        obj[key] = d[i];
-                        return obj;
-                    }, {});
-                });
-                setImportedCols(_importedCols);
-                setImportedData(_importedData);
-            };
-            reader.readAsArrayBuffer(file);
+    const clearAndFilterData = (data = []) => {
+        let newData = [];
+        data.forEach((item) => {
+            item = item.trim();
+            if (item.length > 2) newData.push(item);
         });
-        clearMessageLoading();
+        return newData;
     };
 
-    const toCapitalize = (s) => {
-        let r = s.replaceAll(" ", "_");
-        let c = r.charAt(0).toLowerCase() + r.slice(1);
-        return c;
+    const saveAllClients = () => {
+        showMessageloading()
+        const data = clearAndFilterData(allClients)
+        const middleBig1 = data.splice(0, data.length / 2);
+        const middleTiny1 = middleBig1.splice(0, middleBig1.length / 2);
+        const middleTiny2 = middleBig1.splice(0, middleBig1.length);
+        const middleBig2 = data.splice(0, data.length);
+        const middleTiny3 = middleBig2.splice(0, middleBig2.length / 2);
+        const middleTiny4 = middleBig2.splice(0, middleBig2.length);
+        Promise.all([
+                ClienteService.insertAll(middleTiny1),
+                ClienteService.insertAll(middleTiny2),
+                ClienteService.insertAll(middleTiny3),
+                ClienteService.insertAll(middleTiny4),
+            ]
+        ).then((res) => {
+            console.log(res);
+            if (res[0].data && res[1].data && res[2].data && res[3].data) {
+                clearMessageLoading()
+                saveHistory();
+                clearAllClients()
+                showMessage(txtMessageClientsSaved)
+            } else showMessage(txtMessageErrorGeneral);
+        }).catch((err) => {
+            clearMessageLoading()
+            console.error(err);
+            showMessage(txtMessageErrorGeneral);
+        })
     };
 
-    const clear = () => {
-        setImportedData([]);
-        setSelectedImportedData([]);
-        setImportedCols([{ field: "", header: "Columnas" }]);
+    const saveClients = () => {
+        showMessageloading()
+        const data = clearAndFilterData(clients)
+        ClienteService.insertOne(data)
+            .then((response) => {
+                clearMessageLoading()
+                if (response) {
+                    saveHistory();
+                    clearClients();
+                    showMessage(txtMessageClientsSaved)
+                } else {
+                    showMessage(txtMessageErrorGeneral)
+                }
+            })
+            .catch((error) => {
+                clearMessageLoading()
+                console.error(error);
+                showMessage(txtMessageErrorGeneral);
+            })
     };
+
+    const clearAllClients = () => {
+        setAllClients([]);
+        setAllClientsText("");
+        showMessage({type: 'info', title: 'Se han limpiado todos expedientes', description: 'Limpiado'});
+    };
+    const clearClients = () => {
+        setClients([]);
+        setClientsText("");
+        showMessage({type: 'info', title: 'Se han limpiado los expedientes', description: 'Limpiado'});
+    }
 
     const clearMessageLoading = () => {
         toast.current.clear();
@@ -91,12 +114,9 @@ export default function ClientsTemplate() {
             severity: "info",
             sticky: true,
             content: (
-                <div className="p-flex p-flex-column" style={{ flex: "1" }}>
+                <div className="p-flex p-flex-column" style={{flex: "1"}}>
                     <div className="p-text-center">
-                        <i
-                            className="pi pi-spin pi-spinner"
-                            style={{ fontSize: "3em" }}
-                        ></i>
+                        <i className="pi pi-spin pi-spinner" style={{fontSize: "3em"}}></i>
                         <h4>{txtSmsLoading[0]}</h4>
                         <p>{txtSmsLoading[1]}</p>
                     </div>
@@ -105,127 +125,75 @@ export default function ClientsTemplate() {
         });
     };
 
-    function saveHistory() {
-        HistorialService.insertOne("4")
-            .then((response) => {})
-            .catch((err) => {
-                console.error(err);
-            });
+    const saveHistory = () => {
+        HistorialService.insertOne(3)
     }
 
-    const saveAllImportedData = async () => {
-        showMessageloading();
-        let m1 = importedData.splice(0, importedData.length / 2);
-        let m2 = importedData.splice(0, importedData.length);
-
-        await ClienteService.insertOne(m1)
-            .then((response) => {
-                if (response.data) {
-                } else {
-                    showMessage(txtMessageErrorGeneral);
-                }
-            })
-            .catch((err) => {
-                clearMessageLoading();
-                console.error(err);
-                return;
-            });
-
-        await ClienteService.insertTwo(m2)
-            .then((response) => {
-                clearMessageLoading();
-                if (response.data) {
-                    saveHistory();
-                    clear();
-                    showMessage(txtMessageClientsSaved);
-                } else {
-                    showMessage(txtMessageErrorGeneral);
-                }
-            })
-            .catch((err) => {
-                clearMessageLoading();
-                console.error(err);
-                showMessage(txtMessageErrorGeneral);
-                return;
-            });
-    };
-
-    const showMessage = ({ type, title, description }) => {
-        toast.current.show({
-            severity: type,
-            summary: title,
-            detail: description,
-            life: 3000,
-        });
+    const showMessage = ({type, title, description}) => {
+        toast.current.show({severity: type, summary: title, detail: description, life: 3000,});
     };
 
     return (
         <>
             <BreadCrumb
-                model={[{ label: txtTitleClients }]}
-                home={{ icon: "pi pi-home" }}
+                model={[{label: txtTitleClients}]}
+                home={{icon: "pi pi-home"}}
             />
-            <Toast ref={toast} />
+            <Toast ref={toast}/>
             <div className="p-grid">
                 <div className="p-col p-p-3">
                     <h1>{txtTitleClients}</h1>
                     <div>
                         {txtLastUpdateClients}
-                        {moment(resume.ultimaModificacionClientes).format( "LLLL" )}
+                        {moment(resume.ultimaModificacionClientes).format("LLLL")}
                     </div>
-                    <div className="p-d-flex p-ai-center p-py-2">
-                        <FileUpload
-                            chooseOptions={{
-                                label: "Importar desde Excel",
-                                icon: "pi pi-file-excel",
-                                className: "p-button-success p-button-outlined",
-                            }}
-                            mode="basic"
-                            name="demo[]"
-                            auto
-                            url="https://sivymoapi-production.up.railway.app/novopatent-api/uploadFake"
-                            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                            className="p-mr-2"
-                            onUpload={importExcel}
-                        />
-                        
-                        <Button
-                            type="button"
-                            label={txtClearButton}
-                            icon="pi pi-times"
-                            onClick={clear}
-                            className="p-button-info p-ml-auto"
-                            disabled={importedData.length === 0 ? true : false}
-                        />
-                        <Button
-                            type="button"
-                            label={txtSaveButton}
-                            icon="pi pi-save"
-                            className="p-button-success p-ml-2"
-                            disabled={importedData.length === 0 ? true : false}
-                            onClick={saveAllImportedData}
-                        />
+                    <div className='p-grid p-mt-3'>
+                        <div className='p-col-12 p-sm-6'>
+                            <div className="p-grid">
+                                <div className="p-col-12 p-sm-8">
+                                    <h2>Guardar todos los expedientes : <span>{allClients.length}</span></h2>
+                                </div>
+                                <div className="p-col-12 p-sm-4 p-mt-0 p-mt-sm-2">
+                                    <Button type="button" icon="pi pi-times" label='Limpiar'
+                                            className="p-button-info p-mr-1" onClick={clearAllClients}
+                                            disabled={allClients.length <= 0}/>
+                                    <Button type="button" icon="pi pi-save" label='Guardar'
+                                            className="p-button-success"
+                                            onClick={saveAllClients}
+                                            disabled={allClients.length <= 0}/>
+                                </div>
+                            </div>
+                            <InputTextarea value={allClientsText} rows={20} autoResize style={{width: '100%'}}
+                                           onChange={(e) => {
+                                               setAllClientsText(e.target.value)
+                                               setAllClients(e.target.value.split("\n"))
+                                           }}/>
+                        </div>
+                        <div className='p-col-12 p-sm-6'>
+                            <div className="p-grid">
+                                <div className="p-col">
+                                    <h2>Añadir más expedientes : <span>{clients.length}</span></h2>
+                                </div>
+                                <div className="p-col-12 p-sm-4 p-mt-0 p-mt-sm-2">
+                                    <Button type="button" icon="pi pi-times" label='Limpiar'
+                                            className="p-button-info p-mr-1" onClick={clearClients}
+                                            disabled={clients.length <= 0}/>
+                                    <Button type="button" icon="pi pi-save" label='Guardar'
+                                            className="p-button-warning"
+                                            onClick={saveClients}
+                                            disabled={clients.length <= 0}/>
+                                </div>
+                            </div>
+                            <InputTextarea value={clientsText} rows={20} autoResize style={{width: '100%'}}
+                                           onChange={(e) => {
+                                               setClientsText(e.target.value)
+                                               setClients(e.target.value.split("\n"))
+                                           }}/>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <DataTable
-                value={importedData}
-                emptyMessage={txtNoDataLabel}
-                paginator
-                rows={7}
-                scrollable
-                selection={selectedImportedData}
-            >
-                {importedCols.map((col, index) => (
-                    <Column
-                        key={index}
-                        field={col.field}
-                        header={col.header}
-                        style={{ width: "15em" }}
-                    />
-                ))}
-            </DataTable>
         </>
     );
 }

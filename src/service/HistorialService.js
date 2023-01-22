@@ -1,8 +1,8 @@
-import api from "./api";
+import API from "./API";
 
 class HistorialService {
     insertOne(type) {
-        return api.post(`/history/${type}`);
+        return API.post(`/history/${type}`);
     }
 }
 

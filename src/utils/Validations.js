@@ -1,6 +1,6 @@
-/* eslint-disable no-useless-escape */
 const CHARS =
     "áéíóúÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ ";
+
 class Validations {
     validateEmail(email) {
         const re =
@@ -48,34 +48,26 @@ class Validations {
     }
 
     validateDateStartEnd(dateStart, dateEnd) {
-        if (
-            dateStart.length === 10 &&
+        return !(dateStart.length === 10 &&
             dateEnd.length === 10 &&
             dateStart.split("/").length === 3 &&
-            dateEnd.split("/").length === 3
-        ) {
-            return false;
-        }
-        return true;
+            dateEnd.split("/").length === 3);
+
     }
 
     validateFormUser(name, first, second, dateBirth, email) {
-        if (
-            this.validateNames(name) &&
+        return this.validateNames(name) &&
             this.validateNames(first) &&
             this.validateSecondSurname(second) &&
             dateBirth !== "" &&
-            this.validateEmail(email)
-        )
-            return true;
-        else return false;
+            this.validateEmail(email);
     }
 
-    validatePassworsNoEmpty(curently, newPas, repeat){
+    validatePassworsNoEmpty(curently, newPas, repeat) {
         return curently !== "" && newPas !== "" && repeat !== ""
     }
 
-    validateSameEmail(userEmail, userEmailInfo){
+    validateSameEmail(userEmail, userEmailInfo) {
         return userEmail === userEmailInfo;
     }
 }
