@@ -82,9 +82,9 @@ export default function ClientsTemplate() {
       });
   };
 
-  const saveClients = () => {
+  const saveClients = async () => {
     showMessageloading();
-    const data = clearAndFilterData(clients);
+    const data = await clearAndFilterData(clients);
     ClienteService.insertOne(data)
       .then((response) => {
         clearMessageLoading();
