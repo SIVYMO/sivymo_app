@@ -212,7 +212,10 @@ export default function BrandTemplate() {
                                         <label htmlFor="dateStartInput" className="p-d-block">
                                             {txtDateStartLabel}
                                         </label>
-                                        <Calendar id="dateStartInput" dateFormat="yy/mm/dd" mask="9999/99/99"
+                                        <Calendar id="dateStartInput"
+                                                  touchUI
+                                                  dateFormat="yy/mm/dd"
+                                                  mask="9999/99/99"
                                                   value={inputFechaInicio} monthNavigator
                                                   yearNavigator
                                                   yearRange="2010:2030"
@@ -233,6 +236,7 @@ export default function BrandTemplate() {
                                         </label>
                                         <Calendar
                                             id="dateEndInput"
+                                            touchUI
                                             dateFormat="yy/mm/dd"
                                             mask="9999/99/99"
                                             value={inputFechaFin}
