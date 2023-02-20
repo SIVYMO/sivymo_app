@@ -286,6 +286,7 @@ export default function PatentTemplate() {
                                         </label>
                                         <Calendar
                                             id="dateStartInput"
+                                            touchUI
                                             dateFormat="yy/mm/dd"
                                             mask="9999/99/99"
                                             value={inputFechaInicio}
@@ -310,6 +311,7 @@ export default function PatentTemplate() {
                                         </label>
                                         <Calendar
                                             id="dateEndInput"
+                                            touchUI
                                             dateFormat="yy/mm/dd"
                                             mask="9999/99/99"
                                             value={inputFechaFin}
