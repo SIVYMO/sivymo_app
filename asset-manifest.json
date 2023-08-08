@@ -1,26 +1,27 @@
 {
   "files": {
     "main.css": "/sivymo_app/static/css/main.5548e215.chunk.css",
-    "main.js": "/sivymo_app/static/js/main.da78f3e5.chunk.js",
-    "main.js.map": "/sivymo_app/static/js/main.da78f3e5.chunk.js.map",
-    "runtime-main.js": "/sivymo_app/static/js/runtime-main.c90460eb.js",
-    "runtime-main.js.map": "/sivymo_app/static/js/runtime-main.c90460eb.js.map",
-    "static/css/2.ca3da5ab.chunk.css": "/sivymo_app/static/css/2.ca3da5ab.chunk.css",
-    "static/js/2.2b3b7811.chunk.js": "/sivymo_app/static/js/2.2b3b7811.chunk.js",
-    "static/js/2.2b3b7811.chunk.js.map": "/sivymo_app/static/js/2.2b3b7811.chunk.js.map",
+    "main.js": "/sivymo_app/static/js/main.5824341c.chunk.js",
+    "main.js.map": "/sivymo_app/static/js/main.5824341c.chunk.js.map",
+    "runtime-main.js": "/sivymo_app/static/js/runtime-main.ea21bffd.js",
+    "runtime-main.js.map": "/sivymo_app/static/js/runtime-main.ea21bffd.js.map",
+    "static/css/2.f2bba557.chunk.css": "/sivymo_app/static/css/2.f2bba557.chunk.css",
+    "static/js/2.c40a55b9.chunk.js": "/sivymo_app/static/js/2.c40a55b9.chunk.js",
+    "static/js/2.c40a55b9.chunk.js.map": "/sivymo_app/static/js/2.c40a55b9.chunk.js.map",
     "index.html": "/sivymo_app/index.html",
-    "static/css/2.ca3da5ab.chunk.css.map": "/sivymo_app/static/css/2.ca3da5ab.chunk.css.map",
+    "static/css/2.f2bba557.chunk.css.map": "/sivymo_app/static/css/2.f2bba557.chunk.css.map",
     "static/css/main.5548e215.chunk.css.map": "/sivymo_app/static/css/main.5548e215.chunk.css.map",
-    "static/js/2.2b3b7811.chunk.js.LICENSE.txt": "/sivymo_app/static/js/2.2b3b7811.chunk.js.LICENSE.txt",
+    "static/js/2.c40a55b9.chunk.js.LICENSE.txt": "/sivymo_app/static/js/2.c40a55b9.chunk.js.LICENSE.txt",
     "static/media/theme.css": "/sivymo_app/static/media/Inter-SemiBold.cca62d21.woff",
+    "static/media/primereact.min.css": "/sivymo_app/static/media/color.6441e63a.png",
     "static/media/logonovopatent.015ff878.jpg": "/sivymo_app/static/media/logonovopatent.015ff878.jpg",
     "static/media/primeicons.css": "/sivymo_app/static/media/primeicons.ea535860.ttf"
   },
   "entrypoints": [
-    "static/js/runtime-main.c90460eb.js",
-    "static/css/2.ca3da5ab.chunk.css",
-    "static/js/2.2b3b7811.chunk.js",
+    "static/js/runtime-main.ea21bffd.js",
+    "static/css/2.f2bba557.chunk.css",
+    "static/js/2.c40a55b9.chunk.js",
     "static/css/main.5548e215.chunk.css",
-    "static/js/main.da78f3e5.chunk.js"
+    "static/js/main.5824341c.chunk.js"
   ]
 }
