@@ -1,7 +1,7 @@
 import React, {useState, useRef} from "react";
 import "../../assets/css/MyCustom.css";
 import Validations from "../../utils/Validations";
-import logonovopatent from "../../assets/img/logonovopatent.jpg";
+import Logo from "../../assets/img/logo.jpg";
 import {InputText} from "primereact/inputtext";
 import {Password} from "primereact/password";
 import {Button} from "primereact/button";
@@ -92,7 +92,7 @@ export default function Login() {
             <div className="card p-shadow-11 p-col-12 p-md-6 p-lg-4">
                 <Toast ref={toastMessages}/>
                 <div className="p-col p-text-center">
-                    <img src={logonovopatent} alt={txtAltLogoImg} height="90px"/>
+                    <img src={Logo} alt={txtAltLogoImg} height="90px"/>
                 </div>
                 <div className="p-col">
                     <div className="p-text-center" style={{fontSize: "2em", fontWeight: "500"}}>

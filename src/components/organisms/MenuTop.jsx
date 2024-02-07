@@ -1,5 +1,5 @@
 import React from "react";
-import logonovopatent from "../../assets/img/logonovopatent.jpg";
+import Logo from "../../assets/img/logo.jpg";
 import {Menubar} from "primereact/menubar";
 import {Button} from "primereact/button";
 import {confirmDialog} from "primereact/confirmdialog";
@@ -63,7 +63,7 @@ export default function MenuTop() {
     const start = (
         <img
             alt={txtAltLogoImg}
-            src={logonovopatent}
+            src={Logo}
             height="50"
             className="p-mr-2"
             onClick={() => {history.push("/inicio");}}
