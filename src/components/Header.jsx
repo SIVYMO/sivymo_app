@@ -8,31 +8,11 @@ import {useNavigate, Outlet} from "react-router-dom";
 export default function Header() {
     const navigate = useNavigate();
     const MENU = [
-        {
-            label: "Inicio",
-            icon: "pi pi-fw pi-home",
-            command: () => navigate("/"),
-        },
-        {
-            label: "Patentes",
-            icon: "pi pi-fw pi-file",
-            command: () => navigate("/patentes"),
-        },
-        {
-            label: "Marcas",
-            icon: "pi pi-fw pi-globe",
-            command: () => navigate("/marcas"),
-        },
-        {
-            label: "Expedientes",
-            icon: "pi pi-fw pi-id-card",
-            command: () => navigate("/expedientes"),
-        },
-        {
-            label: "Perfil",
-            icon: "pi pi-fw pi-user",
-            command: () => navigate("/perfil"),
-        },
+        { label: "Inicio", icon: "pi pi-home", command: () => navigate("/"),},
+        { label: "Patentes", icon: "pi pi-book", command: () => navigate("/patentes"),},
+        { label: "Marcas", icon: "pi pi-globe", command: () => navigate("/marcas"),},
+        { label: "Expedientes", icon: "pi pi-folder-open", command: () => navigate("/expedientes"),},
+        { label: "Perfil", icon: "pi pi-user", command: () => navigate("/perfil"),},
     ];
 
     const confirmLogout = () => {
