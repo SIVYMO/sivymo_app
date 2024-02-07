@@ -1,48 +1,37 @@
-import React from "react";
-import Logo from "../../assets/img/logo.jpg";
+import Logo from "../assets/img/logo.jpg";
 import {Menubar} from "primereact/menubar";
 import {Button} from "primereact/button";
-import {confirmDialog} from "primereact/confirmdialog";
-import {txtConfirmExit, txtExit, txtAltLogoImg, txtLogoutButton} from "../../utils/Strings";
-import {useHistory} from "react-router-dom";
+import { confirmDialog } from 'primereact/confirmdialog';
+import {txtConfirmExit, txtExit, txtAltLogoImg, txtLogoutButton} from "../utils/Strings";
+import {useNavigate, Outlet} from "react-router-dom";
 
-export default function MenuTop() {
-    const history = useHistory();
-    const itemsMenuTop = [
+export default function Header() {
+    const navigate = useNavigate();
+    const MENU = [
         {
             label: "Inicio",
             icon: "pi pi-fw pi-home",
-            command: () => {
-                history.push("/inicio");
-            },
+            command: () => navigate("/"),
         },
         {
             label: "Patentes",
             icon: "pi pi-fw pi-file",
-            command: () => {
-                history.push("/patentes");
-            },
+            command: () => navigate("/patentes"),
         },
         {
             label: "Marcas",
             icon: "pi pi-fw pi-globe",
-            command: () => {
-                history.push("/marcas");
-            },
+            command: () => navigate("/marcas"),
         },
         {
             label: "Expedientes",
             icon: "pi pi-fw pi-id-card",
-            command: () => {
-                history.push("/expedientes");
-            },
+            command: () => navigate("/expedientes"),
         },
         {
             label: "Perfil",
             icon: "pi pi-fw pi-user",
-            command: () => {
-                history.push("/perfil");
-            },
+            command: () => navigate("/perfil"),
         },
     ];
 
@@ -55,7 +44,7 @@ export default function MenuTop() {
             rejectClassName: "p-button-plain p-button-text",
             accept: () => {
                 localStorage.clear();
-                history.push("/");
+                navigate("/inicio-sesion");
             },
         });
     };
@@ -66,7 +55,7 @@ export default function MenuTop() {
             src={Logo}
             height="50"
             className="p-mr-2"
-            onClick={() => {history.push("/inicio");}}
+            onClick={() => navigate("/")}
         />
     );
 
@@ -80,12 +69,19 @@ export default function MenuTop() {
     );
 
     return (
-        <div className="p-grid p-m-1">
-            <div className="p-col">
-                <div className="card">
-                    <Menubar model={itemsMenuTop} start={start} end={end}/>
+        <>
+            <div className="p-grid p-m-1">
+                <div className="p-col">
+                    <div className="card">
+                        <Menubar model={MENU} start={start} end={end}/>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div className="p-grid p-d-flex">
+                <div className="p-col-10 p-offset-1">
+                    <Outlet />
+                </div>
+            </div>
+        </>
     );
 }

@@ -1,19 +1,19 @@
 import React, {useState, useEffect} from "react";
-import "../../assets/css/MyCustom.css";
+import "../assets/css/MyCustom.css";
 import {
     backgroundWallpaper,
     txtWelcome,
     txtLastQueryPatent,
     txtLastQueryBrand,
     txtLastUpdateClients,
-} from "../../utils/Strings";
-import ResumeService from "../../service/ResumeService";
+} from "../utils/Strings";
+import ResumeService from "../service/ResumeService";
 import moment from "moment";
 import "moment/locale/es";
 
 moment.locale("es");
 
-export default function HomeTemplate() {
+export default function HomePage() {
     const [userInfo, setUserInfo] = useState({});
     const [resume, setResume] = useState({
         ultimaBusquedaPatentes: "",

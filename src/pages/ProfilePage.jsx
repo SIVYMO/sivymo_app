@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { TabView, TabPanel } from "primereact/tabview";
 import { BreadCrumb } from "primereact/breadcrumb";
-import PersonalData from "../organisms/PersonalData";
-import CrudUsers from "../organisms/CrudUsers";
+import PersonalData from "../components/PersonalData";
+import CrudUsers from "../components/CrudUsers";
 import {
     txtTitleProfile,
     txtTabPersonalData,
     txtTabUserTable,
-} from "../../utils/Strings";
+} from "../utils/Strings";
 
-export default function ProfileTemplate() {
+export default function ProfilePage() {
     const [userInfo, setUserInfo] = useState({
         superAdmin: false,
     });

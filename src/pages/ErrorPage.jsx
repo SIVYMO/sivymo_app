@@ -1,7 +1,7 @@
 import React from "react";
-import "../../assets/css/MyCustom.css";
-import {txtAltLogoImg, txt404, txtPageNotFound, txtPageError,} from "../../utils/Strings";
-import Logo from "../../assets/img/logo.jpg";
+import "../assets/css/MyCustom.css";
+import {txtAltLogoImg, txt404, txtPageNotFound, txtPageError,} from "../utils/Strings";
+import Logo from "../assets/img/logo.jpg";
 
 export default function ErrorPage() {
     return (

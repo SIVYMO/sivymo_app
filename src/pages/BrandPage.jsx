@@ -8,9 +8,9 @@ import {ProgressBar} from "primereact/progressbar";
 import {Dialog} from "primereact/dialog";
 import {Checkbox} from "primereact/checkbox";
 import {Calendar} from "primereact/calendar";
-import ClienteService from "../../service/ClienteService";
-import ScrapingService from "../../service/ScrapingService";
-import HistorialService from "../../service/HistorialService";
+import ClienteService from "../service/ClienteService";
+import ScrapingService from "../service/ScrapingService";
+import HistorialService from "../service/HistorialService";
 import {
     txtExportButton,
     txtStartSearchButton,
@@ -31,15 +31,15 @@ import {
     txtNoDataSearch,
     txtDataSearch,
     txtClearMessages,
-} from "../../utils/Strings";
-import {dark_sea_green} from "../../utils/Colors";
-import Validations from "../../utils/Validations";
+} from "../utils/Strings";
+import {dark_sea_green} from "../utils/Colors";
+import Validations from "../utils/Validations";
 import moment from "moment";
 import "moment/locale/es";
 
 moment.locale("es");
 
-export default function BrandTemplate() {
+export default function BrandPage() {
     const [showDialog, setShowDialog] = useState(false);
     const [resume, setResume] = useState({});
     const [marcas, setMarcas] = useState([]);

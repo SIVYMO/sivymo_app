@@ -53,7 +53,7 @@ export const localLocation = {
     strong: "Fuerte",
 };
 
-// ? HomeTemplate.jsx
+// ? HomePage.jsx
 export const backgroundWallpaper = "Fondo de portada",
     txtWelcome = "Hola, bienvenido(a) de nuevo",
     txtLastQueryPatent = "Última búsqueda de patentes: ",
@@ -61,7 +61,7 @@ export const backgroundWallpaper = "Fondo de portada",
     txtLastUpdateClients = "Última actualización en expedientes: ",
     txtBadgeClients ="Ingresar expedientes para poder realizar consultas";
 
-// ? MenuTop.jsx
+// ? Header.jsx
 export const txtConfirmExit = "¿Estás seguro de salir del sistema?",
     txtExit = "Salir",
     txtAltLogoImg = "Logo Novopatent",
@@ -103,7 +103,7 @@ export const txt404 = "404",
     txtPageError =
         "La página que estás buscando no existe o ha ocurrido un error";
 
-// ? ProfileTemplate.jsx
+// ? ProfilePage.jsx
 export const txtMessageUserSuccess = {
         type: "success",
         title: "Usuario guardado correctamente",
@@ -183,7 +183,7 @@ export const txtMessageUserSuccess = {
     txtTabUserTable = "Tabla de usuarios",
     txtCheckPasswords = "Verifica que la contraseña actual sea correcta"
 
-//  ? ClientsTemplate.js
+//  ? ClientPage.js
 export const txtSmsLoading = [
         "Cargando",
         "Espere a que los datos estén listos",
@@ -198,9 +198,8 @@ export const txtSmsLoading = [
     txtNoDataLabel = "Sin ningún dato subido",
     txtClearMessages = "Limpiar mensajes";
 
-// ? SpecimensTemplate.jsx
-// ? PatentTemplate.jsx
-// ? BrandTemplate.jsx
+// ? PatentPage.jsx
+// ? BrandPage.jsx
 export const txtExportButton = "Exportar resultados",
     txtStartSearchButton = "Iniciar con la búsqueda",
     txtNoData = "No hay datos",

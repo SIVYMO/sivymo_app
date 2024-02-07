@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Toast } from "primereact/toast";
 import { InputTextarea } from "primereact/inputtextarea";
-import ClienteService from "../../service/ClienteService";
-import HistorialService from "../../service/HistorialService";
+import ClienteService from "../service/ClienteService";
+import HistorialService from "../service/HistorialService";
 import { BreadCrumb } from "primereact/breadcrumb";
 import {
   txtSmsLoading,
@@ -10,14 +10,14 @@ import {
   txtMessageClientsSaved,
   txtTitleClients,
   txtLastUpdateClients,
-} from "../../utils/Strings";
+} from "../utils/Strings";
 import moment from "moment";
 import "moment/locale/es";
 import { Button } from "primereact/button";
 
 moment.locale("es");
 
-export default function ClientsTemplate() {
+export default function ClientPage() {
   const [resume, setResume] = useState({});
   const [allClients, setAllClients] = useState([]);
   const [clients, setClients] = useState([]);

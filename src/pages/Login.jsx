@@ -1,7 +1,7 @@
 import React, {useState, useRef} from "react";
-import "../../assets/css/MyCustom.css";
-import Validations from "../../utils/Validations";
-import Logo from "../../assets/img/logo.jpg";
+import "../assets/css/MyCustom.css";
+import Validations from "../utils/Validations";
+import Logo from "../assets/img/logo.jpg";
 import {InputText} from "primereact/inputtext";
 import {Password} from "primereact/password";
 import {Button} from "primereact/button";
@@ -18,12 +18,12 @@ import {
     txtMessageLoginError,
     txtMessageSucces,
     txtMessageLoading
-} from "../../utils/Strings";
-import UsuarioService from "../../service/UsuarioService";
-import {useHistory} from "react-router-dom";
+} from "../utils/Strings";
+import UsuarioService from "../service/UsuarioService";
+import {useNavigate} from "react-router-dom";
 
 export default function Login() {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [emailInput, setEmailInput] = useState("");
     const [passwordInput, setPasswordInput] = useState("");
     const [emailErrorSms, setEmailErrorSms] = useState("");
@@ -31,8 +31,6 @@ export default function Login() {
     const [emailUIError, setEmailUIError] = useState("p-d-block");
     const [passwordUIError, setPasswordUIError] = useState("p-d-block");
     const toastMessages = useRef(null);
-
-    if (localStorage.getItem("userActive") !== null) history.push("/inicio");
 
     const login = () => {
         if (emailInput.length <= 0 || !Validations.validateEmail(emailInput)) {
@@ -64,7 +62,7 @@ export default function Login() {
                     clearMessages();
                     localStorage.setItem("userActive", JSON.stringify(response.data.usuario));
                     showMessage(txtMessageSucces);
-                    history.push("/inicio");
+                    navigate("/");
                 })
                 .catch((err) => {
                     clearMessages();

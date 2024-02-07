@@ -4,7 +4,7 @@ import {Calendar} from "primereact/calendar";
 import {Password} from "primereact/password";
 import {Button} from "primereact/button";
 import {Toast} from "primereact/toast";
-import Validations from "../../utils/Validations";
+import Validations from "../utils/Validations";
 import {
     txtMessageUserSuccess,
     txtMessageUserError,
@@ -31,16 +31,16 @@ import {
     txtUpdatePassword,
     txtMessageErrorGeneral,
     txtCheckPasswords,
-} from "../../utils/Strings";
-import UsuarioService from "../../service/UsuarioService";
-import {useHistory} from "react-router-dom";
+} from "../utils/Strings";
+import UsuarioService from "../service/UsuarioService";
+import {useNavigate} from "react-router-dom";
 
 export default function PersonalData() {
     // ? Controla la habilitación y deshabilitación de todos los campos
     const [activePersonalFields, setActivePersonalFields] = useState(true);
     const [activePasswordFields, setActivePasswordFields] = useState(true);
     const toast = useRef(null);
-    const history = useHistory();
+    const navigate = useNavigate();
 
     useEffect(() => {
         getPersonalInformation();
@@ -61,7 +61,7 @@ export default function PersonalData() {
                 if (response.data) {
                     showMessage(txtMessageUserPasswordSuccess);
                     localStorage.clear();
-                    history.push("/");
+                    navigate("/");
                 } else {
                     txtMessageErrorGeneral.description = txtCheckPasswords;
                     showMessage(txtMessageErrorGeneral);

@@ -10,7 +10,7 @@ import {Toolbar} from "primereact/toolbar";
 import {InputSwitch} from "primereact/inputswitch";
 import {Dialog} from "primereact/dialog";
 import {Badge} from "primereact/badge";
-import Validations from "../../utils/Validations";
+import Validations from "../utils/Validations";
 import {
     txtMessageUserSuccess,
     txtMessageUserError,
@@ -41,8 +41,8 @@ import {
     txtDeleteUserContent,
     txtMessageUserPasswordReset,
     txtMessageErrorGeneral,
-} from "../../utils/Strings";
-import UsuarioService from "../../service/UsuarioService";
+} from "../utils/Strings";
+import UsuarioService from "../service/UsuarioService";
 import moment from "moment";
 import "moment/locale/es";
 
