@@ -28,24 +28,24 @@ export default function Login() {
     const [passwordInput, setPasswordInput] = useState("");
     const [emailErrorSms, setEmailErrorSms] = useState("");
     const [passwordErrorSms, setPasswordErrorSms] = useState("");
-    const [emailUIError, setEmailUIError] = useState("p-d-block");
-    const [passwordUIError, setPasswordUIError] = useState("p-d-block");
+    const [emailUIError, setEmailUIError] = useState("block");
+    const [passwordUIError, setPasswordUIError] = useState("block");
     const toastMessages = useRef(null);
 
     const login = () => {
         if (emailInput.length <= 0 || !Validations.validateEmail(emailInput)) {
             setEmailErrorSms(txtEmailValid);
-            setEmailUIError("p-invalid p-d-block");
+            setEmailUIError("p-invalid block");
         } else {
             setEmailErrorSms("");
-            setEmailUIError("p-d-block");
+            setEmailUIError("block");
         }
         if (passwordInput.length <= 0) {
             setPasswordErrorSms(txtPasswordValid);
-            setPasswordUIError("p-invalid p-d-block");
+            setPasswordUIError("p-invalid block");
         } else {
             setPasswordErrorSms("");
-            setPasswordUIError("p-d-block");
+            setPasswordUIError("block");
         }
         if (
             emailInput.length > 0 &&
@@ -86,21 +86,17 @@ export default function Login() {
     };
 
     return (
-        <div className="pagelogin p-d-flex p-jc-center p-ai-center">
-            <div className="card p-shadow-11 p-col-12 p-md-6 p-lg-4">
+        <div className="w-screen h-screen pagelogin flex justify-content-center align-items-center">
+            <div className="bg-white shadow-8 col-12 md:col-6 lg:col-4 border-round-2xl">
                 <Toast ref={toastMessages}/>
-                <div className="p-col p-text-center">
-                    <img src={Logo} alt={txtAltLogoImg} height="90px"/>
-                </div>
-                <div className="p-col">
-                    <div className="p-text-center" style={{fontSize: "2em", fontWeight: "500"}}>
-                        {txtLogin}
-                    </div>
-                    <div className="p-text-center">{txtFillFields}</div>
-                    <div className="p-mx-6 p-my-4">
+                <div className="col text-center"><img src={Logo} alt={txtAltLogoImg} height="90px"/></div>
+                <div className="col">
+                    <div className="text-center" style={{fontSize: "2em", fontWeight: "500"}}>{txtLogin}</div>
+                    <div className="text-center">{txtFillFields}</div>
+                    <div className="mx-6 my-4">
                         <div className="p-fluid">
-                            <div className="p-field">
-                                <label htmlFor="emailInput" className="p-d-block">
+                            <div className="field">
+                                <label htmlFor="emailInput" className="block">
                                     {txtEmailLabel}
                                 </label>
                                 <InputText
@@ -113,14 +109,14 @@ export default function Login() {
                                         setEmailInput(e.target.value);
                                     }}
                                 />
-                                <small id="emailInput-help" className="p-error p-d-block">
+                                <small id="emailInput-help" className="p-error block">
                                     {emailErrorSms}
                                 </small>
                             </div>
                         </div>
                         <div className="p-fluid">
-                            <div className="p-field">
-                                <label htmlFor="passwordInput" className="p-d-block">
+                            <div className="field">
+                                <label htmlFor="passwordInput" className="block">
                                     {txtPasswordLabel}
                                 </label>
                                 <Password
@@ -134,12 +130,12 @@ export default function Login() {
                                         setPasswordInput(e.target.value);
                                     }}
                                 />
-                                <small id="passwordInput-help" className="p-error p-d-block">
+                                <small id="passwordInput-help" className="p-error block">
                                     {passwordErrorSms}
                                 </small>
                             </div>
                         </div>
-                        <div className="p-text-center">
+                        <div className="text-center">
                             <Button
                                 label={txtLoginButton}
                                 icon="pi pi-sign-in"

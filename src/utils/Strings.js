@@ -99,9 +99,7 @@ export const txtEmailValid = "El email no debe estar vacío y debe ser válido",
 
 // ? ErrorPage.jsx
 export const txt404 = "404",
-    txtPageNotFound = "Página no encontrada",
-    txtPageError =
-        "La página que estás buscando no existe o ha ocurrido un error";
+    txtPageNotFound = "Página no encontrada";
 
 // ? ProfilePage.jsx
 export const txtMessageUserSuccess = {

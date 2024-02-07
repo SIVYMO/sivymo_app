@@ -179,10 +179,10 @@ export default function PersonalData() {
     return (
         <div className="p-grid">
             <Toast ref={toast}/>
-            <div className="p-col p-p-3">
+            <div className="col p-p-3">
                 <h2>{txtTitlePersonalData}</h2>
                 <div className="p-fluid">
-                    <div className="p-field">
+                    <div className="field">
                         <label htmlFor="nombre">{txtNameLabel}</label>
                         <InputText
                             id="nombre"
@@ -199,12 +199,12 @@ export default function PersonalData() {
                             className={!userInfo.nombre && "p-invalid"}
                         />
                         {!userInfo.nombre && (
-                            <small id="nombre-help" className="p-error p-d-block">
+                            <small id="nombre-help" className="p-error block">
                                 {txtNameHelp}
                             </small>
                         )}
                     </div>
-                    <div className="p-field">
+                    <div className="field">
                         <label htmlFor="primerApellido">
                             {txtFistSurnameLabel}
                         </label>
@@ -223,12 +223,12 @@ export default function PersonalData() {
                             className={!userInfo.primerApellido && "p-invalid"}
                         />
                         {!userInfo.primerApellido && (
-                            <small id="primerApellido-help" className="p-error p-d-block">
+                            <small id="primerApellido-help" className="p-error block">
                                 {txtFistSurnameHelp}
                             </small>
                         )}
                     </div>
-                    <div className="p-field">
+                    <div className="field">
                         <label htmlFor="segundoApellido">
                             {txtSecondSurnameLabel}
                         </label>
@@ -246,7 +246,7 @@ export default function PersonalData() {
                             }}
                         />
                     </div>
-                    <div className="p-field">
+                    <div className="field">
                         <label htmlFor="fechaDeNacimiento">
                             {txtDateOfBirthLabel}
                         </label>
@@ -276,13 +276,13 @@ export default function PersonalData() {
                         {!userInfo.fechaDeNacimiento && (
                             <small
                                 id="fechaDeNacimiento-help"
-                                className="p-error p-d-block"
+                                className="p-error block"
                             >
                                 {txtDateOfBirthHelp}
                             </small>
                         )}
                     </div>
-                    <div className="p-field">
+                    <div className="field">
                         <label htmlFor="correo">{txtEmailLabel}</label>
                         <InputText
                             id="correo"
@@ -299,13 +299,13 @@ export default function PersonalData() {
                             className={!userInfo.correo && "p-invalid"}
                         />
                         {!userInfo.correo && (
-                            <small id="correo-help" className="p-error p-d-block">
+                            <small id="correo-help" className="p-error block">
                                 {txtEmailHelp}
                             </small>
                         )}
                     </div>
                 </div>
-                <div className="p-text-center">
+                <div className="text-center">
                     <Button
                         label={txtDesactiveActiveFieldsLabel}
                         className="p-button-link p-mr-2"
@@ -321,10 +321,10 @@ export default function PersonalData() {
                     />
                 </div>
             </div>
-            <div className="p-col p-p-3">
+            <div className="col p-p-3">
                 <h2>Cambio de contraseña</h2>
                 <div className="p-fluid">
-                    <div className="p-field">
+                    <div className="field">
                         <label htmlFor="contraseñaActual">
                             {txtPasswordCurrentlyLabel}
                         </label>
@@ -344,12 +344,12 @@ export default function PersonalData() {
                             }}
                         />
                         {!userPassword.contraseñaActual && (
-                            <small id="contraseñaActual-help" className="p-error p-d-block">
+                            <small id="contraseñaActual-help" className="p-error block">
                                 {txtPasswordCurrentlyHelp}
                             </small>
                         )}
                     </div>
-                    <div className="p-field">
+                    <div className="field">
                         <label htmlFor="nuevaContraseña">
                             {txtNewPasswordLabel}
                         </label>
@@ -369,12 +369,12 @@ export default function PersonalData() {
                             }}
                         />
                         {!userPassword.nuevaContraseña && (
-                            <small id="nuevaContraseña-help" className="p-error p-d-block">
+                            <small id="nuevaContraseña-help" className="p-error block">
                                 {txtNewPasswordHelp}
                             </small>
                         )}
                     </div>
-                    <div className="p-field">
+                    <div className="field">
                         <label htmlFor="repetirNuevaContraseña">
                             {txtRepeatNewPasswordLabel}
                         </label>
@@ -394,13 +394,13 @@ export default function PersonalData() {
                             }}
                         />
                         {!userPassword.repetirNuevaContraseña && (
-                            <small id="repetirNuevaContraseña-help" className="p-error p-d-block">
+                            <small id="repetirNuevaContraseña-help" className="p-error block">
                                 {txtRepeatNewPasswordHelp}
                             </small>
                         )}
                     </div>
                 </div>
-                <div className="p-text-center">
+                <div className="text-center">
                     <Button
                         label={txtDesactiveActiveFieldsLabel}
                         className="p-button-link p-mr-2"

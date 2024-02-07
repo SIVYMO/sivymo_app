@@ -51,14 +51,14 @@ export default function Header() {
     return (
         <>
             <div className="p-grid p-m-1">
-                <div className="p-col">
+                <div className="col">
                     <div className="card">
                         <Menubar model={MENU} start={start} end={end}/>
                     </div>
                 </div>
             </div>
-            <div className="p-grid p-d-flex">
-                <div className="p-col-10 p-offset-1">
+            <div className="p-grid flex">
+                <div className="col-10 p-offset-1">
                     <Outlet />
                 </div>
             </div>

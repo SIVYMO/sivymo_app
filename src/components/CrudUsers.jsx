@@ -221,13 +221,13 @@ export default function CrudUsers() {
             sticky: true,
             content: (
                 <div className="p-flex p-flex-column" style={{flex: "1"}}>
-                    <div className="p-text-center">
+                    <div className="text-center">
                         <i className="pi pi-exclamation-triangle" style={{fontSize: "3rem"}}></i>
                         <h4>{txtRestartPasswordTitle}</h4>
                         <p>{txtRestartPasswordContent}</p>
                     </div>
                     <div className="p-grid p-fluid">
-                        <div className="p-col">
+                        <div className="col">
                             <Button
                                 type="button"
                                 label={txtYES}
@@ -235,7 +235,7 @@ export default function CrudUsers() {
                                 onClick={() => resetPassword(rowData)}
                             />
                         </div>
-                        <div className="p-col">
+                        <div className="col">
                             <Button
                                 type="button"
                                 label={txtNO}
@@ -380,7 +380,7 @@ export default function CrudUsers() {
     return (
         <div className="p-grid">
             <Toast ref={toast}/>
-            <div className="p-col p-p-3">
+            <div className="col p-p-3">
                 <h2>{txtTitleCrud}</h2>
                 <div className="card">
                     <Toolbar
@@ -440,7 +440,7 @@ export default function CrudUsers() {
                         footer={userDialogFooter}
                         onHide={hideDialog}>
                         <div className="p-fluid">
-                            <div className="p-field">
+                            <div className="field">
                                 <label htmlFor="nombre">{txtNameLabel}</label>
                                 <InputText
                                     id="nombre"
@@ -456,12 +456,12 @@ export default function CrudUsers() {
                                     className={!user.nombre && "p-invalid"}
                                 />
                                 {!user.nombre && (
-                                    <small id="nombre-help" className="p-error p-d-block">
+                                    <small id="nombre-help" className="p-error block">
                                         {txtNameHelp}
                                     </small>
                                 )}
                             </div>
-                            <div className="p-field">
+                            <div className="field">
                                 <label htmlFor="primerApellido">
                                     {txtFistSurnameLabel}
                                 </label>
@@ -479,12 +479,12 @@ export default function CrudUsers() {
                                     className={!user.primerApellido && "p-invalid"}
                                 />
                                 {!user.primerApellido && (
-                                    <small id="primerApellido-help" className="p-error p-d-block">
+                                    <small id="primerApellido-help" className="p-error block">
                                         {txtFistSurnameHelp}
                                     </small>
                                 )}
                             </div>
-                            <div className="p-field">
+                            <div className="field">
                                 <label htmlFor="segundoApellido">
                                     {txtSecondSurnameLabel}
                                 </label>
@@ -501,7 +501,7 @@ export default function CrudUsers() {
                                     }}
                                 />
                             </div>
-                            <div className="p-field">
+                            <div className="field">
                                 <label htmlFor="fechaDeNacimiento">
                                     {txtDateOfBirthLabel}
                                 </label>
@@ -529,12 +529,12 @@ export default function CrudUsers() {
                                     }}
                                 />
                                 {!user.fechaDeNacimiento && (
-                                    <small id="fechaDeNacimiento-help" className="p-error p-d-block">
+                                    <small id="fechaDeNacimiento-help" className="p-error block">
                                         {txtDateOfBirthHelp}
                                     </small>
                                 )}
                             </div>
-                            <div className="p-field">
+                            <div className="field">
                                 <label htmlFor="correo">{txtEmailLabel}</label>
                                 <InputText
                                     id="correo"
@@ -550,12 +550,12 @@ export default function CrudUsers() {
                                     className={!user.correo && "p-invalid"}
                                 />
                                 {!user.correo && (
-                                    <small id="correo-help" className="p-error p-d-block">
+                                    <small id="correo-help" className="p-error block">
                                         {txtEmailHelp}
                                     </small>
                                 )}
                             </div>
-                            <div className="p-field p-text-center">
+                            <div className="field text-center">
                                 <label htmlFor="superAdmin">
                                     {txtSuperAdminLabel}
                                 </label>

@@ -169,7 +169,7 @@ export default function PatentPage() {
 
     function NotificacionPatentes() {
         return (
-            <div className="p-grid p-col"><h2>{txtSubitlePatent1}</h2>
+            <div className="p-grid col"><h2>{txtSubitlePatent1}</h2>
                 <DataTable ref={dt1} emptyMessage={txtNoData} paginator rows={7} value={notificaciones}>
                     <Column field="Número del Oficio" header="Número del Oficio" sortable/>
                     <Column field="Fecha del Oficio" header="Fecha del Oficio" sortable/>
@@ -183,7 +183,7 @@ export default function PatentPage() {
 
     function PatentesIndustriales() {
         return (
-            <div className="p-grid p-col"><h2>{txtSubitlePatent2}</h2>
+            <div className="p-grid col"><h2>{txtSubitlePatent2}</h2>
                 <DataTable ref={dt2} emptyMessage={txtNoData} paginator rows={7} scrollable value={patentesRegistros}>
                     <Column field="Oficina, No de Patente y Tipo de documento"
                             header="Oficina, No de Patente y Tipo de documento" headerStyle={{width: "17vh"}} sortable/>
@@ -208,7 +208,7 @@ export default function PatentPage() {
 
     function PatentesNotificados() {
         return (
-            <div className="p-grid p-col"><h2>{txtSubitlePatent3}</h2>
+            <div className="p-grid col"><h2>{txtSubitlePatent3}</h2>
                 <DataTable ref={dt3} emptyMessage={txtNoData} paginator rows={7} value={requisitos}>
                     <Column field="Número de expediente" header="Número de expediente" sortable/>
                     <Column field="Solicitante(s)" header="Solicitante(s)" sortable/>
@@ -224,21 +224,21 @@ export default function PatentPage() {
             <BreadCrumb model={[{label: txtTitlePatents}]} home={{icon: "pi pi-home"}}/>
             <Toast ref={toast}/>
             <div className="p-grid">
-                <div className="p-col p-p-3">
+                <div className="col p-p-3">
                     <h1>{txtTitlePatents}</h1>
                     <div>
                         {txtLastQueryPatent}
                         {moment(resume.ultimaBusquedaPatentes).format("LLLL")}
                     </div>
                 </div>
-                <div className="p-d-flex p-ai-center p-py-2">
+                <div className="flex align-items-center p-py-2">
                     <Button label={txtStartSearchButton} icon="pi pi-search" className="p-button-lg p-ml-auto"
                             style={{backgroundColor: "var(--green-600)"}} onClick={confirmStartSearch}/>
                 </div>
             </div>
             <div className="p-grid p-dir-col">
-                <div className="p-col">
-                    <div className="p-d-flex p-ai-center export-buttons">
+                <div className="col">
+                    <div className="flex align-items-center export-buttons">
                         <Button type="button" className="p-mr-2" icon="pi pi-download" label={txtExportButton}
                                 style={{backgroundColor: "var(--teal-600)"}} onClick={exports}/>
                         <Button type="button" icon="pi pi-times" label={txtClearButton}
@@ -247,9 +247,9 @@ export default function PatentPage() {
                                 onClick={clearMessages}/>
                     </div>
                 </div>
-                <div className="p-col"><NotificacionPatentes/></div>
-                <div className="p-col"><PatentesIndustriales/></div>
-                <div className="p-col"><PatentesNotificados/></div>
+                <div className="col"><NotificacionPatentes/></div>
+                <div className="col"><PatentesIndustriales/></div>
+                <div className="col"><PatentesNotificados/></div>
             </div>
             <Dialog
                 showHeader={false}
@@ -259,10 +259,10 @@ export default function PatentPage() {
                 onHide={() => {
                 }}>
                 <div className="p-grid">
-                    <div className="p-col">
+                    <div className="col">
                         {history ? (
                             <>
-                                <div className="p-col p-col-align-center">
+                                <div className="col col-align-center">
                                     <h1>{txtSmsLoading[0]}</h1>
                                     <div>{txtLodaing}</div>
                                     <ProgressBar
@@ -276,11 +276,11 @@ export default function PatentPage() {
                             <>
                                 <h1>{txtStartSearch}</h1>
                                 <p>{txtInstructionsSearch}</p>
-                                <div className="p-text-center">
-                                    <div className="p-field">
+                                <div className="text-center">
+                                    <div className="field">
                                         <label
                                             htmlFor="dateStartInput"
-                                            className="p-d-block"
+                                            className="block"
                                         >
                                             {txtDateStartLabel}
                                         </label>
@@ -302,10 +302,10 @@ export default function PatentPage() {
                                             }}
                                         />
                                     </div>
-                                    <div className="p-field">
+                                    <div className="field">
                                         <label
                                             htmlFor="dateEndInput"
-                                            className="p-d-block"
+                                            className="block"
                                         >
                                             {txtDateEndLabel}
                                         </label>
@@ -330,7 +330,7 @@ export default function PatentPage() {
                                         />
                                     </div>
 
-                                    <div className=" p-field-checkbox">
+                                    <div className=" field-checkbox">
                                         <Checkbox
                                             inputId="filesReady"
                                             checked={filesReady}
@@ -343,7 +343,7 @@ export default function PatentPage() {
                                         </label>
                                     </div>
                                 </div>
-                                <div className="p-ai-center p-text-center">
+                                <div className="align-items-center text-center">
                                     <Button
                                         type="button"
                                         className="p-mr-2 p-button-danger"

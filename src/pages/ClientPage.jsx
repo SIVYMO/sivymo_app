@@ -132,7 +132,7 @@ export default function ClientPage() {
       sticky: true,
       content: (
         <div className="p-flex p-flex-column" style={{ flex: "1" }}>
-          <div className="p-text-center">
+          <div className="text-center">
             <i
               className="pi pi-spin pi-spinner"
               style={{ fontSize: "3em" }}
@@ -166,22 +166,22 @@ export default function ClientPage() {
       />
       <Toast ref={toast} />
       <div className="p-grid">
-        <div className="p-col p-p-3">
+        <div className="col p-p-3">
           <h1>{txtTitleClients}</h1>
           <div>
             {txtLastUpdateClients}
             {moment(resume.ultimaModificacionClientes).format("LLLL")}
           </div>
           <div className="p-grid p-mt-3">
-            <div className="p-col-12 p-sm-6">
+            <div className="col-12 p-sm-6">
               <div className="p-grid">
-                <div className="p-col-12 p-sm-8">
+                <div className="col-12 p-sm-8">
                   <h2>
                     Guardar todos los expedientes :{" "}
                     <span>{allClients.length}</span>
                   </h2>
                 </div>
-                <div className="p-col-12 p-sm-4 p-mt-0 p-mt-sm-2">
+                <div className="col-12 p-sm-4 p-mt-0 p-mt-sm-2">
                   <Button
                     type="button"
                     icon="pi pi-times"
@@ -211,14 +211,14 @@ export default function ClientPage() {
                 }}
               />
             </div>
-            <div className="p-col-12 p-sm-6">
+            <div className="col-12 p-sm-6">
               <div className="p-grid">
-                <div className="p-col">
+                <div className="col">
                   <h2>
                     Añadir más expedientes : <span>{clients.length}</span>
                   </h2>
                 </div>
-                <div className="p-col-12 p-sm-4 p-mt-0 p-mt-sm-2">
+                <div className="col-12 p-sm-4 p-mt-0 p-mt-sm-2">
                   <Button
                     type="button"
                     icon="pi pi-times"

@@ -29,7 +29,7 @@ export default function ProfilePage() {
                 home={{ icon: "pi pi-home" }}
             />
             <div className="p-grid">
-                <div className="p-col">
+                <div className="col">
                     <TabView>
                         <TabPanel
                             header={txtTabPersonalData}

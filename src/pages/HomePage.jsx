@@ -49,9 +49,9 @@ export default function HomePage() {
     }
 
     const Card = ({icon, text, value}) => (
-            <div className="p-col-12 p-sm-3 card p-shadow-2">
-                <div className="p-d-flex p-d-flex p-jc-center p-ai-center" style={{height: '200px'}}>
-                    <div className='p-text-center'>
+            <div className="col-12 p-sm-3 card p-shadow-2">
+                <div className="flex flex justify-content-center align-items-center" style={{height: '200px'}}>
+                    <div className='text-center'>
                         <i className={icon} style={{'fontSize': '2em'}}></i>
                         <div className='p-mb-2 p-mt-1' style={{'fontSize': '1.5em'}}>{text}</div>
                         <div className='p-text-bold' style={{'fontSize': '1.6em'}}>{moment(value).format("LLLL")}</div>
@@ -63,16 +63,16 @@ export default function HomePage() {
     return (
         <>
             <div className="p-grid p-dir-col">
-                <div className="p-col">
+                <div className="col">
                     <h1>{txtWelcome}{' '}<i>{`${userInfo.nombre} ${userInfo.primerApellido}`}</i></h1>
                 </div>
-                <div className="p-col"><Cover/></div>
+                <div className="col"><Cover/></div>
             </div>
             <div className='p-grid p-mt-3'>
-                <div className="p-col-12 p-sm-3 card p-shadow-2"
+                <div className="col-12 p-sm-3 card p-shadow-2"
                      style={{backgroundColor: resume.clientesTotales === 0 ? 'var(--pink-100)' : 'var(--green-200)'}}>
-                    <div className="p-d-flex p-d-flex p-jc-center p-ai-center" style={{height: '200px'}}>
-                        <div className='p-text-center'>
+                    <div className="flex flex justify-content-center align-items-center" style={{height: '200px'}}>
+                        <div className='text-center'>
                             <i className='pi pi-user' style={{'fontSize': '2em'}}></i>
                             <div className='p-mb-2 p-mt-1' style={{'fontSize': '1.5em'}}>Total de expedientes:</div>
                             <div className='p-text-bold' style={{'fontSize': '5em'}}>{resume.clientesTotales}</div>

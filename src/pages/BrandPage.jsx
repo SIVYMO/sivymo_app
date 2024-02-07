@@ -154,22 +154,22 @@ export default function BrandPage() {
             <BreadCrumb model={[{label: txtTitleBrands}]} home={{icon: "pi pi-home"}}/>
             <Toast ref={toast}/>
             <div className="p-grid">
-                <div className="p-col p-p-3">
+                <div className="col p-p-3">
                     <h1>{txtTitleBrands}</h1>
                     <div>
                         {txtLastQueryBrand}
                         {moment(resume.ultimaBusquedaMarcas).format("LLLL")}
                     </div>
                 </div>
-                <div className="p-d-flex p-ai-center p-py-2">
+                <div className="flex align-items-center p-py-2">
                     <Button label={txtStartSearchButton} icon="pi pi-search" className="p-button-lg p-ml-auto"
                             style={{backgroundColor: "var(--green-600)"}} onClick={confirmStartSearch}/>
                 </div>
             </div>
 
             <div className="p-grid p-dir-col">
-                <div className="p-col">
-                    <div className="p-d-flex p-ai-center export-buttons">
+                <div className="col">
+                    <div className="flex align-items-center export-buttons">
                         <Button type="button" icon="pi pi-download" className="p-mr-2" label={txtExportButton}
                                 style={{backgroundColor: "var(--teal-600)"}} onClick={exports}/>
                         <Button type="button" icon="pi pi-times" label={txtClearButton} className="p-button-info p-mr-2"
@@ -178,7 +178,7 @@ export default function BrandPage() {
                                 onClick={clearMessages}/>
                     </div>
                 </div>
-                <div className="p-col">
+                <div className="col">
                     <h2>{txtSubtitleBrand}</h2>
                     <DataTable value={marcas} ref={dt1} emptyMessage={txtNoData} paginator scrollable rows={7}>
                         <Column field="Expediente" header="Expediente" headerStyle={{width: "20vh"}} sortable/>
@@ -196,9 +196,9 @@ export default function BrandPage() {
 
             <Dialog showHeader={false} visible={showDialog} draggable={false} closable={false}>
                 <div className="p-grid">
-                    <div className="p-col">
+                    <div className="col">
                         {history ? (
-                            <div className="p-col p-col-align-center">
+                            <div className="col col-align-center">
                                 <h1>{txtSmsLoading[0]}</h1>
                                 <div>{txtLodaing}</div>
                                 <ProgressBar mode="indeterminate" color={dark_sea_green} style={{height: "6px"}}/>
@@ -207,9 +207,9 @@ export default function BrandPage() {
                             <>
                                 <h1>{txtStartSearch}</h1>
                                 <p>{txtInstructionsSearch}</p>
-                                <div className="p-text-center">
-                                    <div className="p-field">
-                                        <label htmlFor="dateStartInput" className="p-d-block">
+                                <div className="text-center">
+                                    <div className="field">
+                                        <label htmlFor="dateStartInput" className="block">
                                             {txtDateStartLabel}
                                         </label>
                                         <Calendar id="dateStartInput"
@@ -230,8 +230,8 @@ export default function BrandPage() {
                                                   }}
                                         />
                                     </div>
-                                    <div className="p-field">
-                                        <label htmlFor="dateEndInput" className="p-d-block">
+                                    <div className="field">
+                                        <label htmlFor="dateEndInput" className="block">
                                             {txtDateEndLabel}
                                         </label>
                                         <Calendar
@@ -254,7 +254,7 @@ export default function BrandPage() {
                                             }}
                                         />
                                     </div>
-                                    <div className=" p-field-checkbox">
+                                    <div className=" field-checkbox">
                                         <Checkbox inputId="filesReady" checked={filesReady}
                                                   onChange={(e) =>
                                                       setFilesReady(e.checked)
@@ -263,7 +263,7 @@ export default function BrandPage() {
                                         <label htmlFor="filesReady">Ya cuento con los archivos descargados</label>
                                     </div>
                                 </div>
-                                <div className="p-ai-center p-text-center">
+                                <div className="align-items-center text-center">
                                     <Button
                                         type="button"
                                         className="p-mr-2 p-button-danger"
