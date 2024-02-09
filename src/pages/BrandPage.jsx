@@ -97,12 +97,9 @@ export default function BrandPage() {
             <div className="grid">
                 <div className="col-12">
                     <div className="flex justify-content-between">
-                        <Button type="button" icon="pi pi-download" className="bg-teal-600" label={txtExportButton}
-                                onClick={exports}/>
-                        <Button type="button" icon="pi pi-times" label={txtClearButton} className="p-button-info"
-                                onClick={clear}/>
-                        <Button type="button" icon="pi pi-comments" label={txtClearMessages} className="p-button-help"
-                                onClick={clearMessages}/>
+                        <Button type="button" icon="pi pi-download" className="bg-teal-600" label={txtExportButton} onClick={exports}/>
+                        <Button type="button" icon="pi pi-comments" label={txtClearMessages} className="p-button-help" onClick={clearMessages}/>
+                        <Button type="button" icon="pi pi-times" label={txtClearButton} className="p-button-info" onClick={clear}/>
                     </div>
                 </div>
                 <div className="col-12">
