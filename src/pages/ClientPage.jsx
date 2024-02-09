@@ -1,257 +1,103 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Toast } from "primereact/toast";
-import { InputTextarea } from "primereact/inputtextarea";
-import ClienteService from "../service/ClienteService";
-import HistorialService from "../service/HistorialService";
-import { BreadCrumb } from "primereact/breadcrumb";
-import {
-  txtSmsLoading,
-  txtMessageErrorGeneral,
-  txtMessageClientsSaved,
-  txtTitleClients,
-  txtLastUpdateClients,
-} from "../utils/Strings";
+import React, {useState, useRef, useEffect} from "react";
+import {Toast} from "primereact/toast";
+import {BreadCrumb} from "primereact/breadcrumb";
+import {txtTitleClients, txtLastUpdateClients, txtNoData, txtConfirmExit, txtExit,} from "../utils/Strings";
 import moment from "moment";
+import { FilterMatchMode } from 'primereact/api';
 import "moment/locale/es";
-import { Button } from "primereact/button";
-import {getHistory} from "../utils/LocalStorage";
+import {cleanLocalStorage, getHistory} from "../utils/LocalStorage";
+import ClientsDialog from "../components/ClientsDialog";
+import {Column} from "primereact/column";
+import {DataTable} from "primereact/datatable";
+import {Button} from "primereact/button";
+import ClienteService from "../service/ClienteService";
+import {confirmDialog} from 'primereact/confirmdialog';
+import { InputText } from 'primereact/inputtext';
 
 moment.locale("es");
 
 export default function ClientPage() {
-  const [resume, setResume] = useState({});
-  const [allClients, setAllClients] = useState([]);
-  const [clients, setClients] = useState([]);
-  const [allClientsText, setAllClientsText] = useState("");
-  const [clientsText, setClientsText] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [saved, setSaved] = useState(false)
+    const [resume, setResume] = useState({});
+    const [showDialog, setShowDialog] = useState()
+    const dt1 = useRef(null);
+    const [selected, setSelected] = useState([])
+    const toast = useRef(null);
+    const [data, setData] = useState([])
 
-  const toast = useRef(null);
 
-  useEffect(() => {
-    getResume();
-  }, []);
+    useEffect(() => {
+        getResume();
+        getClients()
+    }, []);
 
-  const getResume = () => {
-    setResume(getHistory());
-  };
+    useEffect(() => {
+        if (saved) getClients()
+    }, [saved]);
 
-  const clearAndFilterData = async (data = []) => {
-    let newData = [];
-    for await (let item of data) {
-      item = item.trim();
-      if (item.length > 2) newData.push(item);
+
+    const getResume = () => {
+        setResume(getHistory());
+    };
+
+    const getClients = () => {
+        setLoading(true)
+        ClienteService.getAll()
+            .then((resp) => setData(resp.data))
+            .catch((err) => console.error(err))
+            .finally(() => setLoading(false));
     }
-    return newData;
-  };
 
-  const saveAllClients = async () => {
-    showMessageloading();
-    const data = await clearAndFilterData(allClients);
-    const middleBig1 = data.splice(0, data.length / 2);
-    const middleTiny1 = middleBig1.splice(0, middleBig1.length / 2);
-    const middleTiny2 = middleBig1.splice(0, middleBig1.length);
-    const middleBig2 = data.splice(0, data.length);
-    const middleTiny3 = middleBig2.splice(0, middleBig2.length / 2);
-    const middleTiny4 = middleBig2.splice(0, middleBig2.length);
-    ClienteService.insertAll(middleTiny1)
-      .then((res) => {
-        if (res.data) {
-          Promise.all([
-            ClienteService.insertOne(middleTiny2),
-            ClienteService.insertOne(middleTiny3),
-            ClienteService.insertOne(middleTiny4),
-          ])
-            .then((res) => {
-              if (res[0].data && res[1].data && res[2].data) {
-                clearMessageLoading();
-                saveHistory();
-                clearAllClients();
-                showMessage(txtMessageClientsSaved);
-              } else showMessage(txtMessageErrorGeneral);
+    const deleteClients = () => {
+        setLoading(true)
+        ClienteService.deleteBulk(selected)
+            .then((resp) => {
+                if(resp.data) getClients()
+                else console.error(resp)
             })
-            .catch((err) => {
-              clearMessageLoading();
-              console.error(err);
-              showMessage(txtMessageErrorGeneral);
-            });
-        } else showMessage(txtMessageErrorGeneral);
-      })
-      .catch((err) => {
-        clearMessageLoading();
-        console.error(err);
-        showMessage(txtMessageErrorGeneral);
-      });
-  };
+            .catch((err) => console.error(err)).finally(() => setLoading(false));
+    }
 
-  const saveClients = async () => {
-    showMessageloading();
-    const data = await clearAndFilterData(clients);
-    ClienteService.insertOne(data)
-      .then((response) => {
-        clearMessageLoading();
-        if (response) {
-          saveHistory();
-          clearClients();
-          showMessage(txtMessageClientsSaved);
-        } else {
-          showMessage(txtMessageErrorGeneral);
-        }
-      })
-      .catch((error) => {
-        clearMessageLoading();
-        console.error(error);
-        showMessage(txtMessageErrorGeneral);
-      });
-  };
+    const confirmDelete = () => {
+        confirmDialog({
+            message: '¿Está seguro que desea eliminar los registros seleccionados?',
+            header: 'Eliminar registros seleccionados',
+            draggable: false,
+            icon: "pi pi-exclamation-triangle",
+            acceptClassName: "p-button-success",
+            rejectClassName: "p-button-plain p-button-text",
+            accept: () => {
+                deleteClients()
+            },
+        });
+    };
 
-  const clearAllClients = () => {
-    setAllClients([]);
-    setAllClientsText("");
-    showMessage({
-      type: "info",
-      title: "Se han limpiado todos expedientes",
-      description: "Limpiado",
-    });
-  };
-  const clearClients = () => {
-    setClients([]);
-    setClientsText("");
-    showMessage({
-      type: "info",
-      title: "Se han limpiado los expedientes",
-      description: "Limpiado",
-    });
-  };
 
-  const clearMessageLoading = () => {
-    toast.current.clear();
-  };
-
-  const showMessageloading = () => {
-    toast.current.show({
-      severity: "info",
-      sticky: true,
-      content: (
-        <div className="p-flex p-flex-column" style={{ flex: "1" }}>
-          <div className="text-center">
-            <i
-              className="pi pi-spin pi-spinner"
-              style={{ fontSize: "3em" }}
-            ></i>
-            <h4>{txtSmsLoading[0]}</h4>
-            <p>{txtSmsLoading[1]}</p>
-          </div>
-        </div>
-      ),
-    });
-  };
-
-  const saveHistory = () => {
-    HistorialService.insertOne(3);
-  };
-
-  const showMessage = ({ type, title, description }) => {
-    toast.current.show({
-      severity: type,
-      summary: title,
-      detail: description,
-      life: 3000,
-    });
-  };
-
-  return (
-    <>
-      <BreadCrumb
-        model={[{ label: txtTitleClients }]}
-        home={{ icon: "pi pi-home" }}
-      />
-      <Toast ref={toast} />
-      <div className="grid">
-        <div className="col p-3">
-          <h1>{txtTitleClients}</h1>
-          <div>
-            {txtLastUpdateClients}
-            {moment(resume.ultimaModificacionClientes).format("LLLL")}
-          </div>
-          <div className="grid p-mt-3">
-            <div className="col-12 p-sm-6">
-              <div className="grid">
-                <div className="col-12 p-sm-8">
-                  <h2>
-                    Guardar todos los expedientes :{" "}
-                    <span>{allClients.length}</span>
-                  </h2>
+    return (
+        <>
+            <BreadCrumb model={[{label: txtTitleClients}]} home={{icon: "pi pi-home"}}/>
+            <Toast ref={toast}/>
+            <div className="grid">
+                <div className="col p-3">
+                    <h1>{txtTitleClients}</h1>
+                    <div>{txtLastUpdateClients}{moment(resume.ultimaModificacionClientes).format("LLLL")}</div>
                 </div>
-                <div className="col-12 p-sm-4 p-mt-0 p-mt-sm-2">
-                  <Button
-                    type="button"
-                    icon="pi pi-times"
-                    label="Limpiar"
-                    className="p-button-info p-mr-1"
-                    onClick={clearAllClients}
-                    disabled={allClients.length <= 0}
-                  />
-                  <Button
-                    type="button"
-                    icon="pi pi-save"
-                    label="Guardar"
-                    className="p-button-success"
-                    onClick={saveAllClients}
-                    disabled={allClients.length <= 0}
-                  />
-                </div>
-              </div>
-              <InputTextarea
-                value={allClientsText}
-                rows={20}
-                autoResize
-                style={{ width: "100%" }}
-                onChange={(e) => {
-                  setAllClientsText(e.target.value);
-                  setAllClients(e.target.value.split("\n"));
-                }}
-              />
+                <ClientsDialog showDialog={showDialog} setShowDialog={setShowDialog} saved={saved} setSaved={setSaved}/>
             </div>
-            <div className="col-12 p-sm-6">
-              <div className="grid">
-                <div className="col">
-                  <h2>
-                    Añadir más expedientes : <span>{clients.length}</span>
-                  </h2>
+            <div className='grid'>
+                <div className="col-12">
+                    <Button className='my-3' severity='danger' disabled={selected.length === 0} onClick={confirmDelete}>Eliminar
+                        registros seleccionados</Button>
+                    <DataTable value={data} ref={dt1}
+                               selectionMode='multiple' selection={selected} onSelectionChange={(e) => setSelected(e.value)}
+                               emptyMessage={txtNoData} paginator scrollable rows={10} loading={loading} rowsPerPageOptions={[5, 10, 25, 50]}>
+                        <Column selectionMode="multiple" headerStyle={{width: '3rem'}}/>
+                        <Column field="expediente" header="Expediente" sortable filter />
+                        <Column field="creacion" header="Creación" sortable filter body={(rowData) => <div> {moment(rowData['creacion']).format("LLLL")} </div>}/>
+                    </DataTable>
                 </div>
-                <div className="col-12 p-sm-4 p-mt-0 p-mt-sm-2">
-                  <Button
-                    type="button"
-                    icon="pi pi-times"
-                    label="Limpiar"
-                    className="p-button-info p-mr-1"
-                    onClick={clearClients}
-                    disabled={clients.length <= 0}
-                  />
-                  <Button
-                    type="button"
-                    icon="pi pi-save"
-                    label="Guardar"
-                    className="p-button-warning"
-                    onClick={saveClients}
-                    disabled={clients.length <= 0}
-                  />
-                </div>
-              </div>
-              <InputTextarea
-                value={clientsText}
-                rows={20}
-                autoResize
-                style={{ width: "100%" }}
-                onChange={(e) => {
-                  setClientsText(e.target.value);
-                  setClients(e.target.value.split("\n"));
-                }}
-              />
             </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+        </>
+    );
 }

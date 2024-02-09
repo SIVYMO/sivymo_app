@@ -48,7 +48,7 @@ export default function SearchDialog({payload, setPayload, resume, loading, setL
 
     const getClients = () => {
         setLoading(true)
-        ClienteService.getAll()
+        ClienteService.getAllRaw()
             .then((resp) => setPayload({...payload, datos: resp.data}))
             .catch((err) => console.error(err)).finally(() => setLoading(false));
     };
@@ -84,8 +84,8 @@ export default function SearchDialog({payload, setPayload, resume, loading, setL
                                                   selectionMode='range'
                                                   value={dates}
                                                   touchUI
-                                                  numberOfMonths={2}
                                                   showIcon
+                                                  icon={'pi pi-calendar'}
                                                   dateFormat="dd/mm/yy"
                                                   disabled={payload.descargado}
                                                   onChange={(e) => {

@@ -1,8 +1,17 @@
 import API from "./API";
 
 class ClienteService {
+
     getAll() {
         return API.get("/clients");
+    }
+
+    deleteBulk(obj) {
+        return API.delete("/clients/bulk", {data: obj});
+    }
+
+    getAllRaw() {
+        return API.get("/clientsRaw");
     }
 
     insertAll(obj) {

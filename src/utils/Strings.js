@@ -51,6 +51,19 @@ export const localLocation = {
     weak: "Débil",
     medium: "Normal",
     strong: "Fuerte",
+    matchAll: "Coincide con todo",
+    matchAny: "Coincide con cualquier",
+    addRule: "Agregar regla",
+    removeRule: "Eliminar regla",
+    rangeStart: "Inicio",
+    rangeEnd: "Fin",
+    startsWith: "Empieza con",
+    contains: "Contiene",
+    notContains: "No contiene",
+    endsWith: "Termina con",
+    equals: "Igual",
+    notEquals: "No igual",
+    apply: "Aplicar",
 };
 
 // ? HomePage.jsx
@@ -83,13 +96,8 @@ export const txtEmailValid = "El email no debe estar vacío y debe ser válido",
     txtFillFields = "Favor de llenar todos los campos",
     txtEmailLabel = "Correo electrónico:",
     txtPasswordLabel = "Contraseña:",
-    txtPleaseWait = "Por favor espere...",
     txtLoginButton = "Iniciar sesión",
-    txtCodeVerification =
-        "Ingrese el código de verificación que ha sido enviado a su correo electrónico",
-    txtCodeVerificationLabel = "Código de verificación",
     txtCancelButton = "Cancelar",
-    txtVerifyButton = "Verificar",
     txtMessageLoginError = {
         type: "error",
         title: "Correo electrónico y/o contraseña incorrectos",
@@ -192,8 +200,8 @@ export const txtSmsLoading = [
     },
     txtTitleClients = "Expedientes",
     txtClearButton = "Limpiar datos",
-    txtNoDataLabel = "Sin ningún dato subido",
-    txtClearMessages = "Limpiar mensajes";
+    txtClearMessages = "Limpiar mensajes",
+    txtSaveClientsButton = "Guardar expedientes";
 
 // ? PatentPage.jsx
 // ? BrandPage.jsx
