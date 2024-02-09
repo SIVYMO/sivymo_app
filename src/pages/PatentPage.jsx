@@ -153,9 +153,9 @@ export default function PatentPage() {
                 <div className="col-12">
                     <h2>{txtSubitlePatent3}</h2>
                     <DataTable ref={dt3} emptyMessage={txtNoData} paginator rows={10} value={data3} loading={loading}>
-                        <Column field="Número de expediente" header="Número de expediente" sortable/>
                         <Column field="Solicitante(s)" header="Solicitante(s)" sortable/>
                         <Column field="Número del Oficio" header="Número del Oficio" sortable/>
+                        <Column field="Número de expediente" header="Número de expediente" sortable/>
                         <Column field="Agente" header="Agente" sortable/>
                     </DataTable>
                 </div>
