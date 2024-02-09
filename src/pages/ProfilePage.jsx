@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { TabView, TabPanel } from "primereact/tabview";
 import { BreadCrumb } from "primereact/breadcrumb";
-import PersonalData from "../components/PersonalData";
+import Perfil from "../components/Perfil";
 import CrudUsers from "../components/CrudUsers";
 import {
     txtTitleProfile,
@@ -15,7 +15,7 @@ export default function ProfilePage() {
     });
 
     useEffect(() => {
-        getPersonalInformation();
+         getPersonalInformation();
     }, []);
 
     function getPersonalInformation() {
@@ -24,29 +24,17 @@ export default function ProfilePage() {
 
     return (
         <>
-            <BreadCrumb
-                model={[{ label: txtTitleProfile }]}
-                home={{ icon: "pi pi-home" }}
-            />
-            <div className="p-grid">
+            <BreadCrumb model={[{ label: txtTitleProfile }]} home={{ icon: "pi pi-home" }}/>
+            <div className="grid">
                 <div className="col">
                     <TabView>
-                        <TabPanel
-                            header={txtTabPersonalData}
-                            leftIcon="pi pi-fw pi-user"
-                        >
-                            <PersonalData />
+                        <TabPanel header={txtTabPersonalData} leftIcon="pi pi-fw pi-user">
+                            <Perfil />
                         </TabPanel>
                         {userInfo.superAdmin ? (
-                            <TabPanel
-                                header={txtTabUserTable}
-                                leftIcon="pi pi-fw pi-pencil"
-                            >
+                            <TabPanel header={txtTabUserTable} leftIcon="pi pi-fw pi-pencil">
                                 <CrudUsers />
-                            </TabPanel>
-                        ) : (
-                            <div className="disable"></div>
-                        )}
+                            </TabPanel>) : (<div className="disable"></div>)}
                     </TabView>
                 </div>
             </div>

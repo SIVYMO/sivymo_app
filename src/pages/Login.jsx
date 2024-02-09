@@ -6,19 +6,11 @@ import {InputText} from "primereact/inputtext";
 import {Password} from "primereact/password";
 import {Button} from "primereact/button";
 import {Toast} from "primereact/toast";
-import {
-    txtAltLogoImg,
-    txtEmailValid,
-    txtPasswordValid,
-    txtLogin,
-    txtFillFields,
-    txtEmailLabel,
-    txtPasswordLabel,
-    txtLoginButton,
-    txtMessageLoginError,
-    txtMessageSucces,
-    txtMessageLoading
+import {txtAltLogoImg, txtEmailValid, txtPasswordValid, txtLogin,
+    txtFillFields, txtEmailLabel, txtPasswordLabel, txtLoginButton,
+    txtMessageLoginError, txtMessageSucces, txtMessageLoading
 } from "../utils/Strings";
+import {setUser } from "../utils/LocalStorage";
 import UsuarioService from "../service/UsuarioService";
 import {useNavigate} from "react-router-dom";
 
@@ -60,7 +52,7 @@ export default function Login() {
             UsuarioService.login(userLogin)
                 .then((response) => {
                     clearMessages();
-                    localStorage.setItem("userActive", JSON.stringify(response.data.usuario));
+                    setUser(response.data.usuario);
                     showMessage(txtMessageSucces);
                     navigate("/");
                 })
@@ -72,9 +64,7 @@ export default function Login() {
         }
     };
 
-    const clearMessages = () => {
-        toastMessages.current.clear();
-    };
+    const clearMessages = () => toastMessages.current.clear();
 
     const showMessage = ({type, title, description}) => {
         toastMessages.current.show({
@@ -96,29 +86,21 @@ export default function Login() {
                     <div className="mx-6 my-4">
                         <div className="p-fluid">
                             <div className="field">
-                                <label htmlFor="emailInput" className="block">
-                                    {txtEmailLabel}
-                                </label>
+                                <label htmlFor="emailInput" className="block">{txtEmailLabel}</label>
                                 <InputText
                                     className={emailUIError}
                                     id="emailInput"
                                     aria-describedby="emailInput-help"
                                     value={emailInput}
                                     maxLength="50"
-                                    onChange={(e) => {
-                                        setEmailInput(e.target.value);
-                                    }}
+                                    onChange={(e) => setEmailInput(e.target.value)}
                                 />
-                                <small id="emailInput-help" className="p-error block">
-                                    {emailErrorSms}
-                                </small>
+                                <small id="emailInput-help" className="p-error block">{emailErrorSms}</small>
                             </div>
                         </div>
                         <div className="p-fluid">
                             <div className="field">
-                                <label htmlFor="passwordInput" className="block">
-                                    {txtPasswordLabel}
-                                </label>
+                                <label htmlFor="passwordInput" className="block">{txtPasswordLabel}</label>
                                 <Password
                                     id="passwordInput"
                                     toggleMask
@@ -126,13 +108,9 @@ export default function Login() {
                                     feedback={false}
                                     maxLength="50"
                                     value={passwordInput}
-                                    onChange={(e) => {
-                                        setPasswordInput(e.target.value);
-                                    }}
+                                    onChange={(e) => setPasswordInput(e.target.value)}
                                 />
-                                <small id="passwordInput-help" className="p-error block">
-                                    {passwordErrorSms}
-                                </small>
+                                <small id="passwordInput-help" className="p-error block">{passwordErrorSms}</small>
                             </div>
                         </div>
                         <div className="text-center">

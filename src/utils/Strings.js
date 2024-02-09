@@ -54,8 +54,7 @@ export const localLocation = {
 };
 
 // ? HomePage.jsx
-export const backgroundWallpaper = "Fondo de portada",
-    txtWelcome = "Hola, bienvenido(a) de nuevo",
+export const txtWelcome = "Hola, bienvenido(a) de nuevo",
     txtLastQueryPatent = "Última búsqueda de patentes: ",
     txtLastQueryBrand = "Última búsqueda de marcas: ",
     txtLastUpdateClients = "Última actualización en expedientes: ",

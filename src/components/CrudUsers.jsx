@@ -12,35 +12,14 @@ import {Dialog} from "primereact/dialog";
 import {Badge} from "primereact/badge";
 import Validations from "../utils/Validations";
 import {
-    txtMessageUserSuccess,
-    txtMessageUserError,
-    txtNameLabel,
-    txtNameHelp,
-    txtFistSurnameLabel,
-    txtFistSurnameHelp,
-    txtSecondSurnameLabel,
-    txtDateOfBirthLabel,
-    txtDateOfBirthHelp,
-    txtEmailLabel,
-    txtEmailHelp,
-    txtMessageUserDelete,
-    txtRestartPasswordTitle,
-    txtRestartPasswordContent,
-    txtYES,
-    txtNO,
-    txtCancelButton,
-    txtSaveButton,
-    txtNewUserButton,
-    txtExport,
-    txtSearch,
-    txtTitleCrud,
-    txtFooterTableLabel,
-    txtUserDetails,
-    txtSuperAdminLabel,
-    txtDeleteUserTitle,
-    txtDeleteUserContent,
-    txtMessageUserPasswordReset,
-    txtMessageErrorGeneral,
+    txtMessageUserSuccess, txtMessageUserError, txtNameLabel,
+    txtNameHelp, txtFistSurnameLabel, txtFistSurnameHelp,
+    txtSecondSurnameLabel, txtDateOfBirthLabel, txtDateOfBirthHelp,
+    txtEmailLabel, txtEmailHelp, txtMessageUserDelete, txtRestartPasswordTitle,
+    txtRestartPasswordContent, txtYES, txtNO, txtCancelButton, txtSaveButton,
+    txtNewUserButton, txtExport, txtSearch, txtTitleCrud, txtFooterTableLabel,
+    txtUserDetails, txtSuperAdminLabel, txtDeleteUserTitle, txtDeleteUserContent,
+    txtMessageUserPasswordReset, txtMessageErrorGeneral,
 } from "../utils/Strings";
 import UsuarioService from "../service/UsuarioService";
 import moment from "moment";
@@ -48,15 +27,16 @@ import "moment/locale/es";
 
 moment.locale("es");
 
+let emptyUser = {
+    nombre: "",
+    primerApellido: "",
+    segundoApellido: "",
+    fechaDeNacimiento: "",
+    correo: "",
+    superAdmin: false,
+};
+
 export default function CrudUsers() {
-    let emptyUser = {
-        nombre: "",
-        primerApellido: "",
-        segundoApellido: "",
-        fechaDeNacimiento: "",
-        correo: "",
-        superAdmin: false,
-    };
 
     const [users, setUsers] = useState([]);
     const [userDialog, setUserDialog] = useState(false);
@@ -74,7 +54,7 @@ export default function CrudUsers() {
         getAll();
     }, []);
 
-    const getAll = ()=> {
+    const getAll = () => {
         UsuarioService.getAll()
             .then((response) => {
                 setUsers(response.data);
@@ -160,22 +140,8 @@ export default function CrudUsers() {
     const hideDetailsUser = () => setDetailsUser(!detailsUser);
 
     const saveUser = () => {
-        const {
-            nombre,
-            primerApellido,
-            segundoApellido,
-            fechaDeNacimiento,
-            correo,
-        } = user;
-        if (
-            Validations.validateFormUser(
-                nombre,
-                primerApellido,
-                segundoApellido,
-                fechaDeNacimiento,
-                correo
-            )
-        ) {
+        const {nombre, primerApellido, segundoApellido, fechaDeNacimiento, correo,} = user;
+        if (Validations.validateFormUser(nombre, primerApellido, segundoApellido, fechaDeNacimiento, correo)) {
             if (saveOrUpdate) {
                 insertOne(user);
                 hideDetailsUser();
@@ -262,7 +228,7 @@ export default function CrudUsers() {
 
     const actionBodyTemplate = (rowData) => {
         return (
-            <React.Fragment>
+            <>
                 <Button
                     icon="pi pi-pencil"
                     className="p-button-rounded p-button-info p-mr-2"
@@ -278,32 +244,22 @@ export default function CrudUsers() {
                     className="p-button-rounded p-button-warning"
                     onClick={() => showConfirmResetPassword(rowData)}
                 />
-            </React.Fragment>
+            </>
         );
     };
 
     const adminBodyTemplate = (rowData) => {
         return (
-            <React.Fragment>
-                {rowData.superAdmin ? (
-                    <Badge value={txtYES} severity="success" className="p-mr-2"/>
-                ) : (
-                    <Badge value={txtNO} className="p-mr-2" severity="danger"/>
-                )}
-            </React.Fragment>
+            rowData.superAdmin ?
+                (<Badge value={txtYES} severity="success" className="p-mr-2"/>) :
+                (<Badge value={txtNO} className="p-mr-2" severity="danger"/>)
         );
     };
 
-    const dateBirthBodyTemplane = (rowData) => {
-        return (
-            <React.Fragment>
-                <div>{moment(rowData.fechaDeNacimiento).format("LL")}</div>
-            </React.Fragment>
-        );
-    };
+    const dateBirthBodyTemplate = (rowData) => <div>{moment(rowData.fechaDeNacimiento).format("LL")}</div>;
 
     const userDialogFooter = (
-        <React.Fragment>
+        <>
             <Button
                 label={txtCancelButton}
                 icon="pi pi-times"
@@ -316,11 +272,11 @@ export default function CrudUsers() {
                 className="p-button-text"
                 onClick={saveUser}
             />
-        </React.Fragment>
+        </>
     );
 
     const deleteUserDialogFooter = (
-        <React.Fragment>
+        <>
             <Button
                 label={txtNO}
                 icon="pi pi-times"
@@ -333,35 +289,14 @@ export default function CrudUsers() {
                 className="p-button-text"
                 onClick={deleteUser}
             />
-        </React.Fragment>
+        </>
     );
 
-    const leftToolbarTemplate = () => {
-        return (
-            <React.Fragment>
-                <Button
-                    label={txtNewUserButton}
-                    icon="pi pi-plus"
-                    className="p-button-success p-mr-2"
-                    onClick={openNew}
-                />
-            </React.Fragment>
-        );
-    };
+    const leftToolbarTemplate = () => <Button label={txtNewUserButton} icon="pi pi-plus"
+                                              className="p-button-success p-mr-2" onClick={openNew}/>;
 
-    const rightToolbarTemplate = () => {
-        return (
-            <React.Fragment>
-                <Button
-                    label={txtExport}
-                    icon="pi pi-download"
-                    className="p-button"
-                    style={{backgroundColor: "var(--teal-600)"}}
-                    onClick={exportCSV}
-                />
-            </React.Fragment>
-        );
-    };
+    const rightToolbarTemplate = () => <Button label={txtExport} icon="pi pi-download" className="p-button"
+                                               style={{backgroundColor: "var(--teal-600)"}} onClick={exportCSV}/>;
 
     const header = (
         <div className="table-header">
@@ -378,16 +313,12 @@ export default function CrudUsers() {
     );
 
     return (
-        <div className="p-grid">
+        <div className="grid">
             <Toast ref={toast}/>
-            <div className="col p-p-3">
+            <div className="col p-3">
                 <h2>{txtTitleCrud}</h2>
-                <div className="card">
-                    <Toolbar
-                        className="p-mb-4"
-                        left={leftToolbarTemplate}
-                        right={rightToolbarTemplate}
-                    />
+                <div className="p-card">
+                    <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}/>
                     <DataTable
                         ref={dt}
                         value={users}
@@ -400,40 +331,19 @@ export default function CrudUsers() {
                         currentPageReportTemplate={txtFooterTableLabel}
                         globalFilter={globalFilter}
                         header={header}
-                        emptyMessage="Sin ningun usuario aún"
-                    >
+                        emptyMessage="Sin ningun usuario aún">
                         <Column field="nombre" header="Nombre" sortable/>
-                        <Column
-                            field="primerApellido"
-                            header="Primer apellido"
-                            sortable
-                        />
-                        <Column
-                            field="segundoApellido"
-                            header="Segundo apellido"
-                            sortable
-                        />
-                        <Column
-                            field="fechaDeNacimiento"
-                            header="Fecha de nacimiento"
-                            body={dateBirthBodyTemplane}
-                            sortable
-                        />
-                        <Column
-                            field="correo"
-                            header="Correo electrónico"
-                            sortable
-                        />
-                        <Column
-                            field="superAdmin"
-                            header="Super administrador"
-                            body={adminBodyTemplate}
-                        />
+                        <Column field="primerApellido" header="Primer apellido" sortable/>
+                        <Column field="segundoApellido" header="Segundo apellido" sortable/>
+                        <Column field="fechaDeNacimiento" header="Fecha de nacimiento" body={dateBirthBodyTemplate}
+                                sortable/>
+                        <Column field="correo" header="Correo electrónico" sortable/>
+                        <Column field="superAdmin" header="Super administrador" body={adminBodyTemplate}/>
                         <Column header="Acciones" body={actionBodyTemplate}/>
                     </DataTable>
                     <Dialog
                         visible={userDialog}
-                        style={{width: "450px"}}
+                        style={{width: "600px"}}
                         header={txtUserDetails}
                         modal
                         className="p-fluid"
@@ -448,18 +358,12 @@ export default function CrudUsers() {
                                     type="text"
                                     value={user.nombre}
                                     onChange={(e) => {
-                                        setUser({
-                                            ...user,
-                                            nombre: e.target.value,
-                                        });
+                                        setUser({...user, nombre: e.target.value,});
                                     }}
                                     className={!user.nombre && "p-invalid"}
                                 />
                                 {!user.nombre && (
-                                    <small id="nombre-help" className="p-error block">
-                                        {txtNameHelp}
-                                    </small>
-                                )}
+                                    <small id="nombre-help" className="p-error block">{txtNameHelp}</small>)}
                             </div>
                             <div className="field">
                                 <label htmlFor="primerApellido">

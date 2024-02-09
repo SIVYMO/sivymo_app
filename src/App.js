@@ -6,7 +6,7 @@ import "primeflex/primeflex.css";
 import {locale, addLocale} from "primereact/api";
 import {localLocation} from "./utils/Strings";
 import {createHashRouter, RouterProvider,} from "react-router-dom";
-
+import { isUserActive, isUserInactive } from "./utils/LocalStorage";
 import Login from "./pages/Login";
 import ErrorPage from "./pages/ErrorPage";
 import Header from "./components/Header";
@@ -18,12 +18,12 @@ locale("es");
 export default function App() {
 
     const validateIsLogIn = () => {
-        if (localStorage.getItem("userActive") === null) throw new Response("Not Found", {status: 404});
+        if (isUserInactive()) throw new Response("Not Found", {status: 404});
         else return true;
     }
 
     const validateIsLogOut = () => {
-        if (localStorage.getItem("userActive") !== null) throw new Response("Not Found", {status: 404});
+        if (isUserActive()) throw new Response("Not Found", {status: 404});
         else return true;
     }
 

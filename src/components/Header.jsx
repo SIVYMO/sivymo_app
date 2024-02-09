@@ -1,18 +1,19 @@
 import Logo from "../assets/img/logo.jpg";
 import {Menubar} from "primereact/menubar";
 import {Button} from "primereact/button";
-import { confirmDialog } from 'primereact/confirmdialog';
+import {confirmDialog} from 'primereact/confirmdialog';
 import {txtConfirmExit, txtExit, txtAltLogoImg, txtLogoutButton} from "../utils/Strings";
 import {useNavigate, Outlet} from "react-router-dom";
+import {cleanLocalStorage} from "../utils/LocalStorage";
 
 export default function Header() {
     const navigate = useNavigate();
     const MENU = [
-        { label: "Inicio", icon: "pi pi-home", command: () => navigate("/"),},
-        { label: "Patentes", icon: "pi pi-book", command: () => navigate("/patentes"),},
-        { label: "Marcas", icon: "pi pi-globe", command: () => navigate("/marcas"),},
-        { label: "Expedientes", icon: "pi pi-folder-open", command: () => navigate("/expedientes"),},
-        { label: "Perfil", icon: "pi pi-user", command: () => navigate("/perfil"),},
+        {label: "Inicio", icon: "pi pi-home", command: () => navigate("/"),},
+        {label: "Patentes", icon: "pi pi-book", command: () => navigate("/patentes"),},
+        {label: "Marcas", icon: "pi pi-globe", command: () => navigate("/marcas"),},
+        {label: "Expedientes", icon: "pi pi-folder-open", command: () => navigate("/expedientes"),},
+        {label: "Perfil", icon: "pi pi-user", command: () => navigate("/perfil"),},
     ];
 
     const confirmLogout = () => {
@@ -23,7 +24,7 @@ export default function Header() {
             acceptClassName: "p-button-success",
             rejectClassName: "p-button-plain p-button-text",
             accept: () => {
-                localStorage.clear();
+                cleanLocalStorage()
                 navigate("/inicio-sesion");
             },
         });
@@ -50,15 +51,9 @@ export default function Header() {
 
     return (
         <>
-            <div className="p-grid p-m-1">
-                <div className="col">
-                    <div className="card">
-                        <Menubar model={MENU} start={start} end={end}/>
-                    </div>
-                </div>
-            </div>
-            <div className="p-grid flex">
-                <div className="col-10 p-offset-1">
+            <Menubar className='m-3' model={MENU} start={start} end={end}/>
+            <div className="grid flex">
+                <div className="col-12 md:col-10 md:col-offset-1">
                     <Outlet />
                 </div>
             </div>
