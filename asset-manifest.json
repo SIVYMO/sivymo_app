@@ -1,27 +1,26 @@
 {
   "files": {
-    "main.css": "/sivymo_app/static/css/main.5548e215.chunk.css",
-    "main.js": "/sivymo_app/static/js/main.5824341c.chunk.js",
-    "main.js.map": "/sivymo_app/static/js/main.5824341c.chunk.js.map",
-    "runtime-main.js": "/sivymo_app/static/js/runtime-main.ea21bffd.js",
-    "runtime-main.js.map": "/sivymo_app/static/js/runtime-main.ea21bffd.js.map",
-    "static/css/2.f2bba557.chunk.css": "/sivymo_app/static/css/2.f2bba557.chunk.css",
-    "static/js/2.c40a55b9.chunk.js": "/sivymo_app/static/js/2.c40a55b9.chunk.js",
-    "static/js/2.c40a55b9.chunk.js.map": "/sivymo_app/static/js/2.c40a55b9.chunk.js.map",
+    "main.css": "/sivymo_app/static/css/main.af27c8c0.chunk.css",
+    "main.js": "/sivymo_app/static/js/main.9d5d08d0.chunk.js",
+    "main.js.map": "/sivymo_app/static/js/main.9d5d08d0.chunk.js.map",
+    "runtime-main.js": "/sivymo_app/static/js/runtime-main.f2ea91f1.js",
+    "runtime-main.js.map": "/sivymo_app/static/js/runtime-main.f2ea91f1.js.map",
+    "static/css/2.5cb3b001.chunk.css": "/sivymo_app/static/css/2.5cb3b001.chunk.css",
+    "static/js/2.49ed23f2.chunk.js": "/sivymo_app/static/js/2.49ed23f2.chunk.js",
+    "static/js/2.49ed23f2.chunk.js.map": "/sivymo_app/static/js/2.49ed23f2.chunk.js.map",
     "index.html": "/sivymo_app/index.html",
-    "static/css/2.f2bba557.chunk.css.map": "/sivymo_app/static/css/2.f2bba557.chunk.css.map",
-    "static/css/main.5548e215.chunk.css.map": "/sivymo_app/static/css/main.5548e215.chunk.css.map",
-    "static/js/2.c40a55b9.chunk.js.LICENSE.txt": "/sivymo_app/static/js/2.c40a55b9.chunk.js.LICENSE.txt",
-    "static/media/theme.css": "/sivymo_app/static/media/Inter-SemiBold.cca62d21.woff",
-    "static/media/primereact.min.css": "/sivymo_app/static/media/color.6441e63a.png",
-    "static/media/logonovopatent.015ff878.jpg": "/sivymo_app/static/media/logonovopatent.015ff878.jpg",
-    "static/media/primeicons.css": "/sivymo_app/static/media/primeicons.ea535860.ttf"
+    "static/css/2.5cb3b001.chunk.css.map": "/sivymo_app/static/css/2.5cb3b001.chunk.css.map",
+    "static/css/main.af27c8c0.chunk.css.map": "/sivymo_app/static/css/main.af27c8c0.chunk.css.map",
+    "static/js/2.49ed23f2.chunk.js.LICENSE.txt": "/sivymo_app/static/js/2.49ed23f2.chunk.js.LICENSE.txt",
+    "static/media/logo.015ff878.jpg": "/sivymo_app/static/media/logo.015ff878.jpg",
+    "static/media/primeicons.css": "/sivymo_app/static/media/primeicons.ea535860.ttf",
+    "static/media/theme.css": "/sivymo_app/static/media/roboto-v20-latin-ext_latin-regular.ae804dc0.woff"
   },
   "entrypoints": [
-    "static/js/runtime-main.ea21bffd.js",
-    "static/css/2.f2bba557.chunk.css",
-    "static/js/2.c40a55b9.chunk.js",
-    "static/css/main.5548e215.chunk.css",
-    "static/js/main.5824341c.chunk.js"
+    "static/js/runtime-main.f2ea91f1.js",
+    "static/css/2.5cb3b001.chunk.css",
+    "static/js/2.49ed23f2.chunk.js",
+    "static/css/main.af27c8c0.chunk.css",
+    "static/js/main.9d5d08d0.chunk.js"
   ]
 }
