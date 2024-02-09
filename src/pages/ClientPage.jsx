@@ -1,18 +1,16 @@
 import React, {useState, useRef, useEffect} from "react";
 import {Toast} from "primereact/toast";
 import {BreadCrumb} from "primereact/breadcrumb";
-import {txtTitleClients, txtLastUpdateClients, txtNoData, txtConfirmExit, txtExit,} from "../utils/Strings";
+import {txtTitleClients, txtLastUpdateClients, txtNoData,} from "../utils/Strings";
 import moment from "moment";
-import { FilterMatchMode } from 'primereact/api';
 import "moment/locale/es";
-import {cleanLocalStorage, getHistory} from "../utils/LocalStorage";
+import {getHistory} from "../utils/LocalStorage";
 import ClientsDialog from "../components/ClientsDialog";
 import {Column} from "primereact/column";
 import {DataTable} from "primereact/datatable";
 import {Button} from "primereact/button";
 import ClienteService from "../service/ClienteService";
 import {confirmDialog} from 'primereact/confirmdialog';
-import { InputText } from 'primereact/inputtext';
 
 moment.locale("es");
 

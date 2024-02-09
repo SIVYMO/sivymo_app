@@ -12,7 +12,7 @@ import HistorialService from "../service/HistorialService";
 import {Toast} from "primereact/toast";
 import {Dialog} from "primereact/dialog";
 
-export default function ClientsDialog({showDialog, setShowDialog, saved, setSaved}) {
+export default function ClientsDialog({showDialog, setShowDialog, setSaved}) {
     const toast = useRef(null);
 
     const [allClients, setAllClients] = useState([]);
