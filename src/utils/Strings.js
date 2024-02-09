@@ -13,35 +13,35 @@ export const localLocation = {
     dayNamesShort: ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"],
     dayNamesMin: ["D", "L", "M", "Mi", "J", "V", "S"],
     monthNames: [
-        "enero",
-        "febrero",
-        "marzo",
-        "abril",
-        "mayo",
-        "junio",
-        "julio",
-        "agosto",
-        "septiembre",
-        "octubre",
-        "noviembre",
-        "diciembre",
+        "Enero",
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo",
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre",
+        "Octubre",
+        "Noviembre",
+        "Diciembre",
     ],
     monthNamesShort: [
-        "ene",
-        "feb",
-        "mar",
-        "abr",
-        "may",
-        "jun",
-        "jul",
-        "ago",
-        "sep",
-        "oct",
-        "nov",
-        "dic",
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dic",
     ],
     today: "Hoy",
-    clear: "Claro",
+    clear: "Limpiar",
     accept: "Si",
     reject: "No",
     choose: "Elija",
@@ -51,17 +51,29 @@ export const localLocation = {
     weak: "Débil",
     medium: "Normal",
     strong: "Fuerte",
+    matchAll: "Coincide con todo",
+    matchAny: "Coincide con cualquier",
+    addRule: "Agregar regla",
+    removeRule: "Eliminar regla",
+    rangeStart: "Inicio",
+    rangeEnd: "Fin",
+    startsWith: "Empieza con",
+    contains: "Contiene",
+    notContains: "No contiene",
+    endsWith: "Termina con",
+    equals: "Igual",
+    notEquals: "No igual",
+    apply: "Aplicar",
 };
 
-// ? HomeTemplate.jsx
-export const backgroundWallpaper = "Fondo de portada",
-    txtWelcome = "Hola, bienvenido(a) de nuevo",
+// ? HomePage.jsx
+export const txtWelcome = "Hola, bienvenido(a) de nuevo",
     txtLastQueryPatent = "Última búsqueda de patentes: ",
     txtLastQueryBrand = "Última búsqueda de marcas: ",
     txtLastUpdateClients = "Última actualización en expedientes: ",
     txtBadgeClients ="Ingresar expedientes para poder realizar consultas";
 
-// ? MenuTop.jsx
+// ? Header.jsx
 export const txtConfirmExit = "¿Estás seguro de salir del sistema?",
     txtExit = "Salir",
     txtAltLogoImg = "Logo Novopatent",
@@ -84,13 +96,8 @@ export const txtEmailValid = "El email no debe estar vacío y debe ser válido",
     txtFillFields = "Favor de llenar todos los campos",
     txtEmailLabel = "Correo electrónico:",
     txtPasswordLabel = "Contraseña:",
-    txtPleaseWait = "Por favor espere...",
     txtLoginButton = "Iniciar sesión",
-    txtCodeVerification =
-        "Ingrese el código de verificación que ha sido enviado a su correo electrónico",
-    txtCodeVerificationLabel = "Código de verificación",
     txtCancelButton = "Cancelar",
-    txtVerifyButton = "Verificar",
     txtMessageLoginError = {
         type: "error",
         title: "Correo electrónico y/o contraseña incorrectos",
@@ -99,11 +106,9 @@ export const txtEmailValid = "El email no debe estar vacío y debe ser válido",
 
 // ? ErrorPage.jsx
 export const txt404 = "404",
-    txtPageNotFound = "Página no encontrada",
-    txtPageError =
-        "La página que estás buscando no existe o ha ocurrido un error";
+    txtPageNotFound = "Página no encontrada";
 
-// ? ProfileTemplate.jsx
+// ? ProfilePage.jsx
 export const txtMessageUserSuccess = {
         type: "success",
         title: "Usuario guardado correctamente",
@@ -183,7 +188,7 @@ export const txtMessageUserSuccess = {
     txtTabUserTable = "Tabla de usuarios",
     txtCheckPasswords = "Verifica que la contraseña actual sea correcta"
 
-//  ? ClientsTemplate.js
+//  ? ClientPage.js
 export const txtSmsLoading = [
         "Cargando",
         "Espere a que los datos estén listos",
@@ -195,12 +200,11 @@ export const txtSmsLoading = [
     },
     txtTitleClients = "Expedientes",
     txtClearButton = "Limpiar datos",
-    txtNoDataLabel = "Sin ningún dato subido",
-    txtClearMessages = "Limpiar mensajes";
+    txtClearMessages = "Limpiar mensajes",
+    txtSaveClientsButton = "Guardar expedientes";
 
-// ? SpecimensTemplate.jsx
-// ? PatentTemplate.jsx
-// ? BrandTemplate.jsx
+// ? PatentPage.jsx
+// ? BrandPage.jsx
 export const txtExportButton = "Exportar resultados",
     txtStartSearchButton = "Iniciar con la búsqueda",
     txtNoData = "No hay datos",
@@ -222,15 +226,16 @@ export const txtExportButton = "Exportar resultados",
         title: "Ocurrió un error de conexión",
         description: "Vuelve a intentarlo de nuevo",
     },
-    txtSubtitleBrand = "Notificaciones de marcas",
-    txtSubitlePatent1 = "Notificaciones de patentes",
-    txtSubitlePatent2 = "Patentes, registros de modelos de utilidad y diseños industriales",
-    txtSubitlePatent3 = "Requisitos de forma y fondo, y abandonos notificados",
+    txtSubtitleBrand = "Notificación de Resoluciones, Requerimientos y demás Actos",
+    txtSubitlePatent1 = "Notificaciones de la Dirección Divisional de Patentes",
+    txtSubitlePatent2 = "Patentes, Registros de Modelos de Utilidad y de Diseños Industriales",
+    txtSubitlePatent3 = "Requisitos de Examen de Forma y Fondo, Abandonos de Solicitudes de Patentes y Registros",
     txtLodaing = "Realizando las búsquedas necesarias",
     txtStartSearch = "Iniciar búsqueda",
     txtInstructionsSearch =
         "Puedes colocar alguna fecha en especifico o ignorar y continuar con la búsqueda regular",
     txtDateStartLabel = "Fecha inicio:",
     txtDateEndLabel = "Fecha fin:",
+    txtDatesRange = 'Rango de fechas',
     txtNoDataSearch = "No se encontraron coincidencias",
     txtDataSearch = "Se encontraron coincidencias"

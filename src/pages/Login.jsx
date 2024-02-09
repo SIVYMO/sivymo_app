@@ -1,53 +1,43 @@
 import React, {useState, useRef} from "react";
-import "../../assets/css/MyCustom.css";
-import Validations from "../../utils/Validations";
-import logonovopatent from "../../assets/img/logonovopatent.jpg";
+import "../assets/css/MyCustom.css";
+import Validations from "../utils/Validations";
+import Logo from "../assets/img/logo.jpg";
 import {InputText} from "primereact/inputtext";
 import {Password} from "primereact/password";
 import {Button} from "primereact/button";
 import {Toast} from "primereact/toast";
-import {
-    txtAltLogoImg,
-    txtEmailValid,
-    txtPasswordValid,
-    txtLogin,
-    txtFillFields,
-    txtEmailLabel,
-    txtPasswordLabel,
-    txtLoginButton,
-    txtMessageLoginError,
-    txtMessageSucces,
-    txtMessageLoading
-} from "../../utils/Strings";
-import UsuarioService from "../../service/UsuarioService";
-import {useHistory} from "react-router-dom";
+import {txtAltLogoImg, txtEmailValid, txtPasswordValid, txtLogin,
+    txtFillFields, txtEmailLabel, txtPasswordLabel, txtLoginButton,
+    txtMessageLoginError, txtMessageSucces, txtMessageLoading
+} from "../utils/Strings";
+import {setUser } from "../utils/LocalStorage";
+import UsuarioService from "../service/UsuarioService";
+import {useNavigate} from "react-router-dom";
 
 export default function Login() {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [emailInput, setEmailInput] = useState("");
     const [passwordInput, setPasswordInput] = useState("");
     const [emailErrorSms, setEmailErrorSms] = useState("");
     const [passwordErrorSms, setPasswordErrorSms] = useState("");
-    const [emailUIError, setEmailUIError] = useState("p-d-block");
-    const [passwordUIError, setPasswordUIError] = useState("p-d-block");
+    const [emailUIError, setEmailUIError] = useState("block");
+    const [passwordUIError, setPasswordUIError] = useState("block");
     const toastMessages = useRef(null);
-
-    if (localStorage.getItem("userActive") !== null) history.push("/inicio");
 
     const login = () => {
         if (emailInput.length <= 0 || !Validations.validateEmail(emailInput)) {
             setEmailErrorSms(txtEmailValid);
-            setEmailUIError("p-invalid p-d-block");
+            setEmailUIError("p-invalid block");
         } else {
             setEmailErrorSms("");
-            setEmailUIError("p-d-block");
+            setEmailUIError("block");
         }
         if (passwordInput.length <= 0) {
             setPasswordErrorSms(txtPasswordValid);
-            setPasswordUIError("p-invalid p-d-block");
+            setPasswordUIError("p-invalid block");
         } else {
             setPasswordErrorSms("");
-            setPasswordUIError("p-d-block");
+            setPasswordUIError("block");
         }
         if (
             emailInput.length > 0 &&
@@ -62,9 +52,9 @@ export default function Login() {
             UsuarioService.login(userLogin)
                 .then((response) => {
                     clearMessages();
-                    localStorage.setItem("userActive", JSON.stringify(response.data.usuario));
+                    setUser(response.data.usuario);
                     showMessage(txtMessageSucces);
-                    history.push("/inicio");
+                    navigate("/");
                 })
                 .catch((err) => {
                     clearMessages();
@@ -74,9 +64,7 @@ export default function Login() {
         }
     };
 
-    const clearMessages = () => {
-        toastMessages.current.clear();
-    };
+    const clearMessages = () => toastMessages.current.clear();
 
     const showMessage = ({type, title, description}) => {
         toastMessages.current.show({
@@ -88,43 +76,31 @@ export default function Login() {
     };
 
     return (
-        <div className="pagelogin p-d-flex p-jc-center p-ai-center">
-            <div className="card p-shadow-11 p-col-12 p-md-6 p-lg-4">
+        <div className="w-screen h-screen pagelogin flex justify-content-center align-items-center">
+            <div className="bg-white shadow-8 col-12 md:col-6 lg:col-4 border-round-2xl">
                 <Toast ref={toastMessages}/>
-                <div className="p-col p-text-center">
-                    <img src={logonovopatent} alt={txtAltLogoImg} height="90px"/>
-                </div>
-                <div className="p-col">
-                    <div className="p-text-center" style={{fontSize: "2em", fontWeight: "500"}}>
-                        {txtLogin}
-                    </div>
-                    <div className="p-text-center">{txtFillFields}</div>
-                    <div className="p-mx-6 p-my-4">
+                <div className="col text-center"><img src={Logo} alt={txtAltLogoImg} height="90px"/></div>
+                <div className="col">
+                    <div className="text-center" style={{fontSize: "2em", fontWeight: "500"}}>{txtLogin}</div>
+                    <div className="text-center">{txtFillFields}</div>
+                    <div className="mx-6 my-4">
                         <div className="p-fluid">
-                            <div className="p-field">
-                                <label htmlFor="emailInput" className="p-d-block">
-                                    {txtEmailLabel}
-                                </label>
+                            <div className="field">
+                                <label htmlFor="emailInput" className="block">{txtEmailLabel}</label>
                                 <InputText
                                     className={emailUIError}
                                     id="emailInput"
                                     aria-describedby="emailInput-help"
                                     value={emailInput}
                                     maxLength="50"
-                                    onChange={(e) => {
-                                        setEmailInput(e.target.value);
-                                    }}
+                                    onChange={(e) => setEmailInput(e.target.value)}
                                 />
-                                <small id="emailInput-help" className="p-error p-d-block">
-                                    {emailErrorSms}
-                                </small>
+                                <small id="emailInput-help" className="p-error block">{emailErrorSms}</small>
                             </div>
                         </div>
                         <div className="p-fluid">
-                            <div className="p-field">
-                                <label htmlFor="passwordInput" className="p-d-block">
-                                    {txtPasswordLabel}
-                                </label>
+                            <div className="field">
+                                <label htmlFor="passwordInput" className="block">{txtPasswordLabel}</label>
                                 <Password
                                     id="passwordInput"
                                     toggleMask
@@ -132,16 +108,12 @@ export default function Login() {
                                     feedback={false}
                                     maxLength="50"
                                     value={passwordInput}
-                                    onChange={(e) => {
-                                        setPasswordInput(e.target.value);
-                                    }}
+                                    onChange={(e) => setPasswordInput(e.target.value)}
                                 />
-                                <small id="passwordInput-help" className="p-error p-d-block">
-                                    {passwordErrorSms}
-                                </small>
+                                <small id="passwordInput-help" className="p-error block">{passwordErrorSms}</small>
                             </div>
                         </div>
-                        <div className="p-text-center">
+                        <div className="text-center">
                             <Button
                                 label={txtLoginButton}
                                 icon="pi pi-sign-in"
