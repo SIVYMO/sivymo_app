@@ -165,16 +165,16 @@ export default function ClientPage() {
         home={{ icon: "pi pi-home" }}
       />
       <Toast ref={toast} />
-      <div className="p-grid">
-        <div className="col p-p-3">
+      <div className="grid">
+        <div className="col p-3">
           <h1>{txtTitleClients}</h1>
           <div>
             {txtLastUpdateClients}
             {moment(resume.ultimaModificacionClientes).format("LLLL")}
           </div>
-          <div className="p-grid p-mt-3">
+          <div className="grid p-mt-3">
             <div className="col-12 p-sm-6">
-              <div className="p-grid">
+              <div className="grid">
                 <div className="col-12 p-sm-8">
                   <h2>
                     Guardar todos los expedientes :{" "}
@@ -212,7 +212,7 @@ export default function ClientPage() {
               />
             </div>
             <div className="col-12 p-sm-6">
-              <div className="p-grid">
+              <div className="grid">
                 <div className="col">
                   <h2>
                     Añadir más expedientes : <span>{clients.length}</span>

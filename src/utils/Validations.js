@@ -33,7 +33,7 @@ class Validations {
     }
 
     convertAPIDate(date) {
-        let tempDate = date.split("T")[0];
+        let tempDate = String(date).split("T")[0];
         return tempDate.replaceAll("-", "/");
     }
 
@@ -49,11 +49,7 @@ class Validations {
     }
 
     validateDateStartEnd(dateStart, dateEnd) {
-        return !(dateStart.length === 10 &&
-            dateEnd.length === 10 &&
-            dateStart.split("/").length === 3 &&
-            dateEnd.split("/").length === 3);
-
+        return dateStart !== "" && dateEnd !== "";
     }
 
     validateFormUser(name, first, second, dateBirth, email) {

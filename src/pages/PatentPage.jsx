@@ -169,7 +169,7 @@ export default function PatentPage() {
 
     function NotificacionPatentes() {
         return (
-            <div className="p-grid col"><h2>{txtSubitlePatent1}</h2>
+            <div className="grid col"><h2>{txtSubitlePatent1}</h2>
                 <DataTable ref={dt1} emptyMessage={txtNoData} paginator rows={7} value={notificaciones}>
                     <Column field="Número del Oficio" header="Número del Oficio" sortable/>
                     <Column field="Fecha del Oficio" header="Fecha del Oficio" sortable/>
@@ -183,7 +183,7 @@ export default function PatentPage() {
 
     function PatentesIndustriales() {
         return (
-            <div className="p-grid col"><h2>{txtSubitlePatent2}</h2>
+            <div className="grid col"><h2>{txtSubitlePatent2}</h2>
                 <DataTable ref={dt2} emptyMessage={txtNoData} paginator rows={7} scrollable value={patentesRegistros}>
                     <Column field="Oficina, No de Patente y Tipo de documento"
                             header="Oficina, No de Patente y Tipo de documento" headerStyle={{width: "17vh"}} sortable/>
@@ -208,7 +208,7 @@ export default function PatentPage() {
 
     function PatentesNotificados() {
         return (
-            <div className="p-grid col"><h2>{txtSubitlePatent3}</h2>
+            <div className="grid col"><h2>{txtSubitlePatent3}</h2>
                 <DataTable ref={dt3} emptyMessage={txtNoData} paginator rows={7} value={requisitos}>
                     <Column field="Número de expediente" header="Número de expediente" sortable/>
                     <Column field="Solicitante(s)" header="Solicitante(s)" sortable/>
@@ -223,20 +223,20 @@ export default function PatentPage() {
         <>
             <BreadCrumb model={[{label: txtTitlePatents}]} home={{icon: "pi pi-home"}}/>
             <Toast ref={toast}/>
-            <div className="p-grid">
-                <div className="col p-p-3">
+            <div className="grid">
+                <div className="col p-3">
                     <h1>{txtTitlePatents}</h1>
                     <div>
                         {txtLastQueryPatent}
                         {moment(resume.ultimaBusquedaPatentes).format("LLLL")}
                     </div>
                 </div>
-                <div className="flex align-items-center p-py-2">
+                <div className="flex align-items-center py-2">
                     <Button label={txtStartSearchButton} icon="pi pi-search" className="p-button-lg p-ml-auto"
                             style={{backgroundColor: "var(--green-600)"}} onClick={confirmStartSearch}/>
                 </div>
             </div>
-            <div className="p-grid p-dir-col">
+            <div className="grid p-dir-col">
                 <div className="col">
                     <div className="flex align-items-center export-buttons">
                         <Button type="button" className="p-mr-2" icon="pi pi-download" label={txtExportButton}
@@ -258,7 +258,7 @@ export default function PatentPage() {
                 closable={false}
                 onHide={() => {
                 }}>
-                <div className="p-grid">
+                <div className="grid">
                     <div className="col">
                         {history ? (
                             <>

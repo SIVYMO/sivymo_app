@@ -212,7 +212,7 @@ export default function Perfil() {
                     />
                 </div>
             </div>
-            <div className="col p-p-3">
+            <div className="col p-3">
                 <h2>Cambio de contraseña</h2>
                 <div className="p-fluid">
                     <div className="field">

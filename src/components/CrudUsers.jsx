@@ -192,7 +192,7 @@ export default function CrudUsers() {
                         <h4>{txtRestartPasswordTitle}</h4>
                         <p>{txtRestartPasswordContent}</p>
                     </div>
-                    <div className="p-grid p-fluid">
+                    <div className="grid p-fluid">
                         <div className="col">
                             <Button
                                 type="button"
