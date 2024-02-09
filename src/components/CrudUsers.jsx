@@ -80,7 +80,7 @@ export default function CrudUsers() {
 
     function updateOne(user) {
         UsuarioService.updateOne(user)
-            .then((response) => {
+            .then(() => {
                 getAll();
                 showMessage(txtMessageUserSuccess);
             })
@@ -318,7 +318,7 @@ export default function CrudUsers() {
             <div className="col p-3">
                 <h2>{txtTitleCrud}</h2>
                 <div className="p-card">
-                    <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}/>
+                    <Toolbar className="mb-4" start={leftToolbarTemplate} end={rightToolbarTemplate}/>
                     <DataTable
                         ref={dt}
                         value={users}
