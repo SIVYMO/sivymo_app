@@ -468,7 +468,7 @@ export default function CrudUsers() {
                                     id="superAdmin"
                                     name="superAdmin"
                                     checked={user.superAdmin}
-                                    onChange={(e) =>
+                                    onChange={() =>
                                         setUser({
                                             ...user,
                                             superAdmin: !user.superAdmin,
