@@ -14,6 +14,7 @@ import {
 import moment from "moment";
 import "moment/locale/es";
 import { Button } from "primereact/button";
+import {getHistory} from "../utils/LocalStorage";
 
 moment.locale("es");
 
@@ -31,7 +32,7 @@ export default function ClientPage() {
   }, []);
 
   const getResume = () => {
-    setResume(JSON.parse(localStorage.getItem("resume")));
+    setResume(getHistory());
   };
 
   const clearAndFilterData = async (data = []) => {
