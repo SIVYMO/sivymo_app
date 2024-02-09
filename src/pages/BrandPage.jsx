@@ -57,7 +57,6 @@ export default function BrandPage() {
         });
     };
 
-
     const viewData = (data) => {
         if (data.code === 200 && data.data.length > 0) {
             setData(data.data);
@@ -87,7 +86,7 @@ export default function BrandPage() {
             <BreadCrumb model={[{label: txtTitleBrands}]} home={{icon: "pi pi-home"}}/>
             <Toast ref={toast}/>
             <div className="grid">
-                <div className="col-12 md:col p-3">
+                <div className="col p-3">
                     <h1>{txtTitleBrands}</h1>
                     <div>{txtLastQueryBrand}{moment(resume.ultimaBusquedaMarcas).format("LLLL")}</div>
                 </div>
