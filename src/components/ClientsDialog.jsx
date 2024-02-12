@@ -158,7 +158,7 @@ export default function ClientsDialog({showDialog, setShowDialog, setSaved}) {
             </div>
             <Dialog showHeader={false} visible={showDialog} draggable={false} closable={true} onHide={false}>
                 <div className="grid m-3">
-                    <div className="col-12 md:col-6">
+                    {/*<div className="col-12 md:col-6">
                         <div className="grid">
                             <h2>Guardar todos los expedientes: {allClients.length}</h2>
                             <div className="col-12">
@@ -179,10 +179,10 @@ export default function ClientsDialog({showDialog, setShowDialog, setSaved}) {
                                 setAllClients(e.target.value.split("\n"));
                             }}
                         />
-                    </div>
+                    </div>*/}
 
 
-                    <div className="col-12 md:col-6">
+                    <div className="col-12">
                         <div className="grid">
                             <h2>Añadir más expedientes: {clients.length}</h2>
                             <div className="col-12">
