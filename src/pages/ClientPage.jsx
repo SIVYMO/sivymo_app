@@ -51,7 +51,10 @@ export default function ClientPage() {
         setLoading(true)
         ClienteService.deleteBulk(selected)
             .then((resp) => {
-                if(resp.data) getClients()
+                if(resp.data) {
+                    setSelected([])
+                    getClients()
+                }
                 else console.error(resp)
             })
             .catch((err) => console.error(err)).finally(() => setLoading(false));
